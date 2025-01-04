@@ -101,15 +101,23 @@ class HundredAcreWood(Toggle):
 class SuperBosses(Toggle):
     """
     Toggle whether to include checks behind Super Bosses.
+    If Final Rest Door is set to Superbosses these locations are also included.
     """
     display_name = "Super Bosses"
 
-class Cups(Toggle):
+class Cups(Choice):
     """
-    Toggle whether to include checks behind completing Phil, Pegasus, Hercules, or Hades cups.
-    Please note that the cup items will still appear in the multiworld even if toggled off, as they are required to challenge Sephiroth.
+    Determines which cups have their locations added to the multiworld.
+    Please note that the cup items will still appear in the multiworld even if set to off, as they are required to challenge Sephiroth.
+
+    Off: All cup locations are removed
+    Cups: Phil, Pegasus, and Hercules cups are included
+    Hades Cup: Hades Cup is included in addition to Phil, Pegasus, and Hercules cups. If Super Bosses are enabled, then Ice Titan is included
     """
     display_name = "Cups"
+    option_off = 0
+    option_cups = 1
+    option_hades_cup = 2
 
 class Goal(Choice):
     """
