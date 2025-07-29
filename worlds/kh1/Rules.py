@@ -91,7 +91,7 @@ def has_lucky_emblems(state: CollectionState, player: int, required_amt: int) ->
     return state.has("Lucky Emblem", player, required_amt)
 
 def has_final_rest_door(state: CollectionState, player: int, final_rest_door_requirement: str, final_rest_door_required_lucky_emblems: int):
-    if final_rest_door_requirement == "lucky_emblems":
+    if final_rest_door_requirement == "lucky_emblems" or final_rest_door_requirement == "hitlist":
         return state.has("Lucky Emblem", player, final_rest_door_required_lucky_emblems)
     else:
         return state.has("Final Door Key", player)

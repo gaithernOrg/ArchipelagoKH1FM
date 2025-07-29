@@ -129,6 +129,7 @@ class FinalRestDoorKey(Choice):
     Final Ansem: Enter End of the World and defeat Ansem as normal
     Puppies: Rescue and return an amount of puppies in Traverse Town
     Final Rest: Open the chest in End of the World Final Rest
+    Hitlist: Find an amount of Lucky Emblems from difficult locations
     """
     display_name = "Final Rest Door Key"
     option_sephiroth = 0
@@ -137,6 +138,7 @@ class FinalRestDoorKey(Choice):
     option_lucky_emblems = 3
     option_puppies = 4
     option_final_rest = 5
+    option_hitlist = 6
     default = 3
 
 class EndoftheWorldUnlock(Choice):
@@ -235,6 +237,30 @@ class LuckyEmblemsInPool(Range):
     default = 13
     range_start = 0
     range_end = 20
+
+class HitlistRequired(Range):
+    """
+    If Final Rest Door Key is Hitlist, determines how many Lucky Emblems are required
+    """
+    display_name = "Hitlist Required"
+    default = 10
+    range_start = 1
+    range_end = 13
+
+class HitlistAmount(Range):
+    """
+    If Final Rest Door Key is Hitlist, determines the number of locations that will have Lucky Emblems placed on them
+    """
+    display_name = "Hitlist Amount"
+    default = 10
+    range_start = 1
+    range_end = 13
+
+class HitlistHint(DefaultOnToggle):
+    """
+    If Final Rest Door Key is Hitlist, start with Lucky Emblems hinted
+    """
+    display_name = "Start with Hitlist Hints"
 
 class KeybladeStats(Choice):
     """
@@ -792,6 +818,9 @@ class KH1Options(PerGameCommonOptions):
     day_2_materials: Day2Materials
     homecoming_materials: HomecomingMaterials
     materials_in_pool: MaterialsInPool
+    hitlist_required: HitlistRequired
+    hitlist_amount: HitlistAmount
+    hitlist_hint: HitlistHint
 
 kh1_option_groups = [
     OptionGroup("Goal", [
@@ -806,6 +835,9 @@ kh1_option_groups = [
         Day2Materials,
         HomecomingMaterials,
         MaterialsInPool,
+        HitlistRequired,
+        HitlistAmount,
+        HitlistHint,
     ]),
     OptionGroup("Locations", [
         SuperBosses,

@@ -57,6 +57,30 @@ VANILLA_PUPPY_LOCATIONS = [
     "Hollow Bastion Castle Gates Gravity Chest",
     "Hollow Bastion Lift Stop Outside Library Gravity Chest"
     ]
+BASE_HITLIST_LOCATIONS = [
+    "End of the World Final Rest Chest",
+    "Traverse Town Mail Postcard 10 Event",
+    "Traverse Town Geppetto's House Geppetto All Summons Reward",
+    "Traverse Town Magician's Study Obtained All Arts Items",
+    "Traverse Town Magician's Study Obtained All LV3 Magic",
+    "Traverse Town Piano Room Return 99 Puppies Reward 1",
+    "Traverse Town Synth Item 33"
+]
+ALL_HITLIST_LOCATIONS = [ #This isn't used, just for reference
+    "End of the World Final Rest Chest",
+    "Traverse Town Mail Postcard 10 Event",
+    "Traverse Town Geppetto's House Geppetto All Summons Reward",
+    "Traverse Town Magician's Study Obtained All Arts Items",
+    "Traverse Town Magician's Study Obtained All LV3 Magic",
+    "Traverse Town Piano Room Return 99 Puppies Reward 1",
+    "Traverse Town Synth Item 33",
+    "Olympus Coliseum Defeat Sephiroth One-Winged Angel Event",
+    "Olympus Coliseum Defeat Ice Titan Diamond Dust Event",
+    "Agrabah Defeat Kurt Zisa Zantetsuken Event",
+    "Hollow Bastion Defeat Unknown EXP Necklace Event",
+    "Neverland Defeat Phantom Stop Event",
+    "100 Acre Wood Pooh's House Owl Cheer"
+]
 CHAR_TO_KH = {
     " ": 0x01,
     "0": 0x21,

@@ -13,7 +13,7 @@ from .Rules import set_rules
 from .Presets import kh1_option_presets
 from worlds.LauncherComponents import Component, components, Type, launch as launch_component, icon_paths
 from .GenerateJSON import generate_json
-from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS
+from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, BASE_HITLIST_LOCATIONS
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 
 def launch_client():
@@ -214,7 +214,7 @@ class KH1World(World):
         self.multiworld.itempool += item_pool
 
     def place_predetermined_items(self) -> None:
-        if self.options.final_rest_door_key.current_key not in ["puppies", "postcards", "lucky_emblems"]:
+        if self.options.final_rest_door_key.current_key not in ["puppies", "postcards", "lucky_emblems", "hitlist"]:
             goal_dict = {
                 "sephiroth":       "Olympus Coliseum Defeat Sephiroth Ansem's Report 12",
                 "unknown":         "Hollow Bastion Defeat Unknown Ansem's Report 13",
@@ -229,8 +229,8 @@ class KH1World(World):
             goal_location_name = "Traverse Town Piano Room Return " + str(required_puppies) + " Puppies"
             if required_puppies == 50 or required_puppies == 99:
                 goal_location_name = goal_location_name + " Reward 2"
-        if self.options.final_rest_door_key.current_key != "lucky_emblems":
-            self.get_location(goal_location_name).place_locked_item(self.create_item("Final Door Key"))
+        if self.options.final_rest_door_key.current_key not in ["lucky_emblems", "hitlist"]:
+            self.get_location(goal_location_name).place_locked_item(self.create_item("Final Door Key"))        
         self.get_location("Final Ansem").place_locked_item(self.create_event("Victory"))
                 
         if not self.options.randomize_emblem_pieces:
@@ -255,6 +255,12 @@ class KH1World(World):
             logging.info(f"{self.player_name}'s value of {self.options.puppy_value.value} for puppy value was changed to 3 as Randomize Puppies is OFF")
             for i, location in enumerate(VANILLA_PUPPY_LOCATIONS):
                 self.get_location(location).place_locked_item(self.create_item("Puppy"))
+
+        if self.options.final_rest_door_key.current_key == "hitlist":
+            for bounty in range(self.options.hitlist_amount):
+                random_bounty = self.random.choice(self.hitlist_locations)
+                self.get_location(random_bounty).place_locked_item(self.create_item("Lucky Emblem"))
+                self.hitlist_locations.remove(random_bounty)
 
     def get_filler_item_name(self) -> str:
         weights = [data.weight for data in self.fillers.values()]
@@ -349,6 +355,38 @@ class KH1World(World):
     
     def generate_early(self):
         self.determine_level_checks()
+
+        #Hitlist
+        self.hitlist_locations = list()
+        if self.options.final_rest_door_key == "hitlist":
+            self.hitlist_locations.extend(BASE_HITLIST_LOCATIONS)
+            if self.options.hundred_acre_wood:
+                self.hitlist_locations.append("100 Acre Wood Pooh's House Owl Cheer")
+            if self.options.super_bosses:
+                self.hitlist_locations.append("Olympus Coliseum Defeat Sephiroth One-Winged Angel Event")
+                self.hitlist_locations.append("Agrabah Defeat Kurt Zisa Zantetsuken Event")
+                self.hitlist_locations.append("Hollow Bastion Defeat Unknown EXP Necklace Event")
+                self.hitlist_locations.append("Neverland Defeat Phantom Stop Event")
+                if self.options.cups.current_key == "hades_cup":
+                    self.hitlist_locations.append("Olympus Coliseum Defeat Ice Titan Diamond Dust Event")
+            for location in self.options.exclude_locations.value:
+                if location in self.hitlist_locations:
+                    self.hitlist_locations.remove(location)
+            if self.options.hitlist_hint:
+                self.options.start_hints.value.add("Lucky Emblem")
+
+            self.options.end_of_the_world_unlock.value = 0
+            logging.info(f"{self.player_name}'s choice for \"End of the World Unlock\" is not compatible with \"Final Rest Door Key: Hitlist\"\n"
+                         f"Setting to \"Item\"")
+        
+        value_names = ["Hitlist Required", "Hitlist Amount"]
+        initial_hitlist_settings = [self.options.hitlist_required.value, self.options.hitlist_amount.value]    
+        self.change_number_of_hitlist_to_consider()
+        new_hitlist_settings = [self.options.hitlist_required.value, self.options.hitlist_amount.value]
+        for i in range(2):
+            if initial_hitlist_settings[i] != new_hitlist_settings[i]:
+                logging.info(f"{self.player_name}'s value {initial_hitlist_settings[i]} for \"{value_names[i]}\" was invalid\n"
+                             f"Setting \"{value_names[i]}\" value to {new_hitlist_settings[i]}")
         
         value_names = ["Lucky Emblems to Open End of the World", "Lucky Emblems to Open Final Rest Door", "Lucky Emblems in Pool"]
         initial_lucky_emblem_settings = [self.options.required_lucky_emblems_eotw.value, self.options.required_lucky_emblems_door.value, self.options.lucky_emblems_in_pool.value]
@@ -394,12 +432,24 @@ class KH1World(World):
     def determine_lucky_emblems_required_to_open_final_rest_door(self) -> int:
         if self.options.final_rest_door_key == "lucky_emblems":
             return self.options.required_lucky_emblems_door.value
+        elif self.options.final_rest_door_key == "hitlist":
+            return self.options.hitlist_required.value
         return -1
     
     def change_numbers_of_materials_to_consider(self) -> None:
         if self.options.destiny_islands:
             self.options.day_2_materials.value, self.options.homecoming_materials.value, self.options.materials_in_pool.value = sorted(
                 [self.options.day_2_materials.value, self.options.homecoming_materials.value, self.options.materials_in_pool.value])
+            
+    def change_number_of_hitlist_to_consider(self) -> None:
+        if self.options.final_rest_door_key == "hitlist":
+            max_locations = len(self.hitlist_locations)
+            self.options.hitlist_required.value, self.options.hitlist_amount.value = sorted(
+                [self.options.hitlist_required.value, self.options.hitlist_amount.value])
+            if self.options.hitlist_amount.value > max_locations:
+                self.options.hitlist_amount.value = max_locations
+            if self.options.hitlist_required.value > self.options.hitlist_amount.value:
+                self.options.hitlist_required.value = self.options.hitlist_amount.value
     
     def get_remote_location_ids(self):
         remote_location_ids = []
