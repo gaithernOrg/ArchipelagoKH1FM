@@ -770,14 +770,14 @@ def set_rules(kh1world):
         lambda state: (
             has_emblems(state, player, options.keyblades_unlock_chests, difficulty)
             or (difficulty > 0 and state.has("High Jump", player, 3))
-            or (difficulty > 5 and state.has("High Jump", player, 2) or can_dumbo_skip(state, player))
+            or (difficulty > 5 and (state.has("High Jump", player, 2) or can_dumbo_skip(state, player)))
             or (difficulty > 10 and state.has_all({"High Jump", "Progressive Glide"},player))
         ))
     add_rule(kh1world.get_location("Hollow Bastion Castle Gates High Pillar Chest"),
         lambda state: (
             has_emblems(state, player, options.keyblades_unlock_chests, difficulty)
             or (difficulty > 0 and state.has("High Jump", player, 3))
-            or (difficulty > 5 and state.has("High Jump", player, 2) or can_dumbo_skip(state, player))
+            or (difficulty > 5 and (state.has("High Jump", player, 2) or can_dumbo_skip(state, player)))
             or (difficulty > 10 and state.has_all({"High Jump", "Progressive Glide"},player))
         ))
     add_rule(kh1world.get_location("Hollow Bastion Base Level Platform Near Entrance Chest"),
