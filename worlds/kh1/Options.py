@@ -802,7 +802,7 @@ class RandomizeSpellMPCosts(Choice):
     Shuffle: Spell costs will be shuffled amongst themselves, (2 single pip spells, 3 singe MP spells, 2 double MP spells)
     Randomize: Spell costs will be randomized individually based on the defined upper and lower bounds.
     """
-    display_name = "Randomize AP Costs"
+    display_name = "Randomize Spell MP Costs"
     option_off = 0
     option_shuffle = 1
     option_randomize = 2
@@ -815,8 +815,6 @@ class SpellMPCostMin(Choice):
     display_name = "Spell MP Cost Minimum"
     option_half_pip = 15
     option_pip = 30
-    option_2_pips = 60
-    option_3_pips = 90
     option_1_mp = 100
     option_2_mp = 200
     option_3_mp = 300
@@ -829,8 +827,6 @@ class SpellMPCostMax(Choice):
     display_name = "Spell MP Cost Maximum"
     option_half_pip = 15
     option_pip = 30
-    option_2_pips = 60
-    option_3_pips = 90
     option_1_mp = 100
     option_2_mp = 200
     option_3_mp = 300
@@ -847,7 +843,7 @@ class ScalingSpellPotency(DefaultOnToggle):
     """
     If randomizing or shuffling spell MP costs, each spell will have its effectiveness scaled relative to its new cost.
     """
-    display_name = "Individal Spell Level Costs"
+    display_name = "Scaling Spell Potency"
 
 @dataclass
 class KH1Options(PerGameCommonOptions):
