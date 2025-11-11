@@ -13,7 +13,7 @@ from .Rules import set_rules
 from .Presets import kh1_option_presets
 from worlds.LauncherComponents import Component, components, Type, launch as launch_component, icon_paths
 from .GenerateJSON import generate_json
-from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS
+from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS
 from worlds.LauncherComponents import Component, components, Type, launch_subprocess
 
 def launch_client():
@@ -73,6 +73,7 @@ class KH1World(World):
         self.starting_accessory_locations = None
         self.starting_accessories = None
         self.ap_costs = None
+        self.mp_costs = None
 
     def create_items(self):
         self.place_predetermined_items()
@@ -304,6 +305,7 @@ class KH1World(World):
                     "halloween_town_key_item_bundle": bool(self.options.halloween_town_key_item_bundle),
                     "homecoming_materials": int(self.options.homecoming_materials.value),
                     "hundred_acre_wood": bool(self.options.hundred_acre_wood),
+                    "individual_spell_level_costs": bool(self.options.individual_spell_level_costs),
                     "interact_in_battle": bool(self.options.interact_in_battle),
                     "jungle_slider": bool(self.options.jungle_slider),
                     "keyblades_unlock_chests": bool(self.options.keyblades_unlock_chests),
@@ -323,15 +325,19 @@ class KH1World(World):
                     "randomize_party_member_starting_accessories": bool(self.options.randomize_party_member_starting_accessories),
                     "randomize_postcards": str(self.options.randomize_postcards.current_key),
                     "randomize_puppies": str(self.options.randomize_puppies.current_key),
+                    "randomize_spell_mp_costs": str(self.options.randomize_spell_mp_costs.current_key),
                     "remote_items": str(self.options.remote_items.current_key),
                     "remote_location_ids": self.get_remote_location_ids(),
                     "required_lucky_emblems_door": self.determine_lucky_emblems_required_to_open_final_rest_door(),
                     "required_lucky_emblems_eotw": self.determine_lucky_emblems_required_to_open_end_of_the_world(),
                     "required_postcards": int(self.options.required_postcards.value),
                     "required_puppies": int(self.options.required_puppies.value),
+                    "scaling_spell_potency": bool(self.options.scaling_spell_potency),
                     "seed": self.multiworld.seed_name,
                     "shorten_go_mode": bool(self.options.shorten_go_mode),
                     "slot_2_level_checks": int(self.options.slot_2_level_checks.value),
+                    "spell_mp_cost_max": int(self.options.spell_mp_cost_max.value),
+                    "spell_mp_cost_min": int(self.options.spell_mp_cost_min.value),
                     "stacking_world_items": bool(self.options.stacking_world_items),
                     "starting_items": [item.code for item in self.multiworld.precollected_items[self.player]],
                     "starting_tools": bool(self.options.starting_tools),
@@ -612,3 +618,39 @@ class KH1World(World):
                             total_ap_value = total_ap_value - amount_to_add
             self.ap_costs = ap_costs
         return self.ap_costs
+    
+    def get_mp_costs(self):
+        if self.mp_costs is None:
+            mp_costs = VANILLA_SPELL_COSTS_LVL.copy()
+            if self.options.randomize_spell_mp_costs.current_key != "off":
+                min_spell_mp_cost = min([self.options.spell_mp_cost_min.value, self.options.spell_mp_cost_max.value])
+                max_spell_mp_cost = max([self.options.spell_mp_cost_min.value, self.options.spell_mp_cost_max.value])
+                mp_costs = VANILLA_SPELL_COSTS_LVL.copy()
+                mp_costs_spell = VANILLA_SPELL_COSTS_SPELL.copy()
+                possible_costs = POSSIBLE_SPELL_COSTS.copy()
+                for cost in possible_costs:
+                    if cost < min_spell_mp_cost or cost > max_spell_mp_cost:
+                        possible_costs.remove(cost)
+                if self.options.randomize_spell_mp_costs.current_key == "shuffle":
+                    if self.options.individual_spell_level_costs:
+                        self.random.shuffle(mp_costs)
+                    else:
+                        self.random.shuffle(mp_costs_spell)
+                        i = 0
+                        while i < len(mp_costs_spell):
+                            mp_costs[3*i + 0] = mp_costs_spell[i]
+                            mp_costs[3*i + 1] = mp_costs_spell[i]
+                            mp_costs[3*i + 2] = mp_costs_spell[i]
+                            i = i + 1
+                            
+                elif self.options.randomize_spell_mp_costs.current_key == "randomize":
+                    i = 0
+                    while i < len(mp_costs):
+                        mp_costs[i] = self.random.choice(possible_costs)
+                        i = i + 1
+                        if not self.options.individual_spell_level_costs:
+                            mp_costs[i]   = self.random.choice(possible_costs)
+                            mp_costs[i+1] = self.random.choice(possible_costs)
+                            i = i + 2
+            self.mp_costs = mp_costs
+        return self.mp_costs

@@ -796,6 +796,59 @@ class HalloweenTownKeyItemBundle(DefaultOnToggle):
     """
     display_name = "Halloween Town Key Item Bundle"
 
+class RandomizeSpellMPCosts(Choice):
+    """
+    Off: No randomization.
+    Shuffle: Spell costs will be shuffled amongst themselves, (2 single pip spells, 3 singe MP spells, 2 double MP spells)
+    Randomize: Spell costs will be randomized individually based on the defined upper and lower bounds.
+    """
+    display_name = "Randomize AP Costs"
+    option_off = 0
+    option_shuffle = 1
+    option_randomize = 2
+    default = 0
+
+class SpellMPCostMin(Choice):
+    """
+    Define the minimum MP cost a spell can have
+    """
+    display_name = "Spell MP Cost Minimum"
+    option_half_pip = 15
+    option_pip = 30
+    option_2_pips = 60
+    option_3_pips = 90
+    option_1_mp = 100
+    option_2_mp = 200
+    option_3_mp = 300
+    default = 15
+    
+class SpellMPCostMax(Choice):
+    """
+    Define the maximum MP cost a spell can have
+    """
+    display_name = "Spell MP Cost Maximum"
+    option_half_pip = 15
+    option_pip = 30
+    option_2_pips = 60
+    option_3_pips = 90
+    option_1_mp = 100
+    option_2_mp = 200
+    option_3_mp = 300
+    default = 300
+
+class IndividualSpellLevelCosts(Toggle):
+    """
+    If randomizing or shuffling spell MP costs, each indiviudal level of a spell (for example Fire vs Fira vs Firaga)
+    can have different MP costs.
+    """
+    display_name = "Individal Spell Level Costs"
+    
+class ScalingSpellPotency(DefaultOnToggle):
+    """
+    If randomizing or shuffling spell MP costs, each spell will have its effectiveness scaled relative to its new cost.
+    """
+    display_name = "Individal Spell Level Costs"
+
 @dataclass
 class KH1Options(PerGameCommonOptions):
     final_rest_door_key: FinalRestDoorKey
@@ -877,6 +930,11 @@ class KH1Options(PerGameCommonOptions):
     materials_in_pool: MaterialsInPool
     stacking_world_items: StackingWorldItems
     halloween_town_key_item_bundle: HalloweenTownKeyItemBundle
+    randomize_spell_mp_costs: RandomizeSpellMPCosts
+    spell_mp_cost_min: SpellMPCostMin
+    spell_mp_cost_max: SpellMPCostMax
+    individual_spell_level_costs: IndividualSpellLevelCosts
+    scaling_spell_potency: ScalingSpellPotency
     
 
 kh1_option_groups = [
@@ -939,8 +997,15 @@ kh1_option_groups = [
     ]),
     OptionGroup("AP Costs", [
         RandomizeAPCosts,
-        MaxAPCost,
-        MinAPCost
+        MinAPCost,
+        MaxAPCost
+    ]),
+    OptionGroup("Spells", [
+        RandomizeSpellMPCosts,
+        SpellMPCostMin,
+        SpellMPCostMax,
+        IndividualSpellLevelCosts,
+        ScalingSpellPotency
     ]),
     OptionGroup("Misc", [
         StartingWorlds,
