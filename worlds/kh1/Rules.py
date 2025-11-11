@@ -2,7 +2,7 @@ from BaseClasses import CollectionState
 from worlds.generic.Rules import add_rule, add_item_rule
 from math import ceil
 from BaseClasses import ItemClassification
-from .Data import WORLD_KEY_ITEMS, LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL
+from .Data import WORLD_KEY_ITEMS, LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS
 
 from .Locations import KH1Location, location_table
 from .Items import KH1Item, item_table
@@ -158,6 +158,7 @@ def has_key_item(state: CollectionState, player: int, key_item: str, stacking_wo
         and (key_item != "Crystal Trident" or difficulty > LOGIC_BEGINNER or not keyblades_unlock_chests or state.has("Crabclaw", player))
     )
 
+
 def set_rules(kh1world):
     multiworld                             = kh1world.multiworld
     player                                 = kh1world.player
@@ -172,7 +173,14 @@ def set_rules(kh1world):
     halloween_town_key_item_bundle         = kh1world.options.halloween_town_key_item_bundle.value
     end_of_the_world_unlock                = kh1world.options.end_of_the_world_unlock.current_key
     hundred_acre_wood                      = kh1world.options.hundred_acre_wood
-    
+
+    if options.randomize_spell_mp_costs.current_key == "off":
+        mp_costs = VANILLA_SPELL_COSTS_SPELL
+    elif options.randomize_spell_mp_costs.current_key == "shuffle":
+        mp_costs = #whatever the results were, loop maybe
+    elif options.randomize_spell_mp_costs.current_key == "randomize":
+        mp_costs = has_all_magic_lvx(CollectionState, player, 1)
+
 
     add_rule(kh1world.get_location("Traverse Town 1st District Candle Puzzle Chest"),
         lambda state: state.has("Progressive Blizzard", player))

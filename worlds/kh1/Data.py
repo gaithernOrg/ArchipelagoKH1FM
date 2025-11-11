@@ -196,6 +196,7 @@ WORLD_KEY_ITEMS = {
     "Theon Vol. 6": "Hollow Bastion"
 }
 
+VANILLA_SPELL_NAMES = ["Fire", "Fira", "Firaga", "Blizzard", "Blizzara"]
 VANILLA_SPELL_COSTS_LVL = [30, 30, 30, 30, 30, 30, 100, 100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200, 200]
 VANILLA_SPELL_COSTS_SPELL = [30, 30, 100, 100, 100, 200, 200]
 POSSIBLE_SPELL_COSTS = [15, 30, 60, 90, 100, 200, 300]
