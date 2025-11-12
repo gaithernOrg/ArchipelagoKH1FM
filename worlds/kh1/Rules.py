@@ -166,6 +166,7 @@ def set_rules(kh1world):
     final_rest_door_required_lucky_emblems = kh1world.determine_lucky_emblems_required_to_open_final_rest_door()
     final_rest_door_requirement            = kh1world.options.final_rest_door_key.current_key
     day_2_materials                        = kh1world.options.day_2_materials.value
+    homecoming_warp                        = kh1world.options.homecoming_warp
     homecoming_materials                   = kh1world.options.homecoming_materials.value
     difficulty                             = kh1world.options.logic_difficulty.value # difficulty > 0 is Normal or higher; difficulty > 5 is Proud or higher; difficulty > 10 is Minimal and higher; others are for if another difficulty is added
     stacking_world_items                   = kh1world.options.stacking_world_items.value
@@ -1709,6 +1710,7 @@ def set_rules(kh1world):
                 ( # Can DI Finish
                     state.has("Destiny Islands", player)
                     and state.has("Raft Materials", player, homecoming_materials)
+                    and homecoming_warp
                 )
                 or 
                 (
