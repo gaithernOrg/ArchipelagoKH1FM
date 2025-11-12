@@ -568,7 +568,7 @@ class DestinyIslands(Toggle):
     
     When "Destiny Islands" is found, Traverse Town will have an additional place to land - Seashore.
     
-    "Raft Materials" allow progress into Day 2 and to Homecoming.  The amount is defined in Day 2 Materials and Homecoming Materials.
+    "Raft Materials" allow progress into Day 2 and, if Homecoming Warp is enabled, to Homecoming.  The amount is defined in Day 2 Materials and Homecoming Materials.
     """
     display_name = "Destiny Islands"
 
@@ -750,9 +750,15 @@ class Day2Materials(Range):
     range_start = 0
     range_end = 20
 
+class HomecomingWarp(DefaultOnToggle):
+    """
+    If on, Raft Materials can unlock access to Homecoming via Destiny Islands. Ignored if Destiny Islands is off.
+    """
+    display_name: "Homecoming Warp"
+
 class HomecomingMaterials(Range):
     """
-    The amount of Raft Materials required to access Homecoming.
+    The amount of Raft Materials required to access Homecoming. Ignored if Homecoming Warp is off.
     """
     display_name = "Homecoming Materials"
     default = 10
@@ -761,7 +767,7 @@ class HomecomingMaterials(Range):
 
 class MaterialsInPool(Range):
     """
-    The amount of Raft Materials required to access Homecoming.
+    The total amount of Raft Materials in the pool.
     """
     display_name = "Materials in Pool"
     default = 16
@@ -926,6 +932,7 @@ class KH1Options(PerGameCommonOptions):
     max_ap_cost: MaxAPCost
     min_ap_cost: MinAPCost
     day_2_materials: Day2Materials
+    homecoming_warp: HomecomingWarp
     homecoming_materials: HomecomingMaterials
     materials_in_pool: MaterialsInPool
     stacking_world_items: StackingWorldItems
@@ -948,6 +955,7 @@ kh1_option_groups = [
         RequiredPuppies,
         DestinyIslands,
         Day2Materials,
+        HomecomingWarp,
         HomecomingMaterials,
         MaterialsInPool,
     ]),
