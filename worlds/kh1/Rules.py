@@ -2,7 +2,7 @@ from BaseClasses import CollectionState
 from worlds.generic.Rules import add_rule, add_item_rule
 from math import ceil
 from BaseClasses import ItemClassification
-from .Data import WORLD_KEY_ITEMS, LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL
+from .Data import WORLD_KEY_ITEMS, LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL, SPELL_ITEM_NAMES, OFFENSIVE_SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL
 
 from .Locations import KH1Location, location_table
 from .Items import KH1Item, item_table
@@ -81,12 +81,35 @@ def has_all_magic_lvx(state: CollectionState, player: int, level) -> bool:
         "Progressive Aero": level,
         "Progressive Stop": level}, player)
 
-def has_offensive_magic(state: CollectionState, player: int, logic_difficulty: int) -> bool:
-    return (
-        state.has_any({"Progressive Fire", "Progressive Blizzard"}, player)
-        or (logic_difficulty > LOGIC_NORMAL and state.has_any({"Progressive Thunder", "Progressive Gravity"}, player))
-        or (logic_difficulty > LOGIC_PROUD and state.has("Progressive Stop", player))
-    )
+def magic_costs(state: CollectionState, player: int, options, mp_costs, logic_difficulty: int, given_list: list) -> bool: #cost: int\
+    match logic_difficulty:
+        case _ if LOGIC_BEGINNER <= logic_difficulty < LOGIC_NORMAL: maxcost = 30
+        case _ if LOGIC_NORMAL <= logic_difficulty < LOGIC_PROUD: maxcost = 100
+        case _ if LOGIC_PROUD <= logic_difficulty < LOGIC_MINIMAL: maxcost = 200
+        case _ if LOGIC_MINIMAL <= logic_difficulty: maxcost = 300
+        case _: return False
+    if options.randomize_spell_mp_costs.current_key in ("shuffle", "randomize"):
+        if options.individual_spell_level_costs == True:
+            spell_costs = {spell: mp_costs[i*3 : i*3 + 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
+            spell_dict = {}
+            for spell, cost in spell_costs.items():
+                if spell in given_list and max(cost) <= maxcost:
+                    spell_dict[spell] = cost.index(max(cost))+1
+            return state.has_any_count(spell_dict, player)
+        else:
+            spell_costs = {spell: mp_costs[i * 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
+            spell_list = []
+            for spell, cost in spell_costs.items():
+                if spell in given_list and cost <= maxcost:
+                    spell_list.append(spell)
+            return state.has_any(spell_list, player)
+    else:
+        spell_costs = {SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL}
+        spell_list = []
+        for spell, cost in spell_costs.items():
+            if spell in given_list and cost <= maxcost:
+                spell_list.append(spell)
+        return state.has_any(spell_list, player)
 
 def has_lucky_emblems(state: CollectionState, player: int, required_amt: int) -> bool:
     return state.has("Lucky Emblem", player, required_amt)
@@ -111,7 +134,7 @@ def has_basic_tools(state: CollectionState, player: int) -> bool:
             state.has_all({"Dodge Roll", "Progressive Cure"}, player)
             and state.has_any({"Combo Master", "Strike Raid", "Sonic Blade", "Counterattack"}, player)
             and state.has_any({"Leaf Bracer", "Second Chance", "Guard"}, player)
-            and has_offensive_magic(state, player, 6)
+            and magic_costs(state, player, 0, 0, 6, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
         )
 
 def can_dumbo_skip(state: CollectionState, player: int) -> bool:
@@ -158,6 +181,7 @@ def has_key_item(state: CollectionState, player: int, key_item: str, stacking_wo
         and (key_item != "Crystal Trident" or difficulty > LOGIC_BEGINNER or not keyblades_unlock_chests or state.has("Crabclaw", player))
     )
 
+
 def set_rules(kh1world):
     multiworld                             = kh1world.multiworld
     player                                 = kh1world.player
@@ -172,7 +196,7 @@ def set_rules(kh1world):
     halloween_town_key_item_bundle         = kh1world.options.halloween_town_key_item_bundle.value
     end_of_the_world_unlock                = kh1world.options.end_of_the_world_unlock.current_key
     hundred_acre_wood                      = kh1world.options.hundred_acre_wood
-    
+    mp_costs                               = kh1world.get_mp_costs()
 
     add_rule(kh1world.get_location("Traverse Town 1st District Candle Puzzle Chest"),
         lambda state: state.has("Progressive Blizzard", player))
@@ -1357,19 +1381,19 @@ def set_rules(kh1world):
             lambda state: state.has("White Trinity", player))
         add_rule(kh1world.get_location("Atlantica Defeat Ursula I Mermaid Kick Event"),
             lambda state: (
-                has_offensive_magic(state, player, difficulty)
+                magic_costs(state, player, options, mp_costs, difficulty, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Defeat Ursula II Thunder Event"),
             lambda state: (
                 state.has("Mermaid Kick", player)
-                and has_offensive_magic(state, player, difficulty)
+                and magic_costs(state, player, options, mp_costs, difficulty, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Seal Keyhole Crabclaw Event"),
             lambda state: (
                 state.has("Mermaid Kick", player)
-                and has_offensive_magic(state, player, difficulty)
+                and magic_costs(state, player, options, mp_costs, difficulty, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Undersea Gorge Blizzard Clam"),
@@ -1384,7 +1408,7 @@ def set_rules(kh1world):
             lambda state: (
                 state.has("Mermaid Kick", player)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
-                and has_offensive_magic(state, player, difficulty)
+                and magic_costs(state, player, options, mp_costs, difficulty, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
             ))
     if options.cups.current_key != "off":
         if options.cups.current_key == "hades_cup":
@@ -1579,7 +1603,12 @@ def set_rules(kh1world):
                 (
                     has_all_magic_lvx(state, player, 3)
                     or (difficulty > LOGIC_BEGINNER and has_all_magic_lvx(state, player, 2))
-                    or (difficulty > LOGIC_NORMAL and state.has_all({"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"}, player))
+                    or
+                    (
+                        difficulty > LOGIC_NORMAL 
+                        and state.has_all({"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"}, player)
+                        and magic_costs(state, player, options, mp_costs, difficulty, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"})
+                    )
                     or
                     (
                         difficulty > LOGIC_PROUD
@@ -1598,10 +1627,8 @@ def set_rules(kh1world):
                 and has_defensive_tools(state, player, difficulty)
                 and
                 (
-                    state.has("Progressive Blizzard", player, 3)
-                    or (difficulty > LOGIC_BEGINNER and state.has_any_count({"Progressive Blizzard": 2, "Progressive Fire": 3,"Progressive Thunder": 3, "Progressive Gravity": 3}, player))
-                    or (difficulty > LOGIC_NORMAL and (state.has_any_count({"Progressive Blizzard": 1, "Progressive Fire": 2, "Progressive Thunder": 2, "Progressive Gravity": 2}, player)))
-                    or (difficulty > LOGIC_PROUD and (state.has_any({"Progressive Fire", "Progressive Thunder", "Progressive Gravity"}, player) or (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player))))
+                    magic_costs(state, player, options, mp_costs, difficulty, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity"})
+                    or (difficulty > LOGIC_PROUD and (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player)))
                 )
             ))
         add_rule(kh1world.get_location("Agrabah Defeat Kurt Zisa Zantetsuken Event"),
@@ -1611,10 +1638,8 @@ def set_rules(kh1world):
                 and has_defensive_tools(state, player, difficulty)
                 and
                 (
-                    state.has("Progressive Blizzard", player, 3)
-                    or (difficulty > LOGIC_BEGINNER and state.has_any_count({"Progressive Blizzard": 2, "Progressive Fire": 3,"Progressive Thunder": 3, "Progressive Gravity": 3}, player))
-                    or (difficulty > LOGIC_NORMAL and (state.has_any_count({"Progressive Blizzard": 1, "Progressive Fire": 2, "Progressive Thunder": 2, "Progressive Gravity": 2}, player)))
-                    or (difficulty > LOGIC_PROUD and (state.has_any({"Progressive Fire", "Progressive Thunder", "Progressive Gravity"}, player) or (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player))))
+                    magic_costs(state, player, options, mp_costs, difficulty, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity"})
+                    or (difficulty > LOGIC_PROUD and (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player)))
                 ) 
             ))
     if options.super_bosses or options.final_rest_door_key.current_key == "sephiroth":
