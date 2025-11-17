@@ -2,7 +2,7 @@ from BaseClasses import CollectionState
 from worlds.generic.Rules import add_rule, add_item_rule
 from math import ceil
 from BaseClasses import ItemClassification
-from .Data import WORLD_KEY_ITEMS, LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL, SPELL_ITEM_NAMES, OFFENSIVE_SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL#, POSSIBLE_SPELL_COSTS
+from .Data import WORLD_KEY_ITEMS, LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL, SPELL_ITEM_NAMES, OFFENSIVE_SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL
 
 from .Locations import KH1Location, location_table
 from .Items import KH1Item, item_table
@@ -81,59 +81,36 @@ def has_all_magic_lvx(state: CollectionState, player: int, level) -> bool:
         "Progressive Aero": level,
         "Progressive Stop": level}, player)
 
-def magic_costs(state: CollectionState, player: int, options, mp_costs, logic_difficulty: int, spell_list: list) -> bool: #cost: int\
+def magic_costs(state: CollectionState, player: int, options, mp_costs, logic_difficulty: int, given_list: list) -> bool: #cost: int\
     match logic_difficulty:
         case _ if LOGIC_BEGINNER <= logic_difficulty < LOGIC_NORMAL: maxcost = 30
         case _ if LOGIC_NORMAL <= logic_difficulty < LOGIC_PROUD: maxcost = 100
         case _ if LOGIC_PROUD <= logic_difficulty < LOGIC_MINIMAL: maxcost = 200
         case _ if LOGIC_MINIMAL <= logic_difficulty: maxcost = 300
-        case _: maxcost = 0
+        case _: return False
     if options.randomize_spell_mp_costs.current_key in ("shuffle", "randomize"):
-        if options.indivisual_spell_level_cost == True:
+        if options.individual_spell_level_costs == True:
             spell_costs = {spell: mp_costs[i*3 : i*3 + 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
+            spell_dict = {}
+            for spell, cost in spell_costs.items():
+                if spell in given_list and max(cost) <= maxcost:
+                    spell_dict[spell] = cost.index(max(cost))+1
+            return state.has_any_count(spell_dict, player)
         else:
             spell_costs = {spell: mp_costs[i * 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
+            spell_list = []
+            for spell, cost in spell_costs.items():
+                if spell in given_list and cost <= maxcost:
+                    spell_list.append(spell)
+            return state.has_any(spell_list, player)
     else:
-        VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL
+        spell_costs = {SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL}
+        spell_list = []
+        for spell, cost in spell_costs.items():
+            if spell in given_list and cost <= maxcost:
+                spell_list.append(spell)
+        return state.has_any(spell_list, player)
 
-"""
-def magic_costs(state: CollectionState, player: int, options, mp_costs, logic_difficulty: int, spell_list: list) -> bool: #cost: int
-    spell_cost = dict(zip(SPELL_ITEM_NAMES_COUNT, mp_costs))
-    match logic_difficulty:
-        case _ if LOGIC_BEGINNER <= logic_difficulty < LOGIC_NORMAL: maxcost = 30
-        case _ if LOGIC_NORMAL <= logic_difficulty < LOGIC_PROUD: maxcost = 100
-        case _ if LOGIC_PROUD <= logic_difficulty < LOGIC_MINIMAL: maxcost = 200
-        case _ if LOGIC_MINIMAL <= logic_difficulty: maxcost = 300
-        case _: maxcost = 0
-    if options.individual_spell_level_costs == True:
-        match maxcost:
-            case 30: return has_all_magic_lvx(CollectionState, player, 3)
-            case 100: return has_all_magic_lvx(CollectionState, player, 2)
-            case 200: return has_all_magic_lvx(CollectionState, player, 1)
-            case 300: return True
-            case _: return False
-    elif options.randomize_spell_mp_costs.current_key in ("shuffle", "randomize"):
-        for spell in spell_list:
-            match spell_cost[spell]:
-                case 15: 
-                    if state.has_count(spell_cost[spell]): return True
-                case 30:
-                    if state.has_count(spell_cost[spell]): return True
-                case 100:
-                    if state.has_count(spell_cost[spell]) and maxcost >= 100: return True
-                case 200:
-                    if state.has_count(spell_cost[spell]) and maxcost >= 200: return True
-                case 300:
-                    if state.has_count(spell_cost[spell]) and maxcost == 300: return True
-                case _: pass
-        return False
-    else:
-        return (
-        state.has_any({"Progressive Fire", "Progressive Blizzard"}, player)
-        or (logic_difficulty > LOGIC_NORMAL and state.has_any({"Progressive Thunder", "Progressive Gravity"}, player)) #cure
-        or (logic_difficulty > LOGIC_PROUD and state.has("Progressive Stop", player)) #aero
-        )
-"""
 def has_lucky_emblems(state: CollectionState, player: int, required_amt: int) -> bool:
     return state.has("Lucky Emblem", player, required_amt)
 

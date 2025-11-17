@@ -196,7 +196,6 @@ WORLD_KEY_ITEMS = {
     "Theon Vol. 6": "Hollow Bastion"
 }
 
-VANILLA_SPELL_NAMES = ["Fire", "Fira", "Firaga", "Blizzard", "Blizzara", "Blizzaga", "Thunder", "Thundara", "Thundaga", "Cure", "Cura", "Curaga", "Gravity", "Gravira", "Graviga", "Stop", "Stopra", "Stopga", "Aero", "Aeroga", "Aeroga"]
 SPELL_ITEM_NAMES = ["Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Cure", "Progressive Gravity", "Progressive Stop", "Progressive Aero"]
 OFFENSIVE_SPELL_ITEM_NAMES = ["Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity", "Progressive Stop"]
 VANILLA_SPELL_COSTS_LVL = [30, 30, 30, 30, 30, 30, 100, 100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200, 200]
