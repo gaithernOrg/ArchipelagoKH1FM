@@ -304,6 +304,7 @@ class KH1World(World):
                     "four_by_three": bool(self.options.four_by_three),
                     "goofy_death_link": bool(self.options.goofy_death_link),
                     "halloween_town_key_item_bundle": bool(self.options.halloween_town_key_item_bundle),
+                    "homecoming_warp": bool(self.options.homecoming_warp.value),
                     "homecoming_materials": int(self.options.homecoming_materials.value),
                     "hundred_acre_wood": bool(self.options.hundred_acre_wood),
                     "individual_spell_level_costs": bool(self.options.individual_spell_level_costs),
@@ -430,6 +431,10 @@ class KH1World(World):
         if self.options.destiny_islands:
             self.options.day_2_materials.value, self.options.homecoming_materials.value, self.options.materials_in_pool.value = sorted(
                 [self.options.day_2_materials.value, self.options.homecoming_materials.value, self.options.materials_in_pool.value])
+
+        # set material cost prohibitively high if homecoming warp is disabled
+        if not self.options.homecoming_warp:
+            self.options.homecoming_materials.value = self.options.materials_in_pool.value + 1
     
     def get_remote_location_ids(self):
         remote_location_ids = []
