@@ -308,7 +308,7 @@ class KeybladeMinCritSTRBonus(Range):
     """
     Determines the minimum Crit STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Minimum Crit Rate Bonus"
+    display_name = "Keyblade Minimum Crit STR Bonus"
     default = 0
     range_start = 0
     range_end = 16
@@ -317,7 +317,7 @@ class KeybladeMaxCritSTRBonus(Range):
     """
     Determines the maximum Crit STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Maximum Crit Rate Bonus"
+    display_name = "Keyblade Maximum Crit STR Bonus"
     default = 16
     range_start = 0
     range_end = 16
@@ -761,7 +761,7 @@ class HomecomingMaterials(Range):
 
 class MaterialsInPool(Range):
     """
-    The amount of Raft Materials required to access Homecoming.
+    The amount of Raft Materials that will be added to the item pool.
     """
     display_name = "Materials in Pool"
     default = 16
