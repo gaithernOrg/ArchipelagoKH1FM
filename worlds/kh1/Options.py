@@ -139,7 +139,7 @@ class FinalRestDoorKey(Choice):
     
     Postcards: Turn in an amount of postcards in Traverse Town
     
-    Final Ansem: Enter End of the World and defeat Ansem as normal
+    Lucky Emblems: Collect an amount of Lucky Emblems
     
     Puppies: Rescue and return an amount of puppies in Traverse Town
     
