@@ -214,11 +214,9 @@ class EXPMultiplier(NamedRange):
     """
     display_name = "EXP Multiplier"
     default = 16 * 4
-    range_start = 16 // 4
+    range_start = 16
     range_end = 128
     special_range_names = {
-        "0.25x": int(16 // 4),
-        "0.5x": int(16 // 2),
         "1x": 16,
         "2x": 16 * 2,
         "3x": 16 * 3,
@@ -513,8 +511,6 @@ class StartingWorlds(Range):
     Number of random worlds to start with in addition to Traverse Town, which is always available.
     
     Will only consider Atlantica if toggled, and will only consider End of the World if its unlock is set to "Item".
-    
-    These are given by the server, and are received after connection.
     """
     display_name = "Starting Worlds"
     default = 4
@@ -524,8 +520,6 @@ class StartingWorlds(Range):
 class StartingTools(DefaultOnToggle):
     """
     Determines whether you start with Scan and Dodge Roll.
-    
-    These are given by the server, and are received after connection.
     """
     display_name = "Starting Tools"
 
