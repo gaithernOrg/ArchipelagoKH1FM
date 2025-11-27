@@ -323,6 +323,7 @@ class KH1World(World):
                     "puppy_value": int(self.options.puppy_value.value),
                     "randomize_ap_costs": str(self.options.randomize_ap_costs.current_key),
                     "randomize_emblem_pieces": bool(self.options.exp_zero_in_pool),
+                    "randomize_heartless": bool(self.options.randomize_heartless),
                     "randomize_party_member_starting_accessories": bool(self.options.randomize_party_member_starting_accessories),
                     "randomize_postcards": str(self.options.randomize_postcards.current_key),
                     "randomize_puppies": str(self.options.randomize_puppies.current_key),

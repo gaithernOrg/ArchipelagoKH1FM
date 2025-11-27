@@ -826,6 +826,12 @@ class SpellMPCostMax(Choice):
     option_3_mp = 300
     default = 300
 
+class RandomizeHeartless(Toggle):
+    """
+    Determines whether heartless are randomized
+    """
+    display_name = "Randomize Heartless"
+
 class IndividualSpellLevelCosts(Toggle):
     """
     If randomizing or shuffling spell MP costs, each indiviudal level of a spell (for example Fire vs Fira vs Firaga)
@@ -925,6 +931,7 @@ class KH1Options(PerGameCommonOptions):
     spell_mp_cost_max: SpellMPCostMax
     individual_spell_level_costs: IndividualSpellLevelCosts
     scaling_spell_potency: ScalingSpellPotency
+    randomize_heartless: RandomizeHeartless
     
 
 kh1_option_groups = [
@@ -1009,6 +1016,7 @@ kh1_option_groups = [
         HalloweenTownKeyItemBundle,
         EXPZeroInPool,
         RandomizePartyMemberStartingAccessories,
+        RandomizeHeartless,
         DeathLink,
         DonaldDeathLink,
         GoofyDeathLink,
