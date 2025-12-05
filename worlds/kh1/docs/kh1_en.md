@@ -8,13 +8,14 @@
 
 - The latest release of the [Kingdom Hearts 1FM Randomizer Software](https://github.com/gaithern/KH1FM-RANDOMIZER/releases)
 
-- The latest release of [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases) for the ArchipelagoKH1Client.exe
+- The latest release of [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases)
 
 ## Setting up the required software
 
 ### OpenKH
 
 - Extract the OpenKH files to a directory of your choosing.
+- Open `OpenKh.Tools.ModsManager.exe` within the OpenKH folder.
 - When prompted for game edition, choose PC Release, select which platform you're using (EGS or Steam), navigate to your `Kingdom Hearts I.5 + II.5` installation folder in the path box and click `Next`.
 - When prompted, install Panacea, then click `Next`.
 - When prompted, check KH1 plus any other AP game you want to play, and click `Install and configure Lua backend`, then click `Next`.
