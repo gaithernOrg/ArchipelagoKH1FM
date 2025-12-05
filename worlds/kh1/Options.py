@@ -139,7 +139,7 @@ class FinalRestDoorKey(Choice):
     
     Postcards: Turn in an amount of postcards in Traverse Town
     
-    Final Ansem: Enter End of the World and defeat Ansem as normal
+    Lucky Emblems: Collect an amount of Lucky Emblems
     
     Puppies: Rescue and return an amount of puppies in Traverse Town
     
@@ -214,11 +214,9 @@ class EXPMultiplier(NamedRange):
     """
     display_name = "EXP Multiplier"
     default = 16 * 4
-    range_start = 16 // 4
+    range_start = 16
     range_end = 128
     special_range_names = {
-        "0.25x": int(16 // 4),
-        "0.5x": int(16 // 2),
         "1x": 16,
         "2x": 16 * 2,
         "3x": 16 * 3,
@@ -308,7 +306,7 @@ class KeybladeMinCritSTRBonus(Range):
     """
     Determines the minimum Crit STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Minimum Crit Rate Bonus"
+    display_name = "Keyblade Minimum Crit STR Bonus"
     default = 0
     range_start = 0
     range_end = 16
@@ -317,7 +315,7 @@ class KeybladeMaxCritSTRBonus(Range):
     """
     Determines the maximum Crit STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Maximum Crit Rate Bonus"
+    display_name = "Keyblade Maximum Crit STR Bonus"
     default = 16
     range_start = 0
     range_end = 16
@@ -513,8 +511,6 @@ class StartingWorlds(Range):
     Number of random worlds to start with in addition to Traverse Town, which is always available.
     
     Will only consider Atlantica if toggled, and will only consider End of the World if its unlock is set to "Item".
-    
-    These are given by the server, and are received after connection.
     """
     display_name = "Starting Worlds"
     default = 4
@@ -524,8 +520,6 @@ class StartingWorlds(Range):
 class StartingTools(DefaultOnToggle):
     """
     Determines whether you start with Scan and Dodge Roll.
-    
-    These are given by the server, and are received after connection.
     """
     display_name = "Starting Tools"
 
@@ -761,7 +755,7 @@ class HomecomingMaterials(Range):
 
 class MaterialsInPool(Range):
     """
-    The amount of Raft Materials required to access Homecoming.
+    The amount of Raft Materials that will be added to the item pool.
     """
     display_name = "Materials in Pool"
     default = 16
@@ -802,7 +796,7 @@ class RandomizeSpellMPCosts(Choice):
     Shuffle: Spell costs will be shuffled amongst themselves, (2 single pip spells, 3 singe MP spells, 2 double MP spells)
     Randomize: Spell costs will be randomized individually based on the defined upper and lower bounds.
     """
-    display_name = "Randomize AP Costs"
+    display_name = "Randomize Spell MP Costs"
     option_off = 0
     option_shuffle = 1
     option_randomize = 2
@@ -815,8 +809,6 @@ class SpellMPCostMin(Choice):
     display_name = "Spell MP Cost Minimum"
     option_half_pip = 15
     option_pip = 30
-    option_2_pips = 60
-    option_3_pips = 90
     option_1_mp = 100
     option_2_mp = 200
     option_3_mp = 300
@@ -829,8 +821,6 @@ class SpellMPCostMax(Choice):
     display_name = "Spell MP Cost Maximum"
     option_half_pip = 15
     option_pip = 30
-    option_2_pips = 60
-    option_3_pips = 90
     option_1_mp = 100
     option_2_mp = 200
     option_3_mp = 300
@@ -847,7 +837,7 @@ class ScalingSpellPotency(DefaultOnToggle):
     """
     If randomizing or shuffling spell MP costs, each spell will have its effectiveness scaled relative to its new cost.
     """
-    display_name = "Individal Spell Level Costs"
+    display_name = "Scaling Spell Potency"
 
 @dataclass
 class KH1Options(PerGameCommonOptions):

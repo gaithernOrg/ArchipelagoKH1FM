@@ -65,6 +65,7 @@ class KH1World(World):
     starting_accessory_locations: list[str]
     starting_accessories: list[str]
     ap_costs: list[dict[str, str | int | bool]]
+    mp_costs: list[int]
 
     def __init__(self, multiworld, player):
         super(KH1World, self).__init__(multiworld, player)
@@ -335,6 +336,7 @@ class KH1World(World):
                     "scaling_spell_potency": bool(self.options.scaling_spell_potency),
                     "seed": self.multiworld.seed_name,
                     "shorten_go_mode": bool(self.options.shorten_go_mode),
+                    "slot_name": self.multiworld.get_player_name(self.player),
                     "slot_2_level_checks": int(self.options.slot_2_level_checks.value),
                     "spell_mp_cost_max": int(self.options.spell_mp_cost_max.value),
                     "spell_mp_cost_min": int(self.options.spell_mp_cost_min.value),
@@ -646,11 +648,12 @@ class KH1World(World):
                 elif self.options.randomize_spell_mp_costs.current_key == "randomize":
                     i = 0
                     while i < len(mp_costs):
-                        mp_costs[i] = self.random.choice(possible_costs)
+                        random_cost = self.random.choice(possible_costs)
+                        mp_costs[i] = random_cost
                         i = i + 1
                         if not self.options.individual_spell_level_costs:
-                            mp_costs[i]   = self.random.choice(possible_costs)
-                            mp_costs[i+1] = self.random.choice(possible_costs)
+                            mp_costs[i]   = random_cost
+                            mp_costs[i+1] = random_cost
                             i = i + 2
             self.mp_costs = mp_costs
         return self.mp_costs
