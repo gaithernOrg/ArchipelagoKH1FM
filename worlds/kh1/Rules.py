@@ -186,7 +186,6 @@ def set_rules(kh1world):
     halloween_town_key_item_bundle         = kh1world.options.halloween_town_key_item_bundle.value
     end_of_the_world_unlock                = kh1world.options.end_of_the_world_unlock.current_key
     hundred_acre_wood                      = kh1world.options.hundred_acre_wood
-    mp_costs                               = kh1world.get_mp_costs()
 
     match difficulty:
         case _ if LOGIC_BEGINNER <= difficulty < LOGIC_NORMAL: maxcost = 30
@@ -196,6 +195,7 @@ def set_rules(kh1world):
         case _: return
 
     if options.randomize_spell_mp_costs.current_key in ("shuffle", "randomize"):
+        mp_costs = kh1world.get_mp_costs()
         if options.individual_spell_level_costs == True:
             spell_costs = {spell: mp_costs[i*3 : i*3 + 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
         else:
@@ -1612,7 +1612,7 @@ def set_rules(kh1world):
                     (
                         difficulty > LOGIC_NORMAL 
                         and state.has_all({"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"}, player)
-                        and magic_costs(state, player, options, mp_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"})
+                        and magic_costs(state, player, options, spell_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"})
                     )
                     or
                     (
@@ -1632,7 +1632,7 @@ def set_rules(kh1world):
                 and has_defensive_tools(state, player, difficulty)
                 and
                 (
-                    magic_costs(state, player, options, mp_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity"})
+                    magic_costs(state, player, options, spell_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity"})
                     or (difficulty > LOGIC_PROUD and (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player)))
                 )
             ))
@@ -1643,7 +1643,7 @@ def set_rules(kh1world):
                 and has_defensive_tools(state, player, difficulty)
                 and
                 (
-                    magic_costs(state, player, options, mp_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity"})
+                    magic_costs(state, player, options, spell_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity"})
                     or (difficulty > LOGIC_PROUD and (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player)))
                 ) 
             ))
