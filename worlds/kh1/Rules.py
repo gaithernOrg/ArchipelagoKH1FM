@@ -605,7 +605,7 @@ def set_rules(kh1world):
         lambda state: (
             has_key_item(state, player, "Forget-Me-Not", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests) and has_key_item(state, player, "Jack-In-The-Box", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             and has_oogie_manor(state, player, difficulty)
-            and (difficulty > LOGIC_BEGINNER or has_basic_tools or state.has("Progressive Glide", player))
+            and (difficulty > LOGIC_BEGINNER or has_basic_tools(state, player, spell_costs) or state.has("Progressive Glide", player))
             # difficulty > LOGIC_BEGINNER and state.has("High Jump", player, 2)
             # difficulty > LOGIC_NORMAL and state.has("Combo Master", player) or state.has("High Jump", player)
             # difficulty > LOGIC_PROUD
@@ -614,7 +614,7 @@ def set_rules(kh1world):
         lambda state: (
             has_key_item(state, player, "Forget-Me-Not", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests) and has_key_item(state, player, "Jack-In-The-Box", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             and has_oogie_manor(state, player, difficulty)
-            and (difficulty > LOGIC_BEGINNER or has_basic_tools or state.has_all({"High Jump", "Progressive Glide"}))
+            and (difficulty > LOGIC_BEGINNER or has_basic_tools(state, player, spell_costs) or state.has_all({"High Jump", "Progressive Glide"}))
         ))
     add_rule(kh1world.get_location("Halloween Town Oogie's Manor Hollow Chest"),
         lambda state: (
@@ -712,7 +712,7 @@ def set_rules(kh1world):
             and state.has("Green Trinity", player)
         ))
     add_rule(kh1world.get_location("Monstro Mouth Near Ship Chest"),
-        lambda state: (difficulty > LOGIC_BEGINNER or state.has_any({"High Jump","Progressive Glide"}, player) or has_basic_tools))
+        lambda state: (difficulty > LOGIC_BEGINNER or state.has_any({"High Jump","Progressive Glide"}, player) or has_basic_tools(state, player, spell_costs)))
     add_rule(kh1world.get_location("Monstro Chamber 2 Platform Chest"),
         lambda state: (
             state.has_any({"High Jump","Progressive Glide"}, player)
@@ -1762,7 +1762,7 @@ def set_rules(kh1world):
             continue
         if difficulty == LOGIC_BEGINNER and location_table[location].behind_boss:
             add_rule(kh1world.get_location(location),
-                lambda state: has_basic_tools(state, player))
+                lambda state: has_basic_tools(state, player, spell_costs))
         if options.remote_items.current_key == "off":
             if location_table[location].type == "Static":
                 add_item_rule(kh1world.get_location(location),
