@@ -1,7 +1,6 @@
-from BaseClasses import CollectionState
+from BaseClasses import CollectionState, ItemClassification
 from worlds.generic.Rules import add_rule, add_item_rule
 from math import ceil
-from BaseClasses import ItemClassification
 from .Data import WORLD_KEY_ITEMS, LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL, SPELL_ITEM_NAMES, OFFENSIVE_SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL
 
 from .Locations import KH1Location, location_table
@@ -81,24 +80,21 @@ def has_all_magic_lvx(state: CollectionState, player: int, level) -> bool:
         "Progressive Aero": level,
         "Progressive Stop": level}, player)
 
-def magic_costs(state: CollectionState, player: int, options, mp_costs, maxcost: int, given_list: list) -> bool: #cost: int\
+def magic_costs(state: CollectionState, player: int, options, spell_costs, maxcost: int, given_list: list) -> bool: #cost: int\
     if options.randomize_spell_mp_costs.current_key in ("shuffle", "randomize"):
         if options.individual_spell_level_costs == True:
-            spell_costs = {spell: mp_costs[i*3 : i*3 + 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
             spell_dict = {}
             for spell, cost in spell_costs.items():
                 if spell in given_list and max(cost) <= maxcost:
                     spell_dict[spell] = cost.index(max(cost))+1
             return state.has_any_count(spell_dict, player)
         else:
-            spell_costs = {spell: mp_costs[i * 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
             spell_list = []
             for spell, cost in spell_costs.items():
                 if spell in given_list and cost <= maxcost:
                     spell_list.append(spell)
             return state.has_any(spell_list, player)
     else:
-        spell_costs = {SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL}
         spell_list = []
         for spell, cost in spell_costs.items():
             if spell in given_list and cost <= maxcost:
@@ -123,12 +119,12 @@ def has_defensive_tools(state: CollectionState, player: int, logic_difficulty: i
             and state.has_any_count({"Second Chance": 1, "MP Rage": 1, "Progressive Aero": 2}, player)
         )
 
-def has_basic_tools(state: CollectionState, player: int) -> bool:
+def has_basic_tools(state: CollectionState, player: int, spell_costs) -> bool:
     return (
             state.has_all({"Dodge Roll", "Progressive Cure"}, player)
             and state.has_any({"Combo Master", "Strike Raid", "Sonic Blade", "Counterattack"}, player)
             and state.has_any({"Leaf Bracer", "Second Chance", "Guard"}, player)
-            and magic_costs(state, player, 0, 0, 6, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+            and magic_costs(state, player, 0, spell_costs, 6, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
         )
 
 def can_dumbo_skip(state: CollectionState, player: int) -> bool:
@@ -198,6 +194,14 @@ def set_rules(kh1world):
         case _ if LOGIC_PROUD <= difficulty < LOGIC_MINIMAL: maxcost = 200
         case _ if LOGIC_MINIMAL <= difficulty: maxcost = 300
         case _: return
+
+    if options.randomize_spell_mp_costs.current_key in ("shuffle", "randomize"):
+        if options.individual_spell_level_costs == True:
+            spell_costs = {spell: mp_costs[i*3 : i*3 + 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
+        else:
+            spell_costs = {spell: mp_costs[i * 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
+    else:
+        spell_costs = {SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL}
 
     add_rule(kh1world.get_location("Traverse Town 1st District Candle Puzzle Chest"),
         lambda state: state.has("Progressive Blizzard", player))
@@ -1382,19 +1386,19 @@ def set_rules(kh1world):
             lambda state: state.has("White Trinity", player))
         add_rule(kh1world.get_location("Atlantica Defeat Ursula I Mermaid Kick Event"),
             lambda state: (
-                magic_costs(state, player, options, mp_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Defeat Ursula II Thunder Event"),
             lambda state: (
                 state.has("Mermaid Kick", player)
-                and magic_costs(state, player, options, mp_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Seal Keyhole Crabclaw Event"),
             lambda state: (
                 state.has("Mermaid Kick", player)
-                and magic_costs(state, player, options, mp_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Undersea Gorge Blizzard Clam"),
@@ -1409,7 +1413,7 @@ def set_rules(kh1world):
             lambda state: (
                 state.has("Mermaid Kick", player)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
-                and magic_costs(state, player, options, mp_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
             ))
     if options.cups.current_key != "off":
         if options.cups.current_key == "hades_cup":
