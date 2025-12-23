@@ -463,6 +463,9 @@ class KH1World(World):
                     if location_data.type == "Prize":
                         if item_data.type not in ["Item"]:
                             remote_location_ids.append(location_data.code)
+                # Should really only matter in the event of an item link
+                elif self.player != location.item.player:
+                    remote_location_ids.append(location_data.code)
         return remote_location_ids
     
     def get_slot_2_levels(self):
