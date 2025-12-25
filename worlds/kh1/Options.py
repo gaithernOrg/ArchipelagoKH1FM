@@ -838,6 +838,14 @@ class ScalingSpellPotency(DefaultOnToggle):
     If randomizing or shuffling spell MP costs, each spell will have its effectiveness scaled relative to its new cost.
     """
     display_name = "Scaling Spell Potency"
+    
+class AccessoryAugments(Toggle):
+    """
+    Accessories are assigned special effects in addition to their normal effects.
+    
+    These can be both positive or negative.
+    """
+    display_name = "Accessory Augments"
 
 @dataclass
 class KH1Options(PerGameCommonOptions):
@@ -925,6 +933,7 @@ class KH1Options(PerGameCommonOptions):
     spell_mp_cost_max: SpellMPCostMax
     individual_spell_level_costs: IndividualSpellLevelCosts
     scaling_spell_potency: ScalingSpellPotency
+    accessory_augments: AccessoryAugments
     
 
 kh1_option_groups = [
@@ -1014,6 +1023,7 @@ kh1_option_groups = [
         GoofyDeathLink,
         RemoteItems,
         ShortenGoMode,
+        AccessoryAugments,
         OneHP,
         FourByThree,
         AutoAttack,
