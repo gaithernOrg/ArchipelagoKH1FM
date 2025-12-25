@@ -843,7 +843,7 @@ class AccessoryAugments(Toggle):
     """
     Accessories are assigned special effects in addition to their normal effects.
     
-    These can be both positive or negative.
+    These can be either positive or negative.
     """
     display_name = "Accessory Augments"
 
