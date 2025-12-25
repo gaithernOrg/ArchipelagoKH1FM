@@ -250,6 +250,12 @@ async def game_watcher(ctx: KH1Context):
             await ctx.send_msgs(sync_msg)
             ctx.syncing = False
         sending = []
+        accessories_locations_checked = [
+            obj.item - 2641017 + 2659100
+            for obj in ctx.items_received
+            if 2641017 <= obj.item <= 2641071
+        ]
+        sending = sending + accessories_locations_checked
         victory = False
         for root, dirs, files in os.walk(ctx.game_communication_path):
             for file in files:

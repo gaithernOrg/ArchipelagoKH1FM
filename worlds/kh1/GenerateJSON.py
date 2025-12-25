@@ -54,7 +54,7 @@ def get_item_location_map(world):
     location_item_map = {}
     for location in world.multiworld.get_filled_locations(world.player):
         if location.name != "Final Ansem":
-            if world.player != location.item.player or (world.player == location.item.player and world.options.remote_items.current_key == "full" and (location_table[location.name].code < 2656800 or location_table[location.name].code > 2656814)):
+            if world.player != location.item.player or (world.player == location.item.player and world.options.remote_items.current_key == "full" and (location_table[location.name].type not in ["Starting Accessory", "Augment"])):
                 item_id = 2641230
             else:
                 item_id = location.item.code

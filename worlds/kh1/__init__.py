@@ -5,7 +5,7 @@ from math import ceil
 
 from BaseClasses import Tutorial
 from worlds.AutoWorld import WebWorld, World
-from .Items import KH1Item, KH1ItemData, event_item_table, get_items_by_category, item_table, item_name_groups
+from .Items import KH1Item, KH1ItemData, event_item_table, get_items_by_category, item_table, item_name_groups, get_possible_augments
 from .Locations import KH1Location, location_table, get_locations_by_type, location_name_groups
 from .Options import KH1Options, kh1_option_groups
 from .Regions import connect_entrances, create_regions
@@ -64,6 +64,8 @@ class KH1World(World):
     keyblade_stats: list[dict[str, int]]
     starting_accessory_locations: list[str]
     starting_accessories: list[str]
+    accessory_locations: list[str]
+    accessory_augments: list[str]
     ap_costs: list[dict[str, str | int | bool]]
     mp_costs: list[int]
 
@@ -75,6 +77,8 @@ class KH1World(World):
         self.starting_accessories = None
         self.ap_costs = None
         self.mp_costs = None
+        self.accessory_locations = None
+        self.accessory_augments = None
 
     def create_items(self):
         self.place_predetermined_items()
@@ -106,6 +110,12 @@ class KH1World(World):
         starting_party_member_accessories = self.get_starting_accessories()
         for i in range(len(starting_party_member_locations)):
             self.get_location(self.starting_accessory_locations[i]).place_locked_item(self.create_item(self.starting_accessories[i]))
+        
+        # Handle accessory augments:
+        self.get_accessory_augments()
+        self.get_accessory_locations()
+        for i in range(len(self.accessory_locations)):
+            self.get_location(self.accessory_locations[i]).place_locked_item(self.create_item(self.accessory_augments[i]))
         
         item_pool: List[KH1Item] = []
         possible_level_up_item_pool = []
@@ -162,7 +172,7 @@ class KH1World(World):
             quantity = data.max_quantity
             if data.category not in non_filler_item_categories:
                 continue
-            if name in starting_worlds or name in starting_tools or name in starting_party_member_accessories:
+            if name in starting_worlds or name in starting_tools or name in starting_party_member_accessories or name in self.accessory_augments:
                 continue
             if self.options.stacking_world_items and name in WORLD_KEY_ITEMS.keys() and name not in ("Crystal Trident", "Jack-In-The-Box"): # Handling these special cases separately
                 item_pool += [self.create_item(WORLD_KEY_ITEMS[name]) for _ in range(0, 1)]
@@ -281,6 +291,7 @@ class KH1World(World):
 
     def fill_slot_data(self) -> dict:
         slot_data = {
+                    "accessory_augments": bool(self.options.accessory_augments),
                     "atlantica": bool(self.options.atlantica),
                     "auto_attack": bool(self.options.auto_attack),
                     "auto_save": bool(self.options.auto_save),
@@ -438,7 +449,7 @@ class KH1World(World):
             if location.name != "Final Ansem":
                 location_data = location_table[location.name]
                 if self.options.remote_items.current_key == "full":
-                    if location_data.type != "Starting Accessory":
+                    if location_data.type != "Starting Accessory" and location_data.type != "Augment":
                         remote_location_ids.append(location_data.code)
                 elif self.player == location.item.player and location.item.name != "Victory":
                     item_data = item_table[location.item.name]
@@ -588,6 +599,23 @@ class KH1World(World):
             else:
                 self.starting_accessories = []
         return self.starting_accessories
+    
+    def get_accessory_locations(self):
+        if self.accessory_locations is None:
+            if self.options.accessory_augments:
+                self.accessory_locations = list(get_locations_by_type("Augment").keys())
+            else:
+                self.accessory_locations = []
+        return self.accessory_locations
+    
+    def get_accessory_augments(self):
+        if self.accessory_augments is None:
+            if self.options.accessory_augments:
+                self.accessory_augments = get_possible_augments()
+                self.accessory_augments = self.random.sample(self.accessory_augments, 54) # Number of accessories in the game
+            else:
+                self.accessory_augments = []
+        return self.accessory_augments
     
     def get_ap_costs(self):
         if self.ap_costs is None:
