@@ -137,7 +137,7 @@ def has_oogie_manor(state: CollectionState, player: int, logic_difficulty: int) 
     return (
             state.has("Progressive Fire", player)
             or (logic_difficulty > LOGIC_BEGINNER and state.has("High Jump", player, 3))
-            or (logic_difficulty > LOGIC_NORMAL and state.has("High Jump", player, 2) or (state.has_all({"High Jump", "Progressive Glide"}, player)))
+            or (logic_difficulty > LOGIC_NORMAL and state.has("High Jump", player, 2) or (state.has_all({"High Jump", "Progressive Glide"}, player)) or can_dumbo_skip(state, player))
             or (logic_difficulty > LOGIC_PROUD and state.has_any({"High Jump", "Progressive Glide"}, player))
         )
 
@@ -171,6 +171,28 @@ def has_key_item(state: CollectionState, player: int, key_item: str, stacking_wo
         and (key_item != "Crystal Trident" or difficulty > LOGIC_BEGINNER or not keyblades_unlock_chests or state.has("Crabclaw", player))
     )
 
+def can_early_tea(state: CollectionState, player: int, logic_difficulty: int) -> bool:
+    return (
+        state.has("Progressive Glide", player)
+        or
+        (
+            (logic_difficulty > LOGIC_NORMAL and state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player) and state.has("Progressive High Jump", player, 3))
+            or
+            (
+                logic_difficulty > LOGIC_PROUD
+                and
+                (
+                    state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
+                    or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
+                    and
+                    (
+                        state.has("High Jump", player, 2)
+                        or state.has_all_counts({"Combo Master": 1, "High Jump": 1, "Air Combo Plus": 2}, player)
+                    )
+                )
+            )
+        )
+    )
 
 def set_rules(kh1world):
     multiworld                             = kh1world.multiworld
@@ -247,6 +269,8 @@ def set_rules(kh1world):
                             state.has("Combo Master", player)
                             and
                             (
+                                state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
+                                or
                                 state.has("High Jump", player, 2)
                                 or
                                 (
@@ -264,7 +288,8 @@ def set_rules(kh1world):
                     and
                     (
                         state.has("Mermaid Kick", player)
-                        or state.has("Combo Master", player) and (state.has("High Jump", player) or state.has("Air Combo Plus", player, 2))
+                        or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
+                        or (state.has("Combo Master", player) and (state.has("High Jump", player) or state.has("Air Combo Plus", player, 2)))
                     )
                 )
             )
@@ -320,10 +345,7 @@ def set_rules(kh1world):
                 and has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             )
             or
-            (
-                difficulty > LOGIC_PROUD  
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Lotus Forest Corner Chest"),
         lambda state: (
@@ -348,11 +370,7 @@ def set_rules(kh1world):
                 and (state.has("High Jump", player) or can_dumbo_skip(state, player))
                 and has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             )
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Tea Party Garden Above Lotus Forest Entrance 1st Chest"),
         lambda state: (
@@ -369,11 +387,7 @@ def set_rules(kh1world):
                 and (state.has("High Jump", player) or can_dumbo_skip(state, player))
                 and has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             )
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Tea Party Garden Bear and Clock Puzzle Chest"),
         lambda state: (
@@ -406,11 +420,7 @@ def set_rules(kh1world):
                     or (state.has("High Jump", player, 2) and has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests))
                 )
             )
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Lotus Forest Through the Painting White Trinity Chest"),
         lambda state: (
@@ -425,6 +435,7 @@ def set_rules(kh1world):
                 difficulty > LOGIC_BEGINNER
                 and (state.has("High Jump", player)
                 or state.has("Progressive Glide", player))
+                #or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
             )
             or
             difficulty > LOGIC_NORMAL
@@ -465,7 +476,7 @@ def set_rules(kh1world):
     add_rule(kh1world.get_location("Agrabah Palace Gates High Opposite Palace Chest"),
         lambda state: (
             state.has("High Jump", player)
-            or (difficulty > LOGIC_NORMAL and state.has("Progressive Glide", player))
+            or (difficulty > LOGIC_NORMAL and state.has("Progressive Glide", player)) #or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player) or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))
             or difficulty > LOGIC_PROUD
         ))
     add_rule(kh1world.get_location("Agrabah Palace Gates High Close to Palace Chest"),
@@ -482,7 +493,7 @@ def set_rules(kh1world):
                     or state.has_all({"High Jump", "Combo Master"}, player)
                 )
             )
-            or (difficulty > LOGIC_PROUD and state.has("Combo Master", player)) # can_dumbo_skip(state, player)
+            or (difficulty > LOGIC_PROUD and (state.has("Combo Master", player) or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))))
         ))
     add_rule(kh1world.get_location("Agrabah Storage Green Trinity Chest"),
         lambda state: state.has("Green Trinity", player))
@@ -498,6 +509,7 @@ def set_rules(kh1world):
                     state.has("Combo Master", player)
                     or can_dumbo_skip(state, player)
                     or state.has("High Jump", player)
+                    or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
                 )
             )
             or difficulty > LOGIC_PROUD
@@ -542,6 +554,7 @@ def set_rules(kh1world):
                     state.has("Combo Master", player)
                     or state.has("High Jump", player)
                     or state.has("Progressive Glide", player)
+                    or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
                 )
             )
             or
@@ -558,6 +571,7 @@ def set_rules(kh1world):
                     state.has("Combo Master", player)
                     or state.has("High Jump", player)
                     or state.has("Progressive Glide", player)
+                    or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
                 )
             )
             or
@@ -607,14 +621,14 @@ def set_rules(kh1world):
             and has_oogie_manor(state, player, difficulty)
             and (difficulty > LOGIC_BEGINNER or has_basic_tools(state, player, spell_costs) or state.has("Progressive Glide", player))
             # difficulty > LOGIC_BEGINNER and state.has("High Jump", player, 2)
-            # difficulty > LOGIC_NORMAL and state.has("Combo Master", player) or state.has("High Jump", player)
+            # difficulty > LOGIC_NORMAL and state.has("Combo Master", player) or state.has("High Jump", player) or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
             # difficulty > LOGIC_PROUD
         ))
     add_rule(kh1world.get_location("Halloween Town Oogie's Manor Upper Iron Cage Chest"),
         lambda state: (
             has_key_item(state, player, "Forget-Me-Not", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests) and has_key_item(state, player, "Jack-In-The-Box", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             and has_oogie_manor(state, player, difficulty)
-            and (difficulty > LOGIC_BEGINNER or has_basic_tools(state, player, spell_costs) or state.has_all({"High Jump", "Progressive Glide"}))
+            and (difficulty > LOGIC_BEGINNER or has_basic_tools(state, player, spell_costs) or state.has_all({"High Jump", "Progressive Glide"})) #state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player) and state.has("Combo Master", player)
         ))
     add_rule(kh1world.get_location("Halloween Town Oogie's Manor Hollow Chest"),
         lambda state: (
@@ -772,24 +786,28 @@ def set_rules(kh1world):
         lambda state: state.has("Green Trinity", player))
     add_rule(kh1world.get_location("Hollow Bastion Rising Falls Under Water 2nd Chest"),
         lambda state: has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood))
-    add_rule(kh1world.get_location("Hollow Bastion Rising Falls Floating Platform Near Save Chest"), #might be possible with CM and 2ACP
+    add_rule(kh1world.get_location("Hollow Bastion Rising Falls Floating Platform Near Save Chest"),
         lambda state: (
            state.has("High Jump", player)
            or state.has("Progressive Glide", player)
            or state.has("Progressive Blizzard", player)
+           or (difficulty > LOGIC_NORMAL and (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player)))
+           or (difficulty > LOGIC_PROUD and state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player))
          ))
     add_rule(kh1world.get_location("Hollow Bastion Rising Falls Floating Platform Near Bubble Chest"),
         lambda state: (
             state.has("High Jump", player)
             or state.has("Progressive Glide", player)
             or state.has("Progressive Blizzard", player)
+            or (difficulty > LOGIC_NORMAL and (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player)))
+            or (difficulty > LOGIC_PROUD and state.has_all({"Dodge Roll", "Air Guard/Dodge Roll", "Combo Master"}, player) and state.has("Air Combo Plus", 2))
         ))
     add_rule(kh1world.get_location("Hollow Bastion Rising Falls High Platform Chest"),
         lambda state: (
             state.has("Progressive Glide", player)
             or (state.has("Progressive Blizzard", player) and has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood))
             or (difficulty > LOGIC_BEGINNER and state.has("High Jump", player, 3))
-            or (difficulty > LOGIC_NORMAL and (state.has("High Jump", player) or state.has("Combo Master", player)))
+            or (difficulty > LOGIC_NORMAL and (state.has("High Jump", player) or state.has("Combo Master", player) or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player) or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))))
             or difficulty > LOGIC_PROUD
         ))
     add_rule(kh1world.get_location("Hollow Bastion Castle Gates Gravity Chest"),
@@ -881,6 +899,7 @@ def set_rules(kh1world):
                 and can_dumbo_skip(state, player)
                 and has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
             )
+            or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))
         ))
     add_rule(kh1world.get_location("Hollow Bastion Rising Falls White Trinity Chest"),
         lambda state: state.has("White Trinity", player))
@@ -893,7 +912,7 @@ def set_rules(kh1world):
         lambda state: (
             state.has("High Jump", player)
             or state.has("Progressive Glide", player)
-            or difficulty > LOGIC_PROUD
+            or difficulty > LOGIC_NORMAL
         ))
     add_rule(kh1world.get_location("End of the World Giant Crevasse 2nd Chest"),
         lambda state: (difficulty > LOGIC_BEGINNER or state.has_any({"High Jump", "Progressive Glide"}, player)))
@@ -919,7 +938,7 @@ def set_rules(kh1world):
             (
                 difficulty > LOGIC_NORMAL
                 and can_dumbo_skip(state, player)
-                and state.has("Progressive Glide", player)
+                and (state.has("Progressive Glide", player) or state.has("Summon Anywhere", player))
             ) #difficulty > LOGIC_PROUD and (can_dumbo_skip(state, player) or state.has("Progressive Glide", player))
         ))
     add_rule(kh1world.get_location("Monstro Chamber 6 White Trinity Chest"),
@@ -1148,7 +1167,7 @@ def set_rules(kh1world):
             (
                 state.has("Progressive Glide", player)
                 or state.has("Progressive Thunder", player)
-                or (difficulty > LOGIC_BEGINNER and state.has("High Jump", player))
+                or (difficulty > LOGIC_BEGINNER and state.has("High Jump", player)) #or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player))
                 or difficulty > LOGIC_NORMAL
             )
         ))
@@ -1229,51 +1248,31 @@ def set_rules(kh1world):
         lambda state: (
             has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             or state.has("Progressive Glide", player)
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Tea Party Garden Left Pink Chair"),
         lambda state: (
             has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             or state.has("Progressive Glide", player)
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Tea Party Garden Right Yellow Chair"),
         lambda state: (
             has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             or state.has("Progressive Glide", player)
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Tea Party Garden Left Gray Chair"),
         lambda state: (
             has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             or state.has("Progressive Glide", player)
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Wonderland Tea Party Garden Right Brown Chair"),
         lambda state: (
             has_key_item(state, player, "Footprints", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             or state.has("Progressive Glide", player)
-            or
-            (
-                difficulty > LOGIC_PROUD 
-                and state.has_all_counts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2}, player)
-            )
+            or can_early_tea(state, player, difficulty)
         ))
     add_rule(kh1world.get_location("Hollow Bastion Lift Stop from Waterway Examine Node"),
         lambda state: (
@@ -1347,7 +1346,7 @@ def set_rules(kh1world):
                 (
                     state.has_all({"High Jump", "Progressive Glide"},player)
                     or (difficulty > LOGIC_BEGINNER and (state.has("Progressive Glide", player) or state.has("High Jump", player)))
-                    or (difficulty > LOGIC_PROUD and state.has("Combo Master", player))
+                    or (difficulty > LOGIC_PROUD and (state.has("Combo Master", player) or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)))
                 )
             ))
         add_rule(kh1world.get_location("100 Acre Wood Pooh's House Owl Cheer"),
