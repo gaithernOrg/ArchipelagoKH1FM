@@ -15,6 +15,7 @@
 <h3 style="text-transform:none";>OpenKH</h3>
 
 - Extract the OpenKH files to a directory of your choosing.
+- Open `OpenKh.Tools.ModsManager.exe`.
 - When prompted for game edition, choose PC Release, select which platform you're using (EGS or Steam), navigate to your `Kingdom Hearts I.5 + II.5` installation folder in the path box and click `Next`.
 - When prompted, install Panacea, then click `Next`.
 - When prompted, check KH1 plus any other AP game you want to play, and click `Install and configure Lua backend`, then click `Next`.
