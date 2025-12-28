@@ -1,4 +1,5 @@
 from __future__ import annotations
+from argparse import Namespace
 import os
 import json
 import sys
@@ -20,7 +21,7 @@ if __name__ == "__main__":
     Utils.init_logging("KH1Client", exception_logger="Client")
 
 from NetUtils import NetworkItem, ClientStatus
-from CommonClient import gui_enabled, logger, get_base_parser, ClientCommandProcessor, \
+from CommonClient import gui_enabled, handle_url_arg, logger, get_base_parser, ClientCommandProcessor, \
     CommonContext, server_loop
 
 
@@ -31,13 +32,13 @@ def check_stdin() -> None:
 class KH1ClientCommandProcessor(ClientCommandProcessor):
     def __init__(self, ctx):
         super().__init__(ctx)
-    
+
     def _cmd_slot_data(self):
         """Prints slot data settings for the connected seed"""
         for key in self.ctx.slot_data.keys():
             if key not in ["remote_location_ids", "synthesis_item_name_byte_arrays"]:
                 self.output(str(key) + ": " + str(self.ctx.slot_data[key]))
-    
+
     def _cmd_deathlink(self):
         """If your Death Link setting is set to "Toggle", use this command to turn Death Link on and off."""
         if "death_link" in self.ctx.slot_data.keys():
@@ -53,7 +54,7 @@ class KH1ClientCommandProcessor(ClientCommandProcessor):
                 self.output(f"'death_link' = " + str(self.ctx.slot_data["death_link"]))
         else:
             self.output(f"No 'death_link' in slot_data keys. You probably aren't connected or are playing an older seed.")
-    
+
     def _cmd_communication_path(self):
         """Opens a file browser to allow Linux users to manually set their %LOCALAPPDATA% path"""
         directory = Utils.open_directory("Select %LOCALAPPDATA% dir", "~/.local/share/Steam/steamapps/compatdata/2552430/pfx/drive_c/users/steamuser/AppData/Local")
@@ -136,7 +137,7 @@ class KH1Context(CommonContext):
                 filename = f"send{ss}"
                 with open(os.path.join(self.game_communication_path, filename), 'w', encoding='utf-8') as f:
                     f.close()
-            
+
             # Handle Slot Data
             self.slot_data = args['slot_data']
             for key in list(args['slot_data'].keys()):
@@ -250,6 +251,12 @@ async def game_watcher(ctx: KH1Context):
             await ctx.send_msgs(sync_msg)
             ctx.syncing = False
         sending = []
+        accessories_locations_checked = [
+            obj.item - 2641017 + 2659100
+            for obj in ctx.items_received
+            if 2641017 <= obj.item <= 2641071
+        ]
+        sending = sending + accessories_locations_checked
         victory = False
         for root, dirs, files in os.walk(ctx.game_communication_path):
             for file in files:
@@ -280,29 +287,33 @@ async def game_watcher(ctx: KH1Context):
             ctx.finished_game = True
         await asyncio.sleep(0.1)
 
+async def main(args: Namespace):
+    ctx = KH1Context(args.connect, args.password)
+    ctx.auth = args.name
+    ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
+    if gui_enabled:
+        ctx.run_gui()
+    ctx.run_cli()
+    progression_watcher = asyncio.create_task(
+        game_watcher(ctx), name="KH1ProgressionWatcher")
 
-def launch():
-    async def main(args):
-        ctx = KH1Context(args.connect, args.password)
-        ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
-        if gui_enabled:
-            ctx.run_gui()
-        ctx.run_cli()
-        progression_watcher = asyncio.create_task(
-            game_watcher(ctx), name="KH1ProgressionWatcher")
+    await ctx.exit_event.wait()
+    ctx.server_address = None
 
-        await ctx.exit_event.wait()
-        ctx.server_address = None
+    await progression_watcher
 
-        await progression_watcher
+    await ctx.shutdown()
 
-        await ctx.shutdown()
-
+def launch(*args: str):
     import colorama
 
     parser = get_base_parser(description="KH1 Client, for text interfacing.")
+    parser.add_argument("--name", default=None)
+    parser.add_argument("url", nargs="?")
 
-    args, rest = parser.parse_known_args()
+    launch_args = handle_url_arg(parser.parse_args(args))
+
     colorama.just_fix_windows_console()
-    asyncio.run(main(args))
+
+    asyncio.run(main(launch_args))
     colorama.deinit()

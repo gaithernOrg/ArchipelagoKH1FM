@@ -32,11 +32,13 @@ def create_regions(kh1world):
         "100 Acre Wood":    KH1RegionData([],   []),
         "Levels":           KH1RegionData([],   []),
         "Homecoming":       KH1RegionData([],   []),
+        "Accessories":      KH1RegionData([],   []),
         "World Map":        KH1RegionData([],   ["Destiny Islands", "Traverse Town", 
                                          "Wonderland", "Olympus Coliseum", "Deep Jungle",
                                          "Agrabah", "Monstro", "Atlantica",
                                          "Halloween Town", "Neverland", "Hollow Bastion",
-                                         "End of the World", "100 Acre Wood", "Homecoming"])
+                                         "End of the World", "100 Acre Wood", "Homecoming",
+                                         "Accessories"])
     }
     
     if not options.atlantica:
@@ -570,6 +572,9 @@ def create_regions(kh1world):
     
     for location in kh1world.get_starting_accessory_locations():
         regions[location_table[location].category].locations.append(location)
+    
+    for location in kh1world.get_accessory_locations():
+        regions[location_table[location].category].locations.append(location)
 
     # Set up the regions correctly.
     for name, data in regions.items():
@@ -599,6 +604,7 @@ def connect_entrances(kh1world):
     multiworld.get_entrance("World Map", player).connect(multiworld.get_region("World Map", player))
     multiworld.get_entrance("Levels", player).connect(multiworld.get_region("Levels", player))
     multiworld.get_entrance("Homecoming", player).connect(multiworld.get_region("Homecoming", player))
+    multiworld.get_entrance("Accessories", player).connect(multiworld.get_region("Accessories", player))
 
 def create_region(multiworld: MultiWorld, player: int, name: str, data: KH1RegionData):
     region = Region(name, player, multiworld)
