@@ -236,7 +236,7 @@ def set_rules(kh1world):
             (
                 state.has("Yellow Trinity", player)
                 or (difficulty > LOGIC_BEGINNER and state.has("High Jump", player, 2))
-                or (difficulty > LOGIC_NORMAL and state.has("High Jump", player))
+                or (difficulty > LOGIC_NORMAL and state.has("High Jump", player) or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player)))
             )
         ))
     add_rule(kh1world.get_location("Traverse Town Secret Waterway White Trinity Chest"),
@@ -263,6 +263,8 @@ def set_rules(kh1world):
                     difficulty > LOGIC_NORMAL
                     and
                     (
+                        (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))
+                        or
                         state.has("High Jump", player, 3)
                         or
                         (
