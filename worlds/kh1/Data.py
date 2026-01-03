@@ -196,9 +196,11 @@ WORLD_KEY_ITEMS = {
     "Theon Vol. 6": "Hollow Bastion"
 }
 
+SPELL_ITEM_NAMES = ["Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Cure", "Progressive Gravity", "Progressive Stop", "Progressive Aero"]
+OFFENSIVE_SPELL_ITEM_NAMES = ["Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity", "Progressive Stop"]
 VANILLA_SPELL_COSTS_LVL = [30, 30, 30, 30, 30, 30, 100, 100, 100, 100, 100, 100, 100, 100, 100, 200, 200, 200, 200, 200, 200]
 VANILLA_SPELL_COSTS_SPELL = [30, 30, 100, 100, 100, 200, 200]
-POSSIBLE_SPELL_COSTS = [15, 30, 100, 200, 300]
+POSSIBLE_SPELL_COSTS = [15, 30, 100, 200, 300] #60, 90
 
 LOGIC_BEGINNER = 0
 LOGIC_NORMAL = 5
