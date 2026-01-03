@@ -923,13 +923,14 @@ def set_rules(kh1world):
     add_rule(kh1world.get_location("End of the World Giant Crevasse 4th Chest"),
         lambda state: (
             state.has("Progressive Glide", player)
+            or (difficulty > LOGIC_NORMAL and state.has("High Jump", player, 2))
             or
             (
-                difficulty > LOGIC_NORMAL
-                and 
+                difficulty > LOGIC_PROUD
+                and
                 (
-                    state.has_all({"High Jump", "Combo Master"}, player)
-                    or state.has("High Jump", player, 2)
+                    state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)
+                    or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))
                 )
             )
         ))
