@@ -909,9 +909,12 @@ def set_rules(kh1world):
             (
                 difficulty > LOGIC_NORMAL
                 and can_dumbo_skip(state, player)
-                and has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
+                and 
+                (
+                    has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
+                    or state.has("Summon Anywhere", player)
+                )
             )
-            or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))
         ))
     add_rule(kh1world.get_location("Hollow Bastion Rising Falls White Trinity Chest"),
         lambda state: state.has("White Trinity", player))
