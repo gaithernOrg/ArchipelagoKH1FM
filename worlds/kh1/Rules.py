@@ -1170,13 +1170,13 @@ def set_rules(kh1world):
                 or (difficulty > LOGIC_BEGINNER and state.has("High Jump", player, 3))
                 or (difficulty > LOGIC_NORMAL and state.has("High Jump", player, 2))
             )
-            and state.has("Progressive Fire", player)
+            and (state.has("Progressive Fire", player) or difficulty > LOGIC_PROUD)
             and
             (
                 state.has("Progressive Glide", player)
                 or state.has("Progressive Thunder", player)
-                or (difficulty > LOGIC_BEGINNER and state.has("High Jump", player)) #or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player))
-                or difficulty > LOGIC_NORMAL
+                or (difficulty > LOGIC_BEGINNER and state.has("High Jump", player)) #or state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player)) or (can_dumbo_skip(state, player) and state.has("Summon Anywhere", player))
+                or difficulty > LOGIC_NORMAL 
             )
         ))
     add_rule(kh1world.get_location("Hollow Bastion Entrance Hall Emblem Piece (Chest)"),
