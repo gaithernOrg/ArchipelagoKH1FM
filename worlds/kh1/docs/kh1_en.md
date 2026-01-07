@@ -28,6 +28,7 @@
 
 ## Obtaining and using the seed zip
 
+- [Generate an Archipelago game](https://archipelago.gg/generate) using the KH1 yaml generated from the KH1 [options page](https://archipelago.gg/games/Kingdom%20Hearts/player-options). 
 - When you generate a game you will see a download link for a KH1 .zip seed on the room page.
 - After downloading this zip, open `mod_generator.exe` in your Kingdom Hearts 1FM Randomizer Software folder.
 - Direct `mod_generator.exe` to both your seed zip and your KH1 data folder extracted during your OpenKH set up.
@@ -103,9 +104,14 @@ You need at least one magic spell before you can use summons.
 
 ### Why am I not sending or receiving any items despite being connected to the server?
 
-Make sure you are using the KH1 Client and not the Text Client. You will need to open the client manually via the Archipelago Launcher.
+Make sure you are using the KH1 Client and not the Text Client. You will need to open the client via the Archipelago Launcher.
 
-### Why don't I have any worlds on the world map?
+### Why am I sending and/or receiving the wrong items?
+
+Make sure you are using the correct seed zip and mod for your Archipelago game.<br>
+It's also possible you are playing on a non-English language. Unfortunately, only English is supported.
+
+### Why don't I have any worlds on the world map? Am I supposed to play through the Dive to the Heart?
 
 If you have any of these symptoms: you find that the title screen does not have the Archipelago logo, that you had to do the entirety of Dive to the Heart, that you do not warp to the world map after choosing your Dream Weapons, or that when you get to the world map there are no worlds there;<br><br>
 
