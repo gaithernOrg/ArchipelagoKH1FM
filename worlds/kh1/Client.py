@@ -156,7 +156,7 @@ class KH1Context(CommonContext):
             if start_index != len(self.items_received):
                 for item in args['items']:
                     if 2641017 <= NetworkItem(*item).item <= 2641071:
-                        locationID = obj.item - 2641017 + 2659100
+                        locationID = NetworkItem(*item).item - 2641017 + 2659100
                         open(os.path.join(self.game_communication_path, f"send{locationID}"), 'w').close()
                     found = False
                     item_filename = f"AP_{str(self.item_num)}.item"
