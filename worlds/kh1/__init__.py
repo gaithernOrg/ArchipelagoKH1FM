@@ -351,6 +351,7 @@ class KH1World(World):
                     "slot_2_level_checks": int(self.options.slot_2_level_checks.value),
                     "spell_mp_cost_max": int(self.options.spell_mp_cost_max.value),
                     "spell_mp_cost_min": int(self.options.spell_mp_cost_min.value),
+                    "spell_mp_costs": self.mp_costs,
                     "stacking_world_items": bool(self.options.stacking_world_items),
                     "starting_items": [item.code for item in self.multiworld.precollected_items[self.player]],
                     "starting_tools": bool(self.options.starting_tools),
