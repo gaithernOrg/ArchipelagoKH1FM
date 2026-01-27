@@ -193,21 +193,22 @@ class KH1Context(CommonContext):
 
         if cmd in {"ReceivedItems"}:
             self.items_received = []
-            for item in args['items']:
-                item_obj = NetworkItem(*item)
-                item_id = item_obj.item
-                item_sender_id = item_obj.player
-                item_location_id = item_obj.location
-                if 2641017 <= item_id <= 2641071:
-                    acc_location_id = item_id - 2641017 + 2659100
-                    if acc_location_id not in self.checked_locations:
-                        self.checked_locations.add(acc_location_id)
-                is_from_self_and_remote = item_sender_id == self.slot and item_location_id in self.remote_location_ids
-                is_from_server = item_location_id < 0
-                is_from_someone_else = item_sender_id != self.slot
-                if is_from_self_and_remote or is_from_server or is_from_someone_else:
-                    self.items_received.append(item_id)
-            asyncio.create_task(self.game_client.send({"items": self.items_received}))
+            if args['index'] == 0:
+                for item in args['items']:
+                    item_obj = NetworkItem(*item)
+                    item_id = item_obj.item
+                    item_sender_id = item_obj.player
+                    item_location_id = item_obj.location
+                    if 2641017 <= item_id <= 2641071:
+                        acc_location_id = item_id - 2641017 + 2659100
+                        if acc_location_id not in self.checked_locations:
+                            self.checked_locations.add(acc_location_id)
+                    is_from_self_and_remote = item_sender_id == self.slot and item_location_id in self.remote_location_ids
+                    is_from_server = item_location_id < 0
+                    is_from_someone_else = item_sender_id != self.slot
+                    if is_from_self_and_remote or is_from_server or is_from_someone_else:
+                        self.items_received.append(item_id)
+                asyncio.create_task(self.game_client.send({"items": self.items_received}))
 
         if cmd in {"PrintJSON"} and "type" in args:
             if args["type"] == "ItemSend":
