@@ -155,6 +155,7 @@ class KH1Context(CommonContext):
         self.sora_koed = False
         self.sora_prev_koed = False
         self.game_client = GameClient()
+        self.locations_checked: list[int] = []
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -201,8 +202,8 @@ class KH1Context(CommonContext):
                     item_location_id = item_obj.location
                     if 2641017 <= item_id <= 2641071:
                         acc_location_id = item_id - 2641017 + 2659100
-                        if acc_location_id not in self.checked_locations:
-                            self.checked_locations.add(acc_location_id)
+                        if acc_location_id not in self.locations_checked:
+                            self.locations_checked.append(acc_location_id)
                     is_from_self_and_remote = item_sender_id == self.slot and item_location_id in self.remote_location_ids
                     is_from_server = item_location_id < 0
                     is_from_someone_else = item_sender_id != self.slot
@@ -279,7 +280,7 @@ async def game_watcher(ctx: KH1Context):
         
         if curr_state is not None:
             ctx.sora_koed = curr_state["sora_koed"]
-            if ctx.sora_koed and not ctx.sora_prev_koed:
+            if ctx.sora_koed and not ctx.sora_prev_koed and ctx.death_link:
                 await ctx.send_death(death_text = "Sora was defeated!")
             ctx.sora_prev_koed = curr_state["sora_koed"]
             
@@ -288,7 +289,7 @@ async def game_watcher(ctx: KH1Context):
                 await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
                 ctx.finished_game = True
             
-            ctx.locations_checked = curr_state["locations"]
+            ctx.locations_checked = list(set(ctx.locations_checked + curr_state["locations"]))
             await ctx.check_locations(ctx.locations_checked)
             
             hinted_locations = curr_state["hinted_locations"]

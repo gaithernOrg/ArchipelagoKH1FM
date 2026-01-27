@@ -1763,7 +1763,7 @@ def set_rules(kh1world):
         ))
     for accessory in kh1world.get_accessory_locations():
         add_rule(kh1world.get_location(accessory),
-            lambda state: state.has(accessory.replace("Accessory ", ""), player))
+            lambda state, accessory = accessory: state.has(accessory.replace("Accessory ", ""), player))
     
     for location in location_table.keys():
         try:
