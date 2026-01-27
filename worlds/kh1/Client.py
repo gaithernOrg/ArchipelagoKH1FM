@@ -8,12 +8,15 @@ import shutil
 import logging
 import re
 import time
+import socket
 from calendar import timegm
 
 import ModuleUpdate
 ModuleUpdate.update()
 
 import Utils
+
+iam = "KH1 AP Client"
 
 logger = logging.getLogger("Client")
 
@@ -24,10 +27,87 @@ from NetUtils import NetworkItem, ClientStatus
 from CommonClient import gui_enabled, handle_url_arg, logger, get_base_parser, ClientCommandProcessor, \
     CommonContext, server_loop
 
+def recv_line(sock, timeout=2.0):
+    sock.settimeout(timeout)
+    data = bytearray()
+    while True:
+        try:
+            chunk = sock.recv(4096)
+            if not chunk:
+                raise ConnectionError("Server closed connection")
+            data.extend(chunk)
+            if b"\n" in data:
+                line, _, remainder = data.partition(b"\n")
+                return line.decode("utf-8")
+        except socket.timeout:
+            return None
+
+#def send_to_game_server(msg):
+#    s = socket.socket()
+#    s.connect(("127.0.0.1", 13138))
+#    msg_bytes = (json.dumps(msg) + "\n").encode("utf-8")
+#    s.sendall(msg_bytes)
+#    data = json.loads(recv_line(s))
+#    s.close()
+#    return data
+
 
 def check_stdin() -> None:
     if Utils.is_windows and sys.stdin:
         print("WARNING: Console input is not routed reliably on Windows, use the GUI instead.")
+
+class GameClient:
+    def __init__(self, host="127.0.0.1", port=13138):
+        self.host = host
+        self.port = port
+        self.reader: asyncio.StreamReader | None = None
+        self.writer: asyncio.StreamWriter | None = None
+        self.lock = asyncio.Lock()
+        self.connected = False
+
+    async def connect(self):
+        if self.connected:
+            return
+        self.reader, self.writer = await asyncio.open_connection(
+            self.host, self.port
+        )
+        self.connected = True
+
+    async def close(self):
+        if self.writer:
+            self.writer.close()
+            await self.writer.wait_closed()
+        self.connected = False
+
+    async def send(self, payload: dict) -> dict | None:
+        async with self.lock:
+            for attempt in (1, 2):
+                try:
+                    if not self.connected:
+                        await self.connect()
+                    msg = json.dumps(payload).encode("utf-8") + b"\n"
+                    self.writer.write(msg)
+                    await self.writer.drain()
+                    line = await asyncio.wait_for(
+                        self.reader.readline(), timeout=2.0
+                    )
+                    if not line:
+                        raise ConnectionError("Server closed connection")
+                    return json.loads(line.decode("utf-8"))
+                except (ConnectionError, OSError, asyncio.TimeoutError) as e:
+                    self.connected = False
+                    if self.writer:
+                        try:
+                            self.writer.close()
+                            await self.writer.wait_closed()
+                        except Exception:
+                            pass
+                    self.reader = None
+                    self.writer = None
+                    if attempt == 1:
+                        await asyncio.sleep(0.2)
+                        continue
+                    raise
 
 class KH1ClientCommandProcessor(ClientCommandProcessor):
     def __init__(self, ctx):
@@ -55,17 +135,6 @@ class KH1ClientCommandProcessor(ClientCommandProcessor):
         else:
             self.output(f"No 'death_link' in slot_data keys. You probably aren't connected or are playing an older seed.")
 
-    def _cmd_communication_path(self):
-        """Opens a file browser to allow Linux users to manually set their %LOCALAPPDATA% path"""
-        directory = Utils.open_directory("Select %LOCALAPPDATA% dir", "~/.local/share/Steam/steamapps/compatdata/2552430/pfx/drive_c/users/steamuser/AppData/Local")
-        if directory:
-            directory += "/KH1FM"
-            if not os.path.exists(directory):
-                os.makedirs(directory)
-            self.ctx.game_communication_path = directory
-        else:
-            self.output(self.ctx.game_communication_path)
-
 class KH1Context(CommonContext):
     command_processor: int = KH1ClientCommandProcessor
     game = "Kingdom Hearts"
@@ -81,26 +150,14 @@ class KH1Context(CommonContext):
 
         # Moved globals into instance attributes
         self.death_link: bool = False
-        self.item_num: int = 1
+        self.items_received: list[int] = []
         self.remote_location_ids: list[int] = []
-
-        # self.game_communication_path: files go in this path to pass data between us and the actual game
-        if "localappdata" in os.environ:
-            self.game_communication_path = os.path.expandvars(r"%localappdata%/KH1FM")
-        else:
-            self.game_communication_path = os.path.expandvars(r"$HOME/KH1FM")
-        if not os.path.exists(self.game_communication_path):
-            os.makedirs(self.game_communication_path)
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
+        self.sora_koed = False
+        self.sora_prev_koed = False
+        self.game_client = GameClient()
+        self.locations_checked: list[int] = []
 
     async def server_auth(self, password_requested: bool = False):
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
         if password_requested and not self.password:
             await super(KH1Context, self).server_auth(password_requested)
         await self.get_username()
@@ -108,11 +165,7 @@ class KH1Context(CommonContext):
 
     async def connection_closed(self):
         await super(KH1Context, self).connection_closed()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root + "/" + file)
-        self.item_num = 1
+        self.items_received = []
 
     @property
     def endpoints(self):
@@ -123,27 +176,15 @@ class KH1Context(CommonContext):
 
     async def shutdown(self):
         await super(KH1Context, self).shutdown()
-        for root, dirs, files in os.walk(self.game_communication_path):
-            for file in files:
-                if file.find("obtain") <= -1:
-                    os.remove(root+"/"+file)
-        self.item_num = 1
+        await self.game_client.close()
+        self.items_received = []
 
     def on_package(self, cmd: str, args: dict):
         if cmd in {"Connected"}:
-            if not os.path.exists(self.game_communication_path):
-                os.makedirs(self.game_communication_path)
-            for ss in self.checked_locations:
-                filename = f"send{ss}"
-                with open(os.path.join(self.game_communication_path, filename), 'w', encoding='utf-8') as f:
-                    f.close()
 
             # Handle Slot Data
             self.slot_data = args['slot_data']
             for key in list(args['slot_data'].keys()):
-                with open(os.path.join(self.game_communication_path, key + ".cfg"), 'w', encoding='utf-8') as f:
-                    f.write(str(args['slot_data'][key]))
-                    f.close()
                 if key == "remote_location_ids":
                     self.remote_location_ids = args['slot_data'][key]
                 if key == "death_link":
@@ -152,33 +193,27 @@ class KH1Context(CommonContext):
             # End Handle Slot Data
 
         if cmd in {"ReceivedItems"}:
-            start_index = args["index"]
-            if start_index != len(self.items_received):
+            self.items_received = []
+            if args['index'] == 0:
                 for item in args['items']:
-                    if 2641017 <= NetworkItem(*item).item <= 2641071:
-                        locationID = NetworkItem(*item).item - 2641017 + 2659100
-                        open(os.path.join(self.game_communication_path, f"send{locationID}"), 'w').close()
-                    found = False
-                    item_filename = f"AP_{str(self.item_num)}.item"
-                    for filename in os.listdir(self.game_communication_path):
-                        if filename == item_filename:
-                            found = True
-                    if not found:
-                        if (NetworkItem(*item).player == self.slot and (NetworkItem(*item).location in self.remote_location_ids) or (NetworkItem(*item).location < 0)) or NetworkItem(*item).player != self.slot:
-                            with open(os.path.join(self.game_communication_path, item_filename), 'w', encoding='utf-8') as f:
-                                f.write(str(NetworkItem(*item).item) + "\n" + str(NetworkItem(*item).location) + "\n" + str(NetworkItem(*item).player))
-                                f.close()
-                                self.item_num += 1
-
-        if cmd in {"RoomUpdate"}:
-            if "checked_locations" in args:
-                for ss in self.checked_locations:
-                    filename = f"send{ss}"
-                    with open(os.path.join(self.game_communication_path, filename), 'w', encoding='utf-8') as f:
-                        f.close()
+                    item_obj = NetworkItem(*item)
+                    item_id = item_obj.item
+                    item_sender_id = item_obj.player
+                    item_location_id = item_obj.location
+                    if 2641017 <= item_id <= 2641071:
+                        acc_location_id = item_id - 2641017 + 2659100
+                        if acc_location_id not in self.locations_checked:
+                            self.locations_checked.append(acc_location_id)
+                    is_from_self_and_remote = item_sender_id == self.slot and item_location_id in self.remote_location_ids
+                    is_from_server = item_location_id < 0
+                    is_from_someone_else = item_sender_id != self.slot
+                    if is_from_self_and_remote or is_from_server or is_from_someone_else:
+                        self.items_received.append(item_id)
+                asyncio.create_task(self.game_client.send({"items": self.items_received}))
 
         if cmd in {"PrintJSON"} and "type" in args:
             if args["type"] == "ItemSend":
+                message = None
                 item = args["item"]
                 networkItem = NetworkItem(*item)
                 receiverID = args["receiving"]
@@ -189,42 +224,27 @@ class KH1Context(CommonContext):
                     itemCategory = networkItem.flags
                     receiverName = self.player_names[receiverID][:20]
                     senderName = self.player_names[senderID][:20]
-                    message = ""
                     if receiverID == self.slot and receiverID != senderID: # Item received from someone else
-                        message = "From " + senderName + "\n" + itemName
+                        message = ["From " + senderName, itemName]
                     elif senderID == self.slot and receiverID != senderID: # Item sent to someone else
-                        message = itemName + "\nTo " + receiverName
+                        message = [itemName, "to " + receiverName]
                     elif locationID in self.remote_location_ids: # Found a remote item
-                        message = itemName
-                    filename = "msg"
-                    if message != "":
-                        if not os.path.exists(self.game_communication_path + "/" + filename):
-                            with open(os.path.join(self.game_communication_path, filename), 'w', encoding='utf-8') as f:
-                                f.write(message)
-                                f.close()
+                        message = [itemName, ""]
+                    if message is not None:
+                        asyncio.create_task(self.game_client.send({"prompt": message}))
             if args["type"] == "ItemCheat":
+                message = ["", ""]
                 item = args["item"]
                 networkItem = NetworkItem(*item)
                 receiverID = args["receiving"]
                 if receiverID == self.slot:
                     itemName = self.item_names.lookup_in_slot(networkItem.item, receiverID)[:20]
                     filename = "msg"
-                    message = "Received " + itemName + "\nfrom server"
-                    if not os.path.exists(self.game_communication_path + "/" + filename):
-                        with open(os.path.join(self.game_communication_path, filename), 'w', encoding='utf-8') as f:
-                            f.write(message)
-                            f.close()
+                    message = ["Received " + itemName, "from server"]
+                    asyncio.create_task(self.game_client.send({"prompt": message}))
 
     def on_deathlink(self, data: dict[str, object]):
-        self.last_death_link = max(data["time"], self.last_death_link)
-        text = data.get("cause", "")
-        if text:
-            logger.info(f"DeathLink: {text}")
-        else:
-            logger.info(f"DeathLink: Received from {data['source']}")
-        with open(os.path.join(self.game_communication_path, 'dlreceive'), 'w', encoding='utf-8') as f:
-            f.write(str(int(data["time"])))
-            f.close()
+        asyncio.create_task(self.game_client.send({"effect": {"sora_ko": True}}))
 
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
@@ -241,7 +261,6 @@ class KH1Context(CommonContext):
 
 
 async def game_watcher(ctx: KH1Context):
-    from .Locations import lookup_id_to_name
     while not ctx.exit_event.is_set():
         if ctx.death_link and "DeathLink" not in ctx.tags:
             await ctx.update_death_link(ctx.death_link)
@@ -253,36 +272,37 @@ async def game_watcher(ctx: KH1Context):
                 sync_msg.append({"cmd": "LocationChecks", "locations": list(ctx.locations_checked)})
             await ctx.send_msgs(sync_msg)
             ctx.syncing = False
-        sending = []
-        victory = False
-        for root, dirs, files in os.walk(ctx.game_communication_path):
-            for file in files:
-                if file.find("send") > -1:
-                    st = file.split("send", -1)[1]
-                    if st != "nil":
-                        sending = sending+[(int(st))]
-                if file.find("victory") > -1:
-                    victory = True
-                if file.find("dlsend") > -1 and "DeathLink" in ctx.tags:
-                    st = file.split("dlsend", -1)[1]
-                    if st != "nil":
-                        if timegm(time.strptime(st, '%Y%m%d%H%M%S')) > ctx.last_death_link and int(time.time()) % int(timegm(time.strptime(st, '%Y%m%d%H%M%S'))) < 10:
-                            await ctx.send_death(death_text = "Sora was defeated!")
-                if file.find("hint") > -1:
-                    hint_location_id = int(file.split("hint", -1)[1])
-                    if hint_location_id not in ctx.hinted_location_ids:
-                        await ctx.send_msgs([{
-                            "cmd": "LocationScouts",
-                            "locations": [hint_location_id],
-                            "create_as_hint": 2
-                        }])
-                        ctx.hinted_location_ids.append(hint_location_id)
-        ctx.locations_checked = sending
-        await ctx.check_locations(sending)
-        if not ctx.finished_game and victory:
-            await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
-            ctx.finished_game = True
-        await asyncio.sleep(0.1)
+        
+        try:
+            curr_state = await ctx.game_client.send({"get_state": True})
+        except:
+            curr_state = None
+        
+        if curr_state is not None:
+            ctx.sora_koed = curr_state["sora_koed"]
+            if ctx.sora_koed and not ctx.sora_prev_koed and ctx.death_link:
+                await ctx.send_death(death_text = "Sora was defeated!")
+            ctx.sora_prev_koed = curr_state["sora_koed"]
+            
+            victory = curr_state["victory"]
+            if not ctx.finished_game and victory:
+                await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
+                ctx.finished_game = True
+            
+            ctx.locations_checked = list(set(ctx.locations_checked + curr_state["locations"]))
+            await ctx.check_locations(ctx.locations_checked)
+            
+            hinted_locations = curr_state["hinted_locations"]
+            for hint_location_id in hinted_locations:
+                if hint_location_id not in ctx.hinted_location_ids:
+                    await ctx.send_msgs([{
+                                "cmd": "LocationScouts",
+                                "locations": [hint_location_id],
+                                "create_as_hint": 2
+                            }])
+                    ctx.hinted_location_ids.append(hint_location_id)
+        
+        await asyncio.sleep(0.5)
 
 async def main(args: Namespace):
     ctx = KH1Context(args.connect, args.password)

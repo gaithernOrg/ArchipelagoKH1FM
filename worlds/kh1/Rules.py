@@ -224,7 +224,7 @@ def set_rules(kh1world):
         else:
             spell_costs = {spell: mp_costs[i * 3] for i, spell in enumerate(SPELL_ITEM_NAMES)}
     else:
-        spell_costs = {SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL}
+        spell_costs = {name: cost for name, cost in zip(SPELL_ITEM_NAMES, VANILLA_SPELL_COSTS_SPELL)}
 
     add_rule(kh1world.get_location("Traverse Town 1st District Candle Puzzle Chest"),
         lambda state: state.has("Progressive Blizzard", player))
@@ -1763,7 +1763,7 @@ def set_rules(kh1world):
         ))
     for accessory in kh1world.get_accessory_locations():
         add_rule(kh1world.get_location(accessory),
-            lambda state: state.has(accessory.replace("Accessory ", ""), player))
+            lambda state, accessory = accessory: state.has(accessory.replace("Accessory ", ""), player))
     
     for location in location_table.keys():
         try:
