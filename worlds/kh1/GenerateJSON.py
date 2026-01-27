@@ -16,7 +16,7 @@ from worlds.Files import APPlayerContainer
 
 class KH1Container(APPlayerContainer):
     game: str = 'Kingdom Hearts'
-    patch_file_ending = ".zip"
+    patch_file_ending = ".kh1rpatch"
 
     def __init__(self, patch_data: Dict[str, str] | io.BytesIO, base_path: str = "", output_directory: str = "",
         player: Optional[int] = None, player_name: str = "", server: str = ""):
