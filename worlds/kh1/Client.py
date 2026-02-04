@@ -156,6 +156,7 @@ class KH1Context(CommonContext):
         self.sora_prev_koed = False
         self.game_client = GameClient()
         self.locations_checked: list[int] = []
+        self.expecting_death: bool = False
 
     async def server_auth(self, password_requested: bool = False):
         if password_requested and not self.password:
@@ -244,6 +245,7 @@ class KH1Context(CommonContext):
                     asyncio.create_task(self.game_client.send({"prompt": message}))
 
     def on_deathlink(self, data: dict[str, object]):
+        self.expecting_death = True
         asyncio.create_task(self.game_client.send({"effect": {"sora_ko": True}}))
 
     def run_gui(self):
@@ -279,19 +281,27 @@ async def game_watcher(ctx: KH1Context):
             curr_state = None
         
         if curr_state is not None:
+            
+            # Handle Deathlink
             ctx.sora_koed = curr_state["sora_koed"]
-            if ctx.sora_koed and not ctx.sora_prev_koed and ctx.death_link:
-                await ctx.send_death(death_text = "Sora was defeated!")
+            if ctx.sora_koed:
+                if ctx.expecting_death:
+                    ctx.expecting_death = False
+                elif not ctx.sora_prev_koed and ctx.death_link:
+                    await ctx.send_death(death_text = "Sora was defeated!")
             ctx.sora_prev_koed = curr_state["sora_koed"]
             
+            # Handle Victory
             victory = curr_state["victory"]
             if not ctx.finished_game and victory:
                 await ctx.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}])
                 ctx.finished_game = True
             
+            # Handle Checked Locations
             ctx.locations_checked = list(set(ctx.locations_checked + curr_state["locations"]))
             await ctx.check_locations(ctx.locations_checked)
             
+            # Handle Hinted Locations
             hinted_locations = curr_state["hinted_locations"]
             for hint_location_id in hinted_locations:
                 if hint_location_id not in ctx.hinted_location_ids:
@@ -302,6 +312,10 @@ async def game_watcher(ctx: KH1Context):
                             }])
                     ctx.hinted_location_ids.append(hint_location_id)
         
+        # Sync up items in case the player died or reloaded a save
+        await ctx.game_client.send({"items": ctx.items_received})
+        
+        # Wait a bit to not constantly poll the game
         await asyncio.sleep(0.5)
 
 async def main(args: Namespace):

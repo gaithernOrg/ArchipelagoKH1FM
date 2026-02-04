@@ -8,7 +8,7 @@ from .Items import KH1Item, item_table
 
 WORLDS =    ["Destiny Islands", "Traverse Town", "Wonderland", "Olympus Coliseum", "Deep Jungle", "Agrabah",      "Monstro",      "Atlantica", "Halloween Town", "Neverland",  "Hollow Bastion", "End of the World", "100 Acre Wood"]
 KEYBLADES = ["Oathkeeper",      "Lionheart",     "Lady Luck",  "Olympia",          "Jungle King", "Three Wishes", "Wishing Star", "Crabclaw",  "Pumpkinhead",    "Fairy Harp", "Divine Rose",    "Oblivion",         "Spellbinder"]
-BROKEN_KEYBLADE_LOCKING_LOCATIONS = [
+ADDITIONAL_KEYBLADE_LOCKING_LOCATIONS = [
     "End of the World Final Dimension 2nd Chest",
     "End of the World Final Dimension 4th Chest",
     "End of the World Final Dimension 7th Chest",
@@ -80,6 +80,13 @@ def has_all_magic_lvx(state: CollectionState, player: int, level) -> bool:
         "Progressive Aero": level,
         "Progressive Stop": level}, player)
 
+def has_offensive_magic(state: CollectionState, player: int, logic_difficulty: int) -> bool:
+    return (
+        state.has_any({"Progressive Fire", "Progressive Blizzard"}, player)
+        or (logic_difficulty > LOGIC_NORMAL and state.has_any({"Progressive Thunder", "Progressive Gravity"}, player))
+        or (logic_difficulty > LOGIC_PROUD and state.has("Progressive Stop", player))
+    )
+
 def magic_costs(state: CollectionState, player: int, options, spell_costs, maxcost: int, given_list: list) -> bool: #cost: int\
     if options.randomize_spell_mp_costs.current_key in ("shuffle", "randomize"):
         if options.individual_spell_level_costs == True:
@@ -124,7 +131,8 @@ def has_basic_tools(state: CollectionState, player: int, spell_costs) -> bool:
             state.has_all({"Dodge Roll", "Progressive Cure"}, player)
             and state.has_any({"Combo Master", "Strike Raid", "Sonic Blade", "Counterattack"}, player)
             and state.has_any({"Leaf Bracer", "Second Chance", "Guard"}, player)
-            and magic_costs(state, player, 0, spell_costs, 6, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+            # and magic_costs(state, player, 0, spell_costs, 6, OFFENSIVE_SPELL_ITEM_NAMES)
+            and has_offensive_magic(state, player, difficulty)
         )
 
 def can_dumbo_skip(state: CollectionState, player: int) -> bool:
@@ -1393,19 +1401,22 @@ def set_rules(kh1world):
             lambda state: state.has("White Trinity", player))
         add_rule(kh1world.get_location("Atlantica Defeat Ursula I Mermaid Kick Event"),
             lambda state: (
-                magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                # magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) 
+                has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Defeat Ursula II Thunder Event"),
             lambda state: (
                 state.has("Mermaid Kick", player)
-                and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                #and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) 
+                and has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Seal Keyhole Crabclaw Event"),
             lambda state: (
                 state.has("Mermaid Kick", player)
-                and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                # and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) 
+                and has_offensive_magic(state, player, difficulty)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             ))
         add_rule(kh1world.get_location("Atlantica Undersea Gorge Blizzard Clam"),
@@ -1420,7 +1431,8 @@ def set_rules(kh1world):
             lambda state: (
                 state.has("Mermaid Kick", player)
                 and has_key_item(state, player, "Crystal Trident", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
-                and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) #has_offensive_magic(state, player, difficulty)
+                # and magic_costs(state, player, options, spell_costs, maxcost, OFFENSIVE_SPELL_ITEM_NAMES) 
+                and has_offensive_magic(state, player, difficulty)
             ))
     if options.cups.current_key != "off":
         if options.cups.current_key == "hades_cup":
@@ -1619,7 +1631,7 @@ def set_rules(kh1world):
                     (
                         difficulty > LOGIC_NORMAL 
                         and state.has_all({"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"}, player)
-                        and magic_costs(state, player, options, spell_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"})
+                        # and magic_costs(state, player, options, spell_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Stop"})
                     )
                     or
                     (
@@ -1632,7 +1644,7 @@ def set_rules(kh1world):
                 )
                 and (state.has("Leaf Bracer", player) or difficulty > LOGIC_NORMAL)
             ))
-        add_rule(kh1world.get_location("Agrabah Defeat Kurt Zisa Ansem's Report 11"),
+        """add_rule(kh1world.get_location("Agrabah Defeat Kurt Zisa Ansem's Report 11"),
             lambda state: (
                 has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
                 and has_x_worlds(state, player, 8, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
@@ -1652,6 +1664,32 @@ def set_rules(kh1world):
                 (
                     magic_costs(state, player, options, spell_costs, maxcost, {"Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Gravity"})
                     or (difficulty > LOGIC_PROUD and (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player)))
+                ) 
+            ))"""
+        add_rule(kh1world.get_location("Agrabah Defeat Kurt Zisa Ansem's Report 11"),
+            lambda state: (
+                has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
+                and has_x_worlds(state, player, 8, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
+                and has_defensive_tools(state, player, difficulty)
+                and
+                (
+                    state.has("Progressive Blizzard", player, 3)
+                    or (difficulty > LOGIC_BEGINNER and state.has_any_count({"Progressive Blizzard": 2, "Progressive Fire": 3,"Progressive Thunder": 3, "Progressive Gravity": 3}, player))
+                    or (difficulty > LOGIC_NORMAL and (state.has_any_count({"Progressive Blizzard": 1, "Progressive Fire": 2, "Progressive Thunder": 2, "Progressive Gravity": 2}, player)))
+                    or (difficulty > LOGIC_PROUD and (state.has_any({"Progressive Fire", "Progressive Thunder", "Progressive Gravity"}, player) or (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player))))
+                )
+            ))
+        add_rule(kh1world.get_location("Agrabah Defeat Kurt Zisa Zantetsuken Event"),
+            lambda state: (
+                has_emblems(state, player, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
+                and has_x_worlds(state, player, 8, options.keyblades_unlock_chests, difficulty, hundred_acre_wood)
+                and has_defensive_tools(state, player, difficulty)
+                and
+                (
+                    state.has("Progressive Blizzard", player, 3)
+                    or (difficulty > LOGIC_BEGINNER and state.has_any_count({"Progressive Blizzard": 2, "Progressive Fire": 3,"Progressive Thunder": 3, "Progressive Gravity": 3}, player))
+                    or (difficulty > LOGIC_NORMAL and (state.has_any_count({"Progressive Blizzard": 1, "Progressive Fire": 2, "Progressive Thunder": 2, "Progressive Gravity": 2}, player)))
+                    or (difficulty > LOGIC_PROUD and (state.has_any({"Progressive Fire", "Progressive Thunder", "Progressive Gravity"}, player) or (state.has_group("Magic", player) and state.has_all({"Mushu", "Genie", "Dumbo"}, player))))
                 ) 
             ))
     if options.super_bosses or options.final_rest_door_key.current_key == "sephiroth":
@@ -1790,15 +1828,11 @@ def set_rules(kh1world):
                 add_item_rule(kh1world.get_location(location),
                     lambda i: (i.player != player or (item_table[i.name].type == "Item")))
         if options.keyblades_unlock_chests:
-            if location_table[location].type == "Chest" or location in BROKEN_KEYBLADE_LOCKING_LOCATIONS:
+            if location_table[location].type == "Chest" or location in ADDITIONAL_KEYBLADE_LOCKING_LOCATIONS:
                 location_world = location_table[location].category
                 location_required_keyblade = KEYBLADES[WORLDS.index(location_world)]
-                if location not in BROKEN_KEYBLADE_LOCKING_LOCATIONS:
-                    add_rule(kh1world.get_location(location),
-                        lambda state, location_required_keyblade = location_required_keyblade: state.has(location_required_keyblade, player))
-                else:
-                    add_rule(kh1world.get_location(location),
-                        lambda state, location_required_keyblade = location_required_keyblade: state.has(location_required_keyblade, player) or difficulty > LOGIC_BEGINNER)
+                add_rule(kh1world.get_location(location),
+                    lambda state, location_required_keyblade = location_required_keyblade: state.has(location_required_keyblade, player))
 
     if options.destiny_islands:
         add_rule(kh1world.get_entrance("Destiny Islands"),

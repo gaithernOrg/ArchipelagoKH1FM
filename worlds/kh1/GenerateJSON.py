@@ -22,7 +22,7 @@ class KH1Container(APPlayerContainer):
         player: Optional[int] = None, player_name: str = "", server: str = ""):
         self.patch_data = patch_data
         self.file_path = base_path
-        container_path = os.path.join(output_directory, base_path + ".zip")
+        container_path = os.path.join(output_directory, base_path + self.patch_file_ending)
         super().__init__(container_path, player, player_name, server)
 
     def write_contents(self, opened_zipfile: zipfile.ZipFile) -> None:
@@ -32,7 +32,7 @@ class KH1Container(APPlayerContainer):
 
 
 def generate_json(world, output_directory):
-    mod_name = f"AP-{world.multiworld.seed_name}-P{world.player}-{world.multiworld.get_file_safe_player_name(world.player)}"
+    mod_name = world.multiworld.get_out_file_name_base(world.player)
     mod_dir = os.path.join(output_directory, mod_name + "_" + Utils.__version__)
     
     item_location_map = get_item_location_map(world)

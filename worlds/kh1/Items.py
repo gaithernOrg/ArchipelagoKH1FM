@@ -353,7 +353,7 @@ item_table: Dict[str, KH1ItemData] = {
     "Slowra":                            KH1ItemData("Augment",          code = 264_4006, classification = ItemClassification.trap,        type = "Augment",        augment = True,                  ),
     "Slowga":                            KH1ItemData("Augment",          code = 264_4007, classification = ItemClassification.trap,        type = "Augment",        augment = True,                  ),
     "Air Guard/Dodge Roll":              KH1ItemData("Augment",          code = 264_4008, classification = ItemClassification.progression, type = "Augment",        augment = True,                  ),
-    "Air Items":                         KH1ItemData("Augment",          code = 264_4009, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
+    #"Air Items":                        KH1ItemData("Augment",          code = 264_4009, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
     "Fire Cost Up":                      KH1ItemData("Augment",          code = 264_4010, classification = ItemClassification.trap,        type = "Augment",        augment = True,                  ),
     "Blizzard Cost Up":                  KH1ItemData("Augment",          code = 264_4011, classification = ItemClassification.trap,        type = "Augment",        augment = True,                  ),
     "Thunder Cost Up":                   KH1ItemData("Augment",          code = 264_4012, classification = ItemClassification.trap,        type = "Augment",        augment = True,                  ),
@@ -383,6 +383,9 @@ item_table: Dict[str, KH1ItemData] = {
     "Stop Down":                         KH1ItemData("Augment",          code = 264_4036, classification = ItemClassification.trap,        type = "Augment",        augment = True,                  ),
     "Aero Down":                         KH1ItemData("Augment",          code = 264_4037, classification = ItemClassification.trap,        type = "Augment",        augment = True,                  ),
     "Summon Anywhere":                   KH1ItemData("Augment",          code = 264_4038, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
+    "Summon Boost":                      KH1ItemData("Augment",          code = 264_4039, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
+    "Grounded":                          KH1ItemData("Augment",          code = 264_4040, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
+    "Finishing Plus":                    KH1ItemData("Augment",          code = 264_4041, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
 }
 
 event_item_table: Dict[str, KH1ItemData] = {

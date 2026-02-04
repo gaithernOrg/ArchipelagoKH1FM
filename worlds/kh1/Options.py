@@ -846,6 +846,13 @@ class AccessoryAugments(Toggle):
     These can be either positive or negative.
     """
     display_name = "Accessory Augments"
+class AugmentAbilitiesFromPool(Toggle):
+    """
+    If accessory augments is on, if an accessory's augment is assigned an ability, that ability can only be found on that accessory.
+    
+    This is forced to false if Remote Items is OFF.
+    """
+    display_name = "Augment Abilities from Pool"
 
 @dataclass
 class KH1Options(PerGameCommonOptions):
@@ -934,6 +941,7 @@ class KH1Options(PerGameCommonOptions):
     individual_spell_level_costs: IndividualSpellLevelCosts
     scaling_spell_potency: ScalingSpellPotency
     accessory_augments: AccessoryAugments
+    augment_abilities_from_pool: AugmentAbilitiesFromPool
     
 
 kh1_option_groups = [
@@ -1006,6 +1014,10 @@ kh1_option_groups = [
         IndividualSpellLevelCosts,
         ScalingSpellPotency
     ]),
+    OptionGroup("Accessories", [
+        AccessoryAugments,
+        AugmentAbilitiesFromPool
+    ]),
     OptionGroup("Misc", [
         StartingWorlds,
         StartingTools,
@@ -1023,7 +1035,6 @@ kh1_option_groups = [
         GoofyDeathLink,
         RemoteItems,
         ShortenGoMode,
-        AccessoryAugments,
         OneHP,
         FourByThree,
         AutoAttack,

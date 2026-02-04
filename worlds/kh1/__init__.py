@@ -172,7 +172,7 @@ class KH1World(World):
             quantity = data.max_quantity
             if data.category not in non_filler_item_categories:
                 continue
-            if name in starting_worlds or name in starting_tools or name in starting_party_member_accessories or name in self.accessory_augments:
+            if name in starting_worlds or name in starting_tools or name in starting_party_member_accessories or (name in self.accessory_augments and self.options.augment_abilities_from_pool):
                 continue
             if self.options.stacking_world_items and name in WORLD_KEY_ITEMS.keys() and name not in ("Crystal Trident", "Jack-In-The-Box"): # Handling these special cases separately
                 item_pool += [self.create_item(WORLD_KEY_ITEMS[name]) for _ in range(0, 1)]
@@ -293,6 +293,7 @@ class KH1World(World):
         slot_data = {
                     "accessory_augments": bool(self.options.accessory_augments),
                     "atlantica": bool(self.options.atlantica),
+                    "augment_abilities_from_pool": bool(self.options.augment_abilities_from_pool),
                     "auto_attack": bool(self.options.auto_attack),
                     "auto_save": bool(self.options.auto_save),
                     "bad_starting_weapons": bool(self.options.bad_starting_weapons),
@@ -388,6 +389,10 @@ class KH1World(World):
 
     def generate_early(self):
         self.determine_level_checks()
+
+        if self.options.remote_items.current_key == "off" and self.options.augment_abilities_from_pool:
+            self.options.augment_abilities_from_pool.value = False
+            logging.info(f"{self.player_name}'s setting augment_abilities_from_pool was forced to False as remote items is OFF")
 
         value_names = ["Lucky Emblems to Open End of the World", "Lucky Emblems to Open Final Rest Door", "Lucky Emblems in Pool"]
         initial_lucky_emblem_settings = [self.options.required_lucky_emblems_eotw.value, self.options.required_lucky_emblems_door.value, self.options.lucky_emblems_in_pool.value]
