@@ -6,6 +6,7 @@
 
 - The latest release of [OpenKH](https://github.com/OpenKH/OpenKh/releases/latest)
 
+- The latest release of the [Kingdom Hearts 1FM Randomizer Software](https://github.com/gaithern/KH1FM-RANDOMIZER/releases/latest)
 
 - The latest release of [Archipelago](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
 
@@ -28,6 +29,7 @@
 
 - Extract the Kingdom Hearts 1FM Randomizer Software files in a directory of your choosing.
 
+## Obtaining and using the patch
 
 - [Generate an Archipelago game](https://archipelago.gg/generate) using the KH1 yaml generated from the KH1 [options page](https://archipelago.gg/games/Kingdom%20Hearts/player-options). 
 - When you generate a game you will see a download link for a KH1 patch (.kh1rpatch) on the room page.
