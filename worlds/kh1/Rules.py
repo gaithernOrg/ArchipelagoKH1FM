@@ -177,7 +177,7 @@ def has_key_item(state: CollectionState, player: int, key_item: str, stacking_wo
         # Adding this to make sure that if a beginner logic player is playing with keyblade locking, 
         # anything that would require the Crystal Trident should expect the player to be able to 
         # open the Crystal Trident chest.
-        and (key_item != "Crystal Trident" or difficulty > LOGIC_BEGINNER or not keyblades_unlock_chests or state.has("Crabclaw", player))
+        and (key_item != "Crystal Trident" or not keyblades_unlock_chests or state.has("Crabclaw", player))
     )
 
 def can_early_tea(state: CollectionState, player: int, logic_difficulty: int) -> bool:
