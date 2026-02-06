@@ -42,72 +42,26 @@ def recv_line(sock, timeout=2.0):
         except socket.timeout:
             return None
 
-#def send_to_game_server(msg):
-#    s = socket.socket()
-#    s.connect(("127.0.0.1", 13138))
-#    msg_bytes = (json.dumps(msg) + "\n").encode("utf-8")
-#    s.sendall(msg_bytes)
-#    data = json.loads(recv_line(s))
-#    s.close()
-#    return data
+def send_to_game_server(msg):
+    s = socket.socket()
+    s.settimeout(0.05)  # applies to connect + recv on this socket
+    try:
+        s.connect(("127.0.0.1", 13138))
+        s.sendall((json.dumps(msg) + "\n").encode("utf-8"))
+        reply = recv_line(s, timeout=0.05)
+        return json.loads(reply) if reply else None
+    except Exception:
+        return None
+    finally:
+        try:
+            s.close()
+        except Exception:
+            pass
 
 
 def check_stdin() -> None:
     if Utils.is_windows and sys.stdin:
         print("WARNING: Console input is not routed reliably on Windows, use the GUI instead.")
-
-class GameClient:
-    def __init__(self, host="127.0.0.1", port=13138):
-        self.host = host
-        self.port = port
-        self.reader: asyncio.StreamReader | None = None
-        self.writer: asyncio.StreamWriter | None = None
-        self.lock = asyncio.Lock()
-        self.connected = False
-
-    async def connect(self):
-        if self.connected:
-            return
-        self.reader, self.writer = await asyncio.open_connection(
-            self.host, self.port
-        )
-        self.connected = True
-
-    async def close(self):
-        if self.writer:
-            self.writer.close()
-            await self.writer.wait_closed()
-        self.connected = False
-
-    async def send(self, payload: dict) -> dict | None:
-        async with self.lock:
-            for attempt in (1, 2):
-                try:
-                    if not self.connected:
-                        await self.connect()
-                    msg = json.dumps(payload).encode("utf-8") + b"\n"
-                    self.writer.write(msg)
-                    await self.writer.drain()
-                    line = await asyncio.wait_for(
-                        self.reader.readline(), timeout=2.0
-                    )
-                    if not line:
-                        raise ConnectionError("Server closed connection")
-                    return json.loads(line.decode("utf-8"))
-                except (ConnectionError, OSError, asyncio.TimeoutError) as e:
-                    self.connected = False
-                    if self.writer:
-                        try:
-                            self.writer.close()
-                            await self.writer.wait_closed()
-                        except Exception:
-                            pass
-                    self.reader = None
-                    self.writer = None
-                    if attempt == 1:
-                        await asyncio.sleep(0.2)
-                        continue
-                    raise
 
 class KH1ClientCommandProcessor(ClientCommandProcessor):
     def __init__(self, ctx):
@@ -154,7 +108,6 @@ class KH1Context(CommonContext):
         self.remote_location_ids: list[int] = []
         self.sora_koed = False
         self.sora_prev_koed = False
-        self.game_client = GameClient()
         self.locations_checked: list[int] = []
         self.expecting_death: bool = False
 
@@ -177,7 +130,6 @@ class KH1Context(CommonContext):
 
     async def shutdown(self):
         await super(KH1Context, self).shutdown()
-        await self.game_client.close()
         self.items_received = []
 
     def on_package(self, cmd: str, args: dict):
@@ -210,7 +162,7 @@ class KH1Context(CommonContext):
                     is_from_someone_else = item_sender_id != self.slot
                     if is_from_self_and_remote or is_from_server or is_from_someone_else:
                         self.items_received.append(item_id)
-                asyncio.create_task(self.game_client.send({"items": self.items_received}))
+                send_to_game_server({"items": self.items_received})
 
         if cmd in {"PrintJSON"} and "type" in args:
             if args["type"] == "ItemSend":
@@ -232,7 +184,7 @@ class KH1Context(CommonContext):
                     elif locationID in self.remote_location_ids: # Found a remote item
                         message = [itemName, ""]
                     if message is not None:
-                        asyncio.create_task(self.game_client.send({"prompt": message}))
+                        send_to_game_server({"prompt": message})
             if args["type"] == "ItemCheat":
                 message = ["", ""]
                 item = args["item"]
@@ -242,11 +194,11 @@ class KH1Context(CommonContext):
                     itemName = self.item_names.lookup_in_slot(networkItem.item, receiverID)[:20]
                     filename = "msg"
                     message = ["Received " + itemName, "from server"]
-                    asyncio.create_task(self.game_client.send({"prompt": message}))
+                    send_to_game_server({"prompt": message})
 
     def on_deathlink(self, data: dict[str, object]):
         self.expecting_death = True
-        asyncio.create_task(self.game_client.send({"effect": {"sora_ko": True}}))
+        send_to_game_server({"effect": {"sora_ko": True}})
 
     def run_gui(self):
         """Import kivy UI system and start running it as self.ui_task."""
@@ -275,10 +227,7 @@ async def game_watcher(ctx: KH1Context):
             await ctx.send_msgs(sync_msg)
             ctx.syncing = False
         
-        try:
-            curr_state = await ctx.game_client.send({"get_state": True})
-        except:
-            curr_state = None
+        curr_state = send_to_game_server({"get_state": True})
         
         if curr_state is not None:
             
@@ -313,7 +262,7 @@ async def game_watcher(ctx: KH1Context):
                     ctx.hinted_location_ids.append(hint_location_id)
         
         # Sync up items in case the player died or reloaded a save
-        await ctx.game_client.send({"items": ctx.items_received})
+        send_to_game_server({"items": ctx.items_received})
         
         # Wait a bit to not constantly poll the game
         await asyncio.sleep(0.5)
