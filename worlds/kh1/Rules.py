@@ -132,7 +132,7 @@ def has_basic_tools(state: CollectionState, player: int, spell_costs) -> bool:
             and state.has_any({"Combo Master", "Strike Raid", "Sonic Blade", "Counterattack"}, player)
             and state.has_any({"Leaf Bracer", "Second Chance", "Guard"}, player)
             # and magic_costs(state, player, 0, spell_costs, 6, OFFENSIVE_SPELL_ITEM_NAMES)
-            and has_offensive_magic(state, player, difficulty)
+            and has_offensive_magic(state, player, LOGIC_BEGINNER)
         )
 
 def can_dumbo_skip(state: CollectionState, player: int) -> bool:
