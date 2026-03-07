@@ -237,7 +237,7 @@ def set_rules(kh1world):
     add_rule(kh1world.get_location("Traverse Town 1st District Candle Puzzle Chest"),
         lambda state: state.has("Progressive Blizzard", player))
     add_rule(kh1world.get_location("Traverse Town 1st District Accessory Shop Roof Chest"),
-            lambda state: state.has("High Jump", player)) or difficulty > LOGIC_BEGINNER
+            lambda state: (state.has("High Jump", player) or difficulty > LOGIC_BEGINNER))
     add_rule(kh1world.get_location("Traverse Town Mystical House Yellow Trinity Chest"),
         lambda state: (
             state.has("Progressive Fire", player)
@@ -645,7 +645,7 @@ def set_rules(kh1world):
         lambda state: (
             has_key_item(state, player, "Forget-Me-Not", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests) and has_key_item(state, player, "Jack-In-The-Box", stacking_world_items, halloween_town_key_item_bundle, difficulty, options.keyblades_unlock_chests)
             and has_oogie_manor(state, player, difficulty)
-            and (difficulty > LOGIC_BEGINNER or has_basic_tools(state, player, spell_costs) or state.has_all({"High Jump", "Progressive Glide"})) #state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player) and state.has("Combo Master", player)
+            and (difficulty > LOGIC_BEGINNER or has_basic_tools(state, player, spell_costs) or state.has_all({"High Jump", "Progressive Glide"}, player)) #state.has_all({"Dodge Roll", "Air Guard/Dodge Roll"}, player) and state.has("Combo Master", player)
         ))
     add_rule(kh1world.get_location("Halloween Town Oogie's Manor Hollow Chest"),
         lambda state: (
