@@ -61,6 +61,9 @@ kh1_option_presets: Dict[str, Dict[str, Any]] = {
         "max_ap_cost": 5,
         "min_ap_cost": 0,
         
+        "accessory_augments": False,
+        "augment_abilities_from_pool": True,
+        
         "randomize_puppies": True,
         "puppy_value": 3,
         "starting_worlds": 4,
@@ -146,6 +149,9 @@ kh1_option_presets: Dict[str, Dict[str, Any]] = {
         "randomize_ap_costs": RandomizeAPCosts.option_off,
         "max_ap_cost": 5,
         "min_ap_cost": 0,
+        
+        "accessory_augments": False,
+        "augment_abilities_from_pool": True,
         
         "randomize_puppies": True,
         "puppy_value": 1,
@@ -233,6 +239,9 @@ kh1_option_presets: Dict[str, Dict[str, Any]] = {
         "max_ap_cost": 5,
         "min_ap_cost": 0,
         
+        "accessory_augments": False,
+        "augment_abilities_from_pool": True,
+        
         "randomize_puppies": True,
         "puppy_value": 3,
         "starting_worlds": 0,
@@ -317,6 +326,9 @@ kh1_option_presets: Dict[str, Dict[str, Any]] = {
         "randomize_ap_costs": RandomizeAPCosts.option_off,
         "max_ap_cost": 5,
         "min_ap_cost": 0,
+        
+        "accessory_augments": False,
+        "augment_abilities_from_pool": True,
         
         "randomize_puppies": True,
         "puppy_value": 3,

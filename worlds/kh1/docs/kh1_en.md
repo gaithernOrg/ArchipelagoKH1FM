@@ -32,7 +32,7 @@
 ## Obtaining and using the patch
 
 - [Generate an Archipelago game](https://archipelago.gg/generate) using the KH1 yaml generated from the KH1 [options page](https://archipelago.gg/games/Kingdom%20Hearts/player-options). 
-- When you generate a game you will see a download link for a KH1 .zip patch on the room page.
+- When you generate a game you will see a download link for a KH1 patch (.kh1rpatch) on the room page.
 - After downloading this zip, open `mod_generator.exe` in your Kingdom Hearts 1FM Randomizer Software folder.
 - Direct `mod_generator.exe` to both your patch zip and your KH1 data folder extracted during your OpenKH set up.
 - Click `start`.
@@ -81,7 +81,7 @@ You'll need to find either `Forget-Me-Not` and/or `Jack-in-the-Box`, or a second
 
 ### Why is there a book missing in the Hollow Bastion library?
 
-You'll need to find `Theon Vol. 6`, or a second `Hallow Bastion`, in the multiworld.
+You'll need to find `Theon Vol. 6`, or a second `Hollow Bastion`, in the multiworld.
 
 ### How do I unlock End of the World?
 
