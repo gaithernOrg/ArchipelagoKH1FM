@@ -6,8 +6,8 @@ import copy
 
 from BaseClasses import Tutorial
 from worlds.AutoWorld import WebWorld, World
-from .Items import KH1Item, KH1ItemData, event_item_table, get_items_by_category, item_table, item_name_groups, get_possible_augments
-from .Locations import KH1Location, location_table, get_locations_by_type, location_name_groups
+from .Items import KH1Item, event_item_table, get_items_by_category, item_table, item_name_groups, get_possible_augments
+from .Locations import location_table, get_locations_by_type, location_name_groups
 from .Options import KH1Options, kh1_option_groups
 from .Regions import connect_entrances, create_regions
 from .Rules import set_rules
@@ -15,7 +15,7 @@ from .Presets import kh1_option_presets
 from worlds.LauncherComponents import Component, components, Type, launch as launch_component, icon_paths
 from .GenerateJSON import generate_json
 from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS
-from worlds.LauncherComponents import Component, components, Type, launch_subprocess
+from worlds.LauncherComponents import Component, components, Type
 
 def launch_client(*args: str):
     from .Client import launch
