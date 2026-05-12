@@ -80,6 +80,9 @@ class KH1Context(CommonContext):
         self.death_link: bool = False
         self.item_num: int = 1
         self.remote_location_ids: list[int] = []
+        self.current_world: int = 0
+        self.current_room: int = 0
+        self.last_map_update: float = time.time()
 
         # self.game_communication_path: files go in this path to pass data between us and the actual game
         if "localappdata" in os.environ:
@@ -265,6 +268,23 @@ async def game_watcher(ctx: KH1Context):
                     if st != "nil":
                         if timegm(time.strptime(st, '%Y%m%d%H%M%S')) > ctx.last_death_link and int(time.time()) % int(timegm(time.strptime(st, '%Y%m%d%H%M%S'))) < 10:
                             await ctx.send_death(death_text = "Sora was defeated!")
+                if file.find("mapupdate") > -1:
+                    st = "nil"
+                    world_id = 0
+                    room_id = 0
+                    map_update_parts = file.split("_", -1)
+                    if len(map_update_parts) >= 4:
+                        st = map_update_parts[1] or "nil"
+                        world_id = map_update_parts[2] or 0
+                        room_id = map_update_parts[3] or 0
+                    world_id = int(world_id)
+                    room_id = int(room_id)
+                    if (world_id != ctx.current_world or room_id != ctx.current_room) and st != "nil":
+                        if timegm(time.strptime(st, '%Y%m%d%H%M%S')) > ctx.last_map_update:
+                            await ctx.send_msgs([{"cmd": "Bounce", "slots": [ctx.slot], "data": {"worldId": world_id, "roomId": room_id}}])
+                            ctx.last_map_update = time.time()
+                            ctx.current_world = world_id
+                            ctx.current_room = room_id
                 if file.find("hint") > -1:
                     hint_location_id = int(file.split("hint", -1)[1])
                     if hint_location_id not in ctx.hinted_location_ids:
