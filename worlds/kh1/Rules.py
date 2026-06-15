@@ -173,9 +173,7 @@ def has_key_item(state: CollectionState, player: int, key_item: str, stacking_wo
             or (stacking_world_items and state.has(WORLD_KEY_ITEMS[key_item], player, 2))
             or (key_item == "Jack-In-The-Box" and state.has("Forget-Me-Not", player) and halloween_town_key_item_bundle)
         )
-        # Adding this to make sure that if a beginner logic player is playing with keyblade locking, 
-        # anything that would require the Crystal Trident should expect the player to be able to 
-        # open the Crystal Trident chest.
+        # Need the Crabclaw to progress the story passed where you need CT, so they go hand in hand
         and (key_item != "Crystal Trident" or not keyblades_unlock_chests or state.has("Crabclaw", player))
     )
 
