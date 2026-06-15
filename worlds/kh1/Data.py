@@ -701,7 +701,7 @@ WORD = [
     "Torn Page",
     "Final Door Key",
     "Destiny Islands",
-    "Raft Masterials",
+    "Raft Materials",
     "Frost Stone",
     "Lightning Stone",
     "Dazzling Stone",

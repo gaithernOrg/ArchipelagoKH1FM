@@ -41,6 +41,10 @@ def generate_json(world, output_directory):
     settings = get_settings(world)
     keyblade_stats = world.get_keyblade_stats()
     
+    icon_path = os.path.join(os.path.dirname(__file__), "icons", "mod_icon.png")
+    with open(icon_path, "rb") as f:
+        mod_icon = f.read()
+
     files = {
         "item_location_map.json":  json.dumps(item_location_map),
         "keyblade_stats.json":     json.dumps(keyblade_stats),
@@ -50,7 +54,8 @@ def generate_json(world, output_directory):
         "mod.yml":                 get_mod_yml(settings),
         "UK_Word.bin":             generate_word(settings),
         "UK_ItemHelp.bin":         generate_itemhelp(keyblade_stats, item_location_map),
-        "UK_sysmsg.binl":          generate_sysmsg(world.get_mp_costs())
+        "UK_sysmsg.binl":          generate_sysmsg(world.get_mp_costs()),
+        "icon.png":                mod_icon,
     }
 
     mod = KH1Container(files, mod_dir, output_directory, world.player,
@@ -71,8 +76,10 @@ def get_item_location_map(world):
     return location_item_map
 
 def get_mod_yml(settings):
+    seed_str = settings["seed"].lstrip("W")
+    hex_seed = f"{int(seed_str):X}" if seed_str.isdigit() else settings["seed"]
     return f"""
-title: KH1 Randomizer Seed {settings["seed"]}
+title: KH1 Randomizer Seed {hex_seed}
 originalAuthor: Gicu
 description: KH1 Randomizer Seed Information.  For use with gaithern/KH1-RANDOMIZER
 assets:
