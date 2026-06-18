@@ -52,7 +52,7 @@ def generate_json(world, output_directory):
         "UK_Word.bin":             generate_word(settings),
         "UK_ItemHelp.bin":         generate_itemhelp(keyblade_stats, item_location_map),
         "UK_sysmsg.binl":          generate_sysmsg(world.get_mp_costs()),
-        "icon.png":            pkgutil.get_data(__name__, "icons/mod_icon.png"),
+        "icon.png":                pkgutil.get_data(__name__, "icons/mod_icon.png"),
     }
 
     mod = KH1Container(files, mod_dir, output_directory, world.player,
