@@ -2,6 +2,7 @@ import os
 import io
 import re
 import struct
+import pkgutil
 from typing import Dict, Optional
 import Utils
 import zipfile
@@ -34,16 +35,12 @@ class KH1Container(APPlayerContainer):
 
 
 def generate_json(world, output_directory):
-    mod_name = world.multiworld.get_out_file_name_base(world.player)
+    mod_name = f"AP-{world.multiworld.seed_name}-P{world.player}-{world.multiworld.get_file_safe_player_name(world.player)}"
     mod_dir = os.path.join(output_directory, mod_name + "_" + Utils.__version__)
     
     item_location_map = get_item_location_map(world)
     settings = get_settings(world)
     keyblade_stats = world.get_keyblade_stats()
-    
-    icon_path = os.path.join(os.path.dirname(__file__), "icons", "mod_icon.png")
-    with open(icon_path, "rb") as f:
-        mod_icon = f.read()
 
     files = {
         "item_location_map.json":  json.dumps(item_location_map),
@@ -55,7 +52,7 @@ def generate_json(world, output_directory):
         "UK_Word.bin":             generate_word(settings),
         "UK_ItemHelp.bin":         generate_itemhelp(keyblade_stats, item_location_map),
         "UK_sysmsg.binl":          generate_sysmsg(world.get_mp_costs()),
-        "icon.png":                mod_icon,
+        "icon.png":            pkgutil.get_data(__name__, "icons/mod_icon.png"),
     }
 
     mod = KH1Container(files, mod_dir, output_directory, world.player,
