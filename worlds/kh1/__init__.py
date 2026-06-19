@@ -148,11 +148,6 @@ class KH1World(World):
         level_up_locations = list(get_locations_by_type("Level Slot 1").keys())
         self.random.shuffle(level_up_item_pool)
         current_level_index_for_placing_stats = self.options.force_stats_on_levels.value - 2 # Level 2 is index 0, Level 3 is index 1, etc
-        if self.options.remote_items.current_key == "off" and self.options.force_stats_on_levels.value != 2:
-            logging.info(f"{self.player_name}'s value {self.options.force_stats_on_levels.value} for force_stats_on_levels was changed\n"
-                         f"Set to 2 as remote_items if \"off\"")
-            self.options.force_stats_on_levels.value = 2
-            current_level_index_for_placing_stats = 0
         while len(level_up_item_pool) > 0 and current_level_index_for_placing_stats < self.options.level_checks: # With all levels in location pool, 99 level ups so need to go index 0-98
             self.get_location(level_up_locations[current_level_index_for_placing_stats]).place_locked_item(self.create_item(level_up_item_pool.pop()))
             current_level_index_for_placing_stats += 1
@@ -390,8 +385,6 @@ class KH1World(World):
         generate_json(self, output_directory)
 
     def generate_early(self):
-        self.determine_level_checks()
-
         if self.options.remote_items.current_key == "off" and self.options.augment_abilities_from_pool:
             self.options.augment_abilities_from_pool.value = False
             logging.info(f"{self.player_name}'s setting augment_abilities_from_pool was forced to False as remote items is OFF")
@@ -467,9 +460,6 @@ class KH1World(World):
                     if location_data.type == "Reward":
                         if item_data.type in ["Stats"]:
                             remote_location_ids.append(location_data.code)
-                    if location_data.type == "Static":
-                        if item_data.type not in ["Item"]:
-                            remote_location_ids.append(location_data.code)
                     if location_data.type == "Level Slot 1":
                         if item_data.category not in ["Level Up", "Limited Level Up"]:
                             remote_location_ids.append(location_data.code)
@@ -477,9 +467,6 @@ class KH1World(World):
                         if item_data.category not in ["Level Up", "Limited Level Up", "Abilities"]:
                             remote_location_ids.append(location_data.code)
                     if location_data.type == "Synth":
-                        if item_data.type not in ["Item"]:
-                            remote_location_ids.append(location_data.code)
-                    if location_data.type == "Prize":
                         if item_data.type not in ["Item"]:
                             remote_location_ids.append(location_data.code)
                 # Should really only matter in the event of an item link
@@ -555,22 +542,6 @@ class KH1World(World):
                 else:
                     self.random.shuffle(keyblade_stats)
         return keyblade_stats
-
-    def determine_level_checks(self):
-        # Handle if remote_items is off and level_checks > number of stats items
-        total_level_up_items = min(99,
-            self.options.strength_increase.value +\
-            self.options.defense_increase.value +\
-            self.options.hp_increase.value +\
-            self.options.mp_increase.value +\
-            self.options.ap_increase.value +\
-            self.options.accessory_slot_increase.value +\
-            self.options.item_slot_increase.value)
-        if self.options.level_checks.value > total_level_up_items and self.options.remote_items.current_key == "off":
-            logging.info(f"{self.player_name}'s value {self.options.level_checks.value} for level_checks was changed.\n"
-                         f"This value cannot be more than the number of stat items in the pool when \"remote_items\" is \"off\".\n"
-                         f"Set to be equal to number of stat items in pool, {total_level_up_items}.")
-            self.options.level_checks.value = total_level_up_items
 
     def get_synthesis_item_name_byte_arrays(self):
         # Get synth item names to show in synthesis menu

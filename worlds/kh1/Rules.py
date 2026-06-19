@@ -7,29 +7,6 @@ from .Items import item_table
 
 WORLDS =    ["Destiny Islands", "Traverse Town", "Wonderland", "Olympus Coliseum", "Deep Jungle", "Agrabah",      "Monstro",      "Atlantica", "Halloween Town", "Neverland",  "Hollow Bastion", "End of the World", "100 Acre Wood"]
 KEYBLADES = ["Oathkeeper",      "Lionheart",     "Lady Luck",  "Olympia",          "Jungle King", "Three Wishes", "Wishing Star", "Crabclaw",  "Pumpkinhead",    "Fairy Harp", "Divine Rose",    "Oblivion",         "Spellbinder"]
-ADDITIONAL_KEYBLADE_LOCKING_LOCATIONS = [
-    "End of the World Final Dimension 2nd Chest",
-    "End of the World Final Dimension 4th Chest",
-    "End of the World Final Dimension 7th Chest",
-    "End of the World Final Dimension 8th Chest",
-    "End of the World Final Dimension 10th Chest",
-    "Neverland Hold Aero Chest",
-    "Hollow Bastion Library 1st Floor Turn the Carousel Chest", 
-    "Hollow Bastion Library Top of Bookshelf Turn the Carousel Chest",
-    "Hollow Bastion Library 2nd Floor Turn the Carousel 1st Chest",
-    "Hollow Bastion Library 2nd Floor Turn the Carousel 2nd Chest",
-    "Hollow Bastion Entrance Hall Emblem Piece (Chest)",
-    "Atlantica Sunken Ship In Flipped Boat Chest",
-    "Atlantica Sunken Ship Seabed Chest",
-    "Atlantica Sunken Ship Inside Ship Chest",
-    "Atlantica Ariel's Grotto High Chest",
-    "Atlantica Ariel's Grotto Middle Chest",
-    "Atlantica Ariel's Grotto Low Chest",
-    "Atlantica Ursula's Lair Use Fire on Urchin Chest",
-    "Atlantica Undersea Gorge Jammed by Ariel's Grotto Chest",
-    "Atlantica Triton's Palace White Trinity Chest",
-    "Atlantica Sunken Ship Crystal Trident Event"
-]
 
 def has_x_worlds(state: CollectionState, player: int, num_of_worlds: int, keyblades_unlock_chests: bool, logic_difficulty: int, hundred_acre_wood: bool) -> bool:
     if logic_difficulty >= LOGIC_MINIMAL:
@@ -1809,23 +1786,11 @@ def set_rules(kh1world):
             add_rule(kh1world.get_location(location),
                 lambda state: has_basic_tools(state, player, spell_costs))
         if options.remote_items.current_key == "off":
-            if location_table[location].type == "Static":
-                add_item_rule(kh1world.get_location(location),
-                    lambda i: (i.player != player or item_table[i.name].type == "Item"))
-            if location_table[location].type == "Level Slot 1":
-                add_item_rule(kh1world.get_location(location),
-                    lambda i: (i.player != player or item_table[i.name].category in ["Level Up", "Limited Level Up"]))
-            if location_table[location].type == "Level Slot 2":
-                add_item_rule(kh1world.get_location(location),
-                    lambda i: (i.player != player or (item_table[i.name].category in ["Level Up", "Limited Level Up"] or item_table[i.name].type == "Ability")))
             if location_table[location].type == "Synth":
                 add_item_rule(kh1world.get_location(location),
                     lambda i: (i.player != player or (item_table[i.name].type == "Item")))
-            if location_table[location].type == "Prize":
-                add_item_rule(kh1world.get_location(location),
-                    lambda i: (i.player != player or (item_table[i.name].type == "Item")))
         if options.keyblades_unlock_chests:
-            if location_table[location].type == "Chest" or location in ADDITIONAL_KEYBLADE_LOCKING_LOCATIONS:
+            if location_table[location].type == "Chest":
                 location_world = location_table[location].category
                 location_required_keyblade = KEYBLADES[WORLDS.index(location_world)]
                 add_rule(kh1world.get_location(location),
