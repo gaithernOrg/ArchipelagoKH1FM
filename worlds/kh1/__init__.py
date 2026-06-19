@@ -454,18 +454,6 @@ class KH1World(World):
                         remote_location_ids.append(location_data.code)
                 elif self.player == location.item.player and location.item.name != "Victory":
                     item_data = item_table[location.item.name]
-                    if location_data.type == "Chest":
-                        if item_data.type in ["Stats"]:
-                            remote_location_ids.append(location_data.code)
-                    if location_data.type == "Reward":
-                        if item_data.type in ["Stats"]:
-                            remote_location_ids.append(location_data.code)
-                    if location_data.type == "Level Slot 1":
-                        if item_data.category not in ["Level Up", "Limited Level Up"]:
-                            remote_location_ids.append(location_data.code)
-                    if location_data.type == "Level Slot 2":
-                        if item_data.category not in ["Level Up", "Limited Level Up", "Abilities"]:
-                            remote_location_ids.append(location_data.code)
                     if location_data.type == "Synth":
                         if item_data.type not in ["Item"]:
                             remote_location_ids.append(location_data.code)
