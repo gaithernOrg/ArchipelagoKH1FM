@@ -43,21 +43,11 @@
 - Ensure this mod is checked `[x]`.
 - Click `Mod Loader` at the top, then click `Build and Run`.  Your modded game should now open.
 
-## Connecting to your multiworld via the KH1 Client
+## Connecting to your multiworld
 
-- Once your game is being hosted, open `ArchipelagoLauncher.exe`.
-- Find `KH1 Client` and open it.
-- At the top, in the `Server:` bar, type in the host address and port.
-- Click the `Connect` button in the top right.
-- If connection to the server was successful, you'll be prompted to type in your slot named in the `Command:` bar at the bottom.
-- After typing your slot name, press enter.
-- If all is well, you are now connected.
+For the latest information on connecting to a multiworld, check https://www.kh1fmrando.com/multiworld_guide
 
 ## FAQ
-
-### The client did not confirm connection to the game, is that normal?
-
-Yes, the game and client communicate via a game communication path set up in your in your `%AppData%` folder, and therefore don't need to establish a socket connection.
 
 ### Why aren't the evidence boxes spawning in Wonderland?
 
@@ -103,8 +93,7 @@ You need at least one magic spell before you can use summons.
 
 ### Why am I not sending or receiving any items, despite being connected to the server?
 
-Make sure you are using the KH1 Client and not the Text Client. You will need to open the client via the Archipelago Launcher.
-If the correct client is being used, try reinstalling both Panacea and Lua Backend via the Setup Wizard under Settings.
+Try reinstalling both Panacea and Lua Backend via the Setup Wizard under Settings.
 Uncommonly, the folder `KH1FM` failed to generate within `%LocalAppData%`, and needs to be manually created. Alternately, the contents within `%LocalAppData%/KH1FM/` may need to be deleted.
 
 ### Why am I sending and/or receiving the wrong items?
@@ -120,7 +109,7 @@ This is likely due to the mod not being applied properly. First, reinstall both 
 
 ### Why did the game send checks that I had not collected?
 
-The client caches your inventory and does not clear the cache when switching slots. The game also does something similar, even if backed out to the title screen. Therefore, it's highly encouraged, whenever switching slots or connecting to a different server, to always fully close both the game and the client first.
+The game caches your inventory and does not clear the cache when switching slots, even if backed out to the title screen. Therefore, it's highly encouraged, whenever switching slots or connecting to a different server, to always fully close the game first.
 
 ### Why is my seed missing important world progression items?
 
