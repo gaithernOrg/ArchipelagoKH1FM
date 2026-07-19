@@ -11,7 +11,7 @@ from copy import deepcopy
 
 from .Locations import location_table
 from .Items import item_table
-from .Data import CHAR_TO_KH, WORD, ITEMHELP, SYSMSG
+from .Data import CHAR_TO_KH, WORD, ITEMHELP, SYSMSG, GUMI_MES
 
 from worlds.Files import APPlayerContainer
 
@@ -42,6 +42,8 @@ def generate_json(world, output_directory):
     location_spheres = get_location_spheres(world)
     settings = get_settings(world)
     keyblade_stats = world.get_keyblade_stats()
+    hints = get_progression_hints(world)
+    gumi_mes_data = generate_gumi_mes_data(hints)
 
     files = {
         "item_location_map.json":  json.dumps(item_location_map),
@@ -54,6 +56,8 @@ def generate_json(world, output_directory):
         "UK_Word.bin":             generate_word(settings),
         "UK_ItemHelp.bin":         generate_itemhelp(keyblade_stats, item_location_map),
         "UK_sysmsg.binl":          generate_sysmsg(world.get_mp_costs()),
+        "UK_gumi_mes_data.bin":    gumi_mes_data,
+        "UK_gumi_mes_ofs.bin":     generate_gumi_mes_ofs(gumi_mes_data),
         "icon.png":                pkgutil.get_data(__name__, "icons/mod_icon.png"),
     }
 
@@ -92,6 +96,26 @@ def get_location_spheres(world):
             location_data = location_table[location.name]
             location_spheres[location_data.code] = sphere_index if reachable else -1
     return location_spheres
+
+def get_progression_hints(world):
+    """
+    Pairs each of this player's own progression items with the location it's
+    found at, ordered by how early the location is reachable (unreachable
+    locations sort last). Capped to the number of gummi name/description slots
+    actually eligible for hint text (see GUMI_ELIGIBLE_NAME_INDICES).
+    """
+    location_spheres = get_location_spheres(world)
+    candidates = []
+    for location in world.multiworld.get_filled_locations(world.player):
+        if location.name == "Final Ansem" or not location.item.advancement:
+            continue
+        item_name = location.item.name
+        if location.item.player != world.player:
+            item_name += f" ({world.multiworld.get_player_name(location.item.player)})"
+        sphere = location_spheres.get(location_table[location.name].code, -1)
+        candidates.append((sphere, location.name, item_name))
+    candidates.sort(key=lambda candidate: (candidate[0] == -1, candidate[0], candidate[1]))
+    return [(item_name, location_name) for _, location_name, item_name in candidates[:len(GUMI_ELIGIBLE_NAME_INDICES)]]
 
 def get_mod_yml(settings):
     seed_str = settings["seed"].lstrip("W")
@@ -132,7 +156,15 @@ assets:
 - name: remastered/menu/uk/sysmsg.bin/UK_sysmsg.binl
   method: copy
   source:
-    - name: UK_sysmsg.binl"""
+    - name: UK_sysmsg.binl
+- name: exchange/UK_gumi_mes_data.bin
+  method: copy
+  source:
+    - name: UK_gumi_mes_data.bin
+- name: exchange/UK_gumi_mes_ofs.bin
+  method: copy
+  source:
+    - name: UK_gumi_mes_ofs.bin"""
 
 def get_settings(world):
     settings = world.fill_slot_data()
@@ -230,3 +262,80 @@ def generate_sysmsg(mp_costs):
     if remainder:
         result += b"\xCD" * (16 - remainder)
     return result
+
+GUMI_MES_OFS_SENTINEL = b"\xCD" * 10
+GUMI_NAME_WIDTH = 18  # the gummi item list row is a single fixed-width line, not wrappable
+GUMI_DESC_WRAP_WIDTH = 45
+GUMI_DESC_MAX_LINES = 4
+
+def truncate_gumi_name(text, width=GUMI_NAME_WIDTH):
+    if len(text) <= width:
+        return text
+    return text[:width - 3].rstrip() + "..."
+
+def wrap_gumi_text(text, width=GUMI_DESC_WRAP_WIDTH, max_lines=GUMI_DESC_MAX_LINES):
+    lines = []
+    line = ""
+    for word in text.split(" "):
+        candidate = f"{line} {word}".strip()
+        if len(candidate) > width and line:
+            lines.append(line)
+            line = word
+        else:
+            line = candidate
+    if line:
+        lines.append(line)
+    if len(lines) > max_lines:
+        lines = lines[:max_lines]
+        lines[-1] = lines[-1][:width - 3].rstrip() + "..."
+    return "{lf}".join(lines)
+
+GUMI_MES_DATA_BUFFER_SIZE = 0x1800  # exact size the game reads exchange/UK_gumi_mes_data.bin into
+# (Axa::FileIO::LoadFileToBuffer call in FUN_1402266c0, confirmed via Ghidra); it's a fixed static
+# buffer unrelated to the vanilla file's own size, and exceeding it corrupts adjacent memory and
+# crashes the game rather than failing gracefully.
+
+def encode_kh_string(text):
+    encoded = bytearray()
+    for token in re.findall(r"\{[^}]*\}|.", text):
+        encoded.append(CHAR_TO_KH[token])
+    return bytes(encoded)
+
+# Indices 64-127 are off-limits for hint text even though some of them are blank in vanilla:
+# 71-118 is the 48-entry ship model block, and at least index 71 ("Kingdom") is read by native
+# code as a raw 32-byte setup struct rather than display text (confirmed via Ghidra - FUN_14020d5b0
+# copies 32 bytes straight out of it while building the gummi editor's model data); the rest of the
+# block is treated the same way since it's a uniform set of records. 116-122 additionally overlap
+# gummi item slots the KH1-RANDOMIZER Lua client repurposes as hidden save-data counters (the AP
+# check-sync counter and starting-inventory/accessory/level-tracking flags in item_location_handlers.lua,
+# 1fmRandoStartingAccessories.lua, 1fmRandoLevelUpItems.lua) - writing hint text there wouldn't corrupt
+# those counters (they live in a separate runtime memory region, not this text table) but would show
+# hint text next to an unrelated raw counter value in any UI that lists owned quantities. 64-70 (Spray,
+# Palette, SYS. UP1/2, COM. LV1/2/3) have no confirmed non-text usage either way and are excluded
+# conservatively rather than assumed safe.
+GUMI_ELIGIBLE_NAME_INDICES = [i for i in range(160) if not (64 <= i <= 127)]
+
+def generate_gumi_mes_data(hints):
+    encoded_entries = [encode_kh_string(entry) for entry in GUMI_MES]
+    content_budget = GUMI_MES_DATA_BUFFER_SIZE - (len(encoded_entries) - 1)  # minus null separators
+    content_size = sum(len(entry) for entry in encoded_entries)
+
+    for slot, (item_name, location_name) in zip(GUMI_ELIGIBLE_NAME_INDICES, hints):
+        new_name = encode_kh_string(truncate_gumi_name(item_name))
+        new_location = encode_kh_string(wrap_gumi_text(location_name))
+        delta = (len(new_name) - len(encoded_entries[slot])) + (len(new_location) - len(encoded_entries[slot + 160]))
+        if content_size + delta > content_budget:
+            break
+        encoded_entries[slot] = new_name
+        encoded_entries[slot + 160] = new_location
+        content_size += delta
+
+    return b"\x00".join(encoded_entries)
+
+def generate_gumi_mes_ofs(gumi_mes_data):
+    offsets = [0]
+    for i in range(len(gumi_mes_data)):
+        if gumi_mes_data[i] == 0x00:
+            offsets.append(i + 1)
+    offsets = offsets[:-2]  # the source data always ends in two unreferenced entries
+    return b"".join(struct.pack("<H", offset) for offset in offsets) + GUMI_MES_OFS_SENTINEL
