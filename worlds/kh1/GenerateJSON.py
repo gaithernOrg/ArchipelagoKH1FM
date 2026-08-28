@@ -44,17 +44,18 @@ def generate_json(world, output_directory):
     keyblade_stats = world.get_keyblade_stats()
 
     files = {
-        "item_location_map.json":  json.dumps(item_location_map),
-        "location_spheres.json":   json.dumps(location_spheres),
-        "keyblade_stats.json":     json.dumps(keyblade_stats),
-        "settings.json":           json.dumps(settings),
-        "ap_costs.json":           json.dumps(world.get_ap_costs()),
-        "mp_costs.json":           json.dumps(world.get_mp_costs()),
-        "mod.yml":                 get_mod_yml(settings),
-        "UK_Word.bin":             generate_word(settings),
-        "UK_ItemHelp.bin":         generate_itemhelp(keyblade_stats, item_location_map),
-        "UK_sysmsg.binl":          generate_sysmsg(world.get_mp_costs()),
-        "icon.png":                pkgutil.get_data(__name__, "icons/mod_icon.png"),
+        "item_location_map.json":   json.dumps(item_location_map),
+        "location_spheres.json":    json.dumps(location_spheres),
+        "keyblade_stats.json":      json.dumps(keyblade_stats),
+        "settings.json":            json.dumps(settings),
+        "ap_costs.json":            json.dumps(world.get_ap_costs()),
+        "mp_costs.json":            json.dumps(world.get_mp_costs()),
+        "spell_effectiveness.json": json.dumps(world.get_spell_effectiveness()),
+        "mod.yml":                  get_mod_yml(settings),
+        "UK_Word.bin":              generate_word(settings),
+        "UK_ItemHelp.bin":          generate_itemhelp(keyblade_stats, item_location_map),
+        "UK_sysmsg.binl":           generate_sysmsg(world.get_mp_costs()),
+        "icon.png":                 pkgutil.get_data(__name__, "icons/mod_icon.png"),
     }
 
     mod = KH1Container(files, mod_dir, output_directory, world.player,
@@ -121,6 +122,10 @@ assets:
   method: copy
   source:
     - name: mp_costs.json
+- name: scripts/io_packages/json/spell_effectiveness.json
+  method: copy
+  source:
+    - name: spell_effectiveness.json
 - name: remastered/btltbl.bin/UK_Word.bin
   method: copy
   source:

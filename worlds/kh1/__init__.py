@@ -13,7 +13,7 @@ from .Regions import connect_entrances, create_regions
 from .Rules import set_rules
 from .Presets import kh1_option_presets
 from .GenerateJSON import generate_json
-from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS
+from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS
 
 
 class KH1Web(WebWorld):
@@ -58,6 +58,7 @@ class KH1World(World):
     accessory_augments: list[str]
     ap_costs: list[dict[str, str | int | bool]]
     mp_costs: list[int]
+    spell_effectiveness: list[int]
 
     def __init__(self, multiworld, player):
         super(KH1World, self).__init__(multiworld, player)
@@ -67,6 +68,7 @@ class KH1World(World):
         self.starting_accessories = None
         self.ap_costs = None
         self.mp_costs = None
+        self.spell_effectiveness = None
         self.accessory_locations = None
         self.accessory_augments = None
 
@@ -337,6 +339,7 @@ class KH1World(World):
                     "slot_2_level_checks": int(self.options.slot_2_level_checks.value),
                     "spell_mp_cost_max": int(self.options.spell_mp_cost_max.value),
                     "spell_mp_cost_min": int(self.options.spell_mp_cost_min.value),
+                    "spell_effectiveness": self.get_spell_effectiveness(),
                     "spell_mp_costs": self.mp_costs,
                     "stacking_world_items": bool(self.options.stacking_world_items),
                     "starting_items": [item.code for item in self.multiworld.precollected_items[self.player]],
@@ -642,3 +645,14 @@ class KH1World(World):
                             i = i + 2
             self.mp_costs = mp_costs
         return self.mp_costs
+
+    def get_spell_effectiveness(self):
+        if self.spell_effectiveness is None:
+            effectiveness = copy.deepcopy(VANILLA_SPELL_EFFECTIVENESS)
+            if self.options.scaling_spell_potency:
+                mp_costs = self.get_mp_costs()
+                for i in range(len(effectiveness)):
+                    scaled = effectiveness[i] * mp_costs[i] / VANILLA_SPELL_COSTS_LVL[i]
+                    effectiveness[i] = max(int(scaled + 0.5), 1)
+            self.spell_effectiveness = effectiveness
+        return self.spell_effectiveness
