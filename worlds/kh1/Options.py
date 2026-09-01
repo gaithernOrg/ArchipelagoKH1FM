@@ -144,6 +144,8 @@ class FinalRestDoorKey(Choice):
     Puppies: Rescue and return an amount of puppies in Traverse Town
     
     Final Rest: Open the chest in End of the World Final Rest
+
+    Anywhere: Can be anywhere in the multiworld
     """
     display_name = "Final Rest Door Key"
     option_sephiroth = 0
@@ -152,6 +154,7 @@ class FinalRestDoorKey(Choice):
     option_lucky_emblems = 3
     option_puppies = 4
     option_final_rest = 5
+    option_anywhere = 6
     default = 3
 
 class EndoftheWorldUnlock(Choice):

@@ -219,6 +219,9 @@ class KH1World(World):
         for i in range(self.determine_lucky_emblems_in_pool()):
             item_pool += [self.create_item("Lucky Emblem")]
 
+        if self.options.final_rest_door_key.current_key == "anywhere":
+            item_pool += [self.create_item("Final Door Key")]
+
         while len(item_pool) < total_locations and len(level_up_item_pool) > 0:
             item_pool += [self.create_item(level_up_item_pool.pop())]
 
@@ -229,7 +232,7 @@ class KH1World(World):
         self.multiworld.itempool += item_pool
 
     def place_predetermined_items(self) -> None:
-        if self.options.final_rest_door_key.current_key not in ["puppies", "postcards", "lucky_emblems"]:
+        if self.options.final_rest_door_key.current_key not in ["puppies", "postcards", "lucky_emblems", "anywhere"]:
             goal_dict = {
                 "sephiroth":       "Olympus Coliseum Defeat Sephiroth Ansem's Report 12",
                 "unknown":         "Hollow Bastion Defeat Unknown Ansem's Report 13",
@@ -244,7 +247,7 @@ class KH1World(World):
             goal_location_name = "Traverse Town Piano Room Return " + str(required_puppies) + " Puppies"
             if required_puppies == 50 or required_puppies == 99:
                 goal_location_name = goal_location_name + " Reward 2"
-        if self.options.final_rest_door_key.current_key != "lucky_emblems":
+        if self.options.final_rest_door_key.current_key not in ["lucky_emblems", "anywhere"]:
             self.get_location(goal_location_name).place_locked_item(self.create_item("Final Door Key"))
         self.get_location("Final Ansem").place_locked_item(self.create_event("Victory"))
 
