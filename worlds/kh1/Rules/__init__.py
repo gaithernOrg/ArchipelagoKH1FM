@@ -62,7 +62,7 @@ these without confirming with the user which behavior is actually wanted - they 
 """
 
 from rule_builder.field_resolvers import FromOption
-from rule_builder.rules import Has, Or, Rule, True_
+from rule_builder.rules import Has, HasAll, Or, Rule, True_
 
 from worlds.generic.Rules import add_item_rule
 from ..Locations import location_table
@@ -180,7 +180,7 @@ def build_rule_dicts(kh1world) -> tuple[dict[str, Rule], dict[str, Rule]]:
     entrance_rules["Neverland"] = Has("Neverland") & ctx.x_worlds_4
     entrance_rules["Hollow Bastion"] = Has("Hollow Bastion") & ctx.x_worlds_6
     entrance_rules["End of the World"] = ctx.x_worlds_8 & eotw_access
-    entrance_rules["100 Acre Wood"] = Has("Progressive Fire")
+    entrance_rules["100 Acre Wood"] = HasAll("Progressive Fire", "Old Book")
 
     return location_rules, entrance_rules
 
