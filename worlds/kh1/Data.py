@@ -583,7 +583,7 @@ ITEMHELP = [
     "Allows entrance to the Pegasus Cup.",
     "Allows entrance to the Hercules Cup.",
     "Used for item synthesis in Traverse Town.",
-    "A book to be delivered to a{lf}house on the outskirts of town.{lf}Several pages are missing.",
+    "Allows travel to 100 Acre Wood.",
     "Used to progress in Hollow Bastion (Flame).",
     "Used to progress in Hollow Bastion (Chest).",
     "Used to progress in Hollow Bastion (Statue).",

@@ -8,7 +8,7 @@ KEYBLADES = ["Oathkeeper", "Lionheart", "Lady Luck", "Olympia", "Jungle King", "
              "Crabclaw", "Pumpkinhead", "Fairy Harp", "Divine Rose", "Oblivion", "Spellbinder"]
 
 ALL_ARTS = ("Fire Arts", "Blizzard Arts", "Thunder Arts", "Cure Arts", "Gravity Arts", "Stop Arts", "Aero Arts")
-ALL_SUMMONS = ("Simba", "Bambi", "Genie", "Dumbo", "Mushu", "Tinker Bell")
+ALL_SUMMON_GEMS = ("Earthshine", "Watergleam", "Naturespark", "Fireglow")
 ALL_MAGIC = ("Progressive Fire", "Progressive Blizzard", "Progressive Thunder", "Progressive Cure",
              "Progressive Gravity", "Progressive Aero", "Progressive Stop")
 EMBLEM_PIECES = ("Emblem Piece (Flame)", "Emblem Piece (Chest)", "Emblem Piece (Statue)",

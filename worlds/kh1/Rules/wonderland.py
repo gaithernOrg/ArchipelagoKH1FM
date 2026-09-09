@@ -40,6 +40,7 @@ def build_rules(ctx: RuleContext) -> dict[str, Rule]:
         "Wonderland Lotus Forest Blue Trinity by Moving Boulder": Has("Blue Trinity") & footprints,
         "Wonderland Bizarre Room Examine Flower Pot": footprints,
         "Wonderland Lotus Forest Yellow Elixir Flower Through Painting": footprints,
+        "Wonderland Lotus Forest Yellow Potion Flower Through Painting": footprints,
         "Wonderland Lotus Forest Red Flower Raise Lily Pads": footprints,
 
         "Wonderland Rabbit Hole Defeat Heartless 3 Chest": Or(

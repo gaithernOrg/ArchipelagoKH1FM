@@ -3,7 +3,7 @@
 from rule_builder.rules import Has, HasAll, HasAllCounts, Or, Rule
 
 from worlds.generic.Rules import add_item_rule
-from ._constants import ALL_ARTS, ALL_SUMMONS
+from ._constants import ALL_ARTS, ALL_SUMMON_GEMS
 from ._option_filters import ABOVE_BEGINNER, ABOVE_NORMAL, ABOVE_PROUD
 from ._context import RuleContext
 from ._custom_rules import HasCappedSum
@@ -28,8 +28,6 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
     )
 
     for i in range(33):
-        # Forbidding Orichalcum/Mythril from being placed here is an item_rule, not an access_rule -
-        # Rule Builder has no equivalent, so this stays a direct worlds.generic.Rules call.
         add_item_rule(
             kh1world.get_location(f"Traverse Town Synth Item {i + 1:02}"),
             lambda item, _player=player: (item.player != _player or item.name not in ("Orichalcum", "Mythril")),
@@ -37,8 +35,6 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
 
     return {
         "Traverse Town 1st District Candle Puzzle Chest": Has("Progressive Blizzard"),
-        # NOTE: Rules.py has `add_rule(loc, lambda state: ...) or difficulty > LOGIC_BEGINNER` here -
-        # the `or` is OUTSIDE the add_rule() call and so is dead code. The real rule is just this.
         "Traverse Town 1st District Accessory Shop Roof Chest": ctx.hj1,
         "Traverse Town Secret Waterway White Trinity Chest": Has("White Trinity"),
         "Traverse Town Geppetto's House Chest": ctx.parasite_cage,
@@ -56,12 +52,17 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
         "Traverse Town 1st District Blue Trinity by Exit Door": Has("Blue Trinity"),
         "Traverse Town 3rd District Blue Trinity": Has("Blue Trinity"),
         "Traverse Town Magician's Study Blue Trinity": HasAll("Blue Trinity", "Progressive Fire"),
+        "Traverse Town Magician's Study Earthshine Event": HasAll("Progressive Fire", "Earthshine"),
+        "Traverse Town Magician's Study Naturespark Event": HasAll("Progressive Fire", "Naturespark"),
+        "Traverse Town Magician's Study Watergleam Event": HasAll("Progressive Fire", "Watergleam"),
+        "Traverse Town Magician's Study Fireglow Event": HasAll("Progressive Fire", "Fireglow"),
+        "Traverse Town Magician's Study Lord Fortune Event": HasAll("Progressive Fire", *ALL_SUMMON_GEMS),
 
         "Traverse Town Mystical House Yellow Trinity Chest": Has("Progressive Fire") & Or(
             Has("Yellow Trinity"),
             ctx.hj2 & ABOVE_BEGINNER,
             ctx.hj1 & ABOVE_NORMAL,
-            ctx.dumbo_summon,  # unconditional, see has_oogie_manor_rule's precedence note
+            ctx.dumbo_summon,
         ),
         "Traverse Town 1st District Blue Trinity Balcony Chest": Or(
             Has("Blue Trinity") & ctx.glide,
@@ -75,20 +76,22 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
         ),
         "Traverse Town Kairi Secret Waterway Oathkeeper Event": oathkeeper_event_rule,
         "Traverse Town Secret Waterway Navi Gummi Event": oathkeeper_event_rule,
-        # NOTE: Rules.py's parens bundle `has_all_summons(...)` into the "worlds" arg of has_parasite_cage
-        # via `... and has_all_summons(...)`, which ANDs it in alongside the x_worlds_3 check.
-        "Traverse Town Geppetto's House Geppetto All Summons Reward": ctx.parasite_cage & HasAll(*ALL_SUMMONS),
-        "Traverse Town Geppetto's House Talk to Pinocchio": ctx.parasite_cage,
+        "Traverse Town Geppetto's House Geppetto Reward Hyperion Blueprint": (
+            ctx.parasite_cage & HasAll("Progressive Fire", *ALL_SUMMON_GEMS)
+        ),
+        "Traverse Town Geppetto's House Pinocchio Reward Chocobo Blueprint": ctx.parasite_cage,
         "Traverse Town Magician's Study Obtained All Arts Items": (
             has_all_magic_lvx_rule(1)
             & HasAll(*ALL_ARTS)
-            # forced to LOGIC_BEGINNER regardless of configured difficulty (softlock prevention), per Rules.py
             & has_x_worlds_rule_pinned_to_beginner(8)
         ),
         "Traverse Town Synth 15 Items": HasCappedSum({"Orichalcum": 9, "Mythril": 9}, threshold=15) & item_workshop,
 
         **{f"Traverse Town Mail Postcard {i:02} Event": Has("Postcard", count=i) for i in range(1, 11)},
-        **{f"Traverse Town Geppetto's House Geppetto Reward {i}": ctx.parasite_cage for i in range(1, 6)},
+        **{
+            f"Traverse Town Geppetto's House Geppetto Reward {blueprint} Blueprint": ctx.parasite_cage
+            for blueprint in ("Cid", "Geppetto", "Aerith", "Yuffie", "Leon", "Cactaur")
+        },
         **{
             f"Traverse Town Piano Room {suffix}": has_puppies_rule(amount)
             for amount, suffix in (

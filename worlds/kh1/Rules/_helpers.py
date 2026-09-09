@@ -58,11 +58,6 @@ def has_x_worlds_rule(num_of_worlds: int) -> Rule:
 
 
 def has_x_worlds_rule_pinned_to_beginner(num_of_worlds: int) -> Rule:
-    """Same as has_x_worlds_rule, but ignores the configured difficulty entirely (always behaves as
-    if it were LOGIC_BEGINNER). Used by exactly one location - see traverse_town.py's "Magician's
-    Study Obtained All Arts Items" - which Rules.py deliberately pins this way for softlock
-    prevention, regardless of what difficulty the player actually chose.
-    """
     return AtLeast(num_of_worlds * 2, *_x_worlds_clauses())
 
 
@@ -110,9 +105,6 @@ def has_basic_tools_rule() -> Rule:
         HasAll("Dodge Roll", "Progressive Cure")
         & HasAny("Combo Master", "Strike Raid", "Sonic Blade", "Counterattack")
         & HasAny("Leaf Bracer", "Second Chance", "Guard")
-        # offensive magic pinned to LOGIC_BEGINNER, per Rules.py's has_basic_tools - at Beginner,
-        # has_offensive_magic_rule's ABOVE_NORMAL/ABOVE_PROUD tiers can never apply, so this is
-        # exactly that rule's Beginner-equivalent form.
         & HasAny("Progressive Fire", "Progressive Blizzard")
     )
 
@@ -126,8 +118,6 @@ def has_oogie_manor_rule() -> Rule:
         Has("Progressive Fire"),
         Has("High Jump", count=3) & ABOVE_BEGINNER,
         Has("High Jump", count=2) & ABOVE_NORMAL,
-        # NOTE: in Rules.py these next two clauses are NOT actually gated by `difficulty > LOGIC_NORMAL`
-        # due to `and`/`or` precedence - replicated as unconditional here. See has_oogie_manor in Rules.py.
         HasAll(*HJ_GLIDE),
         can_dumbo_skip_rule(),
         HasAny(*HJ_GLIDE) & ABOVE_PROUD,
