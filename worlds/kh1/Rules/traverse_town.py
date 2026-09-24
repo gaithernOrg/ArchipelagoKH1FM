@@ -1,5 +1,3 @@
-"""Access (and one item) rule for every "Traverse Town"-prefixed location."""
-
 from rule_builder.rules import Has, HasAll, HasAllCounts, Or, Rule
 
 from worlds.generic.Rules import add_item_rule

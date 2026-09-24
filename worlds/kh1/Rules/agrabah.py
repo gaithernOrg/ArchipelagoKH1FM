@@ -1,15 +1,3 @@
-"""Access rules for every "Agrabah"-prefixed location, including the (super bosses) Kurt Zisa events.
-
-Difficulty tiers are expressed via OptionFilter (gating individual OR-alternatives, see
-ABOVE_BEGINNER/NORMAL/PROUD in _constants.py) rather than Python `if` branches, so every
-always-existing location is a single inline expression. `super_bosses`, by contrast, stays a plain
-Python condition: the Kurt Zisa locations aren't just conditionally *required* this way, they're
-conditionally *created* (see Regions.py) - an OptionFilter can't help if
-`kh1world.get_location(...)` would KeyError. To keep `rules` a single dict literal even so, the
-conditional entries are spliced in via dict unpacking (`**({...} if super_bosses else {})`) rather
-than appended in a separate statement after the fact.
-"""
-
 from rule_builder.rules import Has, HasAll, HasAny, HasAnyCount, HasGroup, Or, Rule, True_
 
 from ._option_filters import ABOVE_BEGINNER, ABOVE_NORMAL, ABOVE_PROUD
@@ -77,10 +65,6 @@ def build_rules(ctx: RuleContext, super_bosses: bool) -> dict[str, Rule]:
             True_() & ABOVE_BEGINNER,
         ),
 
-        # Kurt Zisa's locations only exist at all when super_bosses is on (see Regions.py) - unlike
-        # the difficulty tiers above, that can't be expressed as an OptionFilter on the rule itself,
-        # since it gates location creation, not just rule resolution. Conditionally unpacking a
-        # sub-dict keeps this as one dict literal instead of a separate append step below.
         **({
             "Agrabah Defeat Kurt Zisa Ansem's Report 11": kurt_zisa_rule,
             "Agrabah Defeat Kurt Zisa Zantetsuken Event": kurt_zisa_rule,

@@ -521,7 +521,7 @@ location_table: Dict[str, KH1LocationData] = {
     "Destiny Islands Cove Talk to Kairi (Day 2)":                                       KH1LocationData("Destiny Islands",  265_6714, "Reward"),
     "Destiny Islands Gather Drinking Water (Day 2)":                                    KH1LocationData("Destiny Islands",  265_6715, "Reward"),
     "Destiny Islands Seashore Defeat Riku (Day 1)":                                     KH1LocationData("Destiny Islands",  265_5100, "Reward"),
-    "Destiny Islands Seashore Defeat Trio (Day 2)":                                     KH1LocationData("Destiny Islands",  265_5101, "Reward"),
+    "Destiny Islands Seashore Defeat Trio (Day 1)":                                     KH1LocationData("Destiny Islands",  265_5101, "Reward"),
     "Destiny Islands Gather Coconut (Day 2)":                                           KH1LocationData("Destiny Islands",  265_5102, "Reward"),
     "Destiny Islands Seashore Talk to Kairi Potion Reward (Day 1)":                     KH1LocationData("Destiny Islands",  265_5103, "Reward"),
     "Destiny Islands Seashore Talk to Kairi Hi-Potion Reward (Day 1)":                  KH1LocationData("Destiny Islands",  265_5104, "Reward"),

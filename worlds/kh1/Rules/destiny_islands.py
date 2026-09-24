@@ -1,9 +1,3 @@
-"""Access rules for every "Destiny Islands"-prefixed location.
-
-`enabled` stays a plain Python condition rather than an OptionFilter: every location in this module
-is conditionally created in Regions.py, not just conditionally required.
-"""
-
 from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, Rule
 
@@ -26,7 +20,6 @@ def build_rules(ctx: RuleContext, enabled: bool) -> dict[str, Rule]:
         "Destiny Islands Cove Talk to Kairi (Day 2)": raft_materials_rule,
         "Destiny Islands Gather Drinking Water (Day 2)": raft_materials_rule & Has("Empty Bottle"),
         "Destiny Islands Chest": raft_materials_rule,
-        "Destiny Islands Seashore Defeat Trio (Day 2)": raft_materials_rule,
         "Destiny Islands Gather Coconut (Day 2)": raft_materials_rule,
         "Destiny Islands Seashore Talk to Kairi Potion Reward (Day 1)": raft_materials_rule,
         "Destiny Islands Seashore Talk to Kairi Hi-Potion Reward (Day 1)": raft_materials_rule,

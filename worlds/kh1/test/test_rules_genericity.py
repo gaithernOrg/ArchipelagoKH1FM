@@ -1,11 +1,3 @@
-"""
-Proves the Rules package's exported rule trees are option-generic, not just a snapshot baked for
-one world.
-
-If this suite fails after a Rules change, it usually means some helper went back to branching on
-an already-resolved option value (a Python `if`) instead of an OptionFilter/FieldResolver - check
-_helpers.py/_context.py/__init__.py's build_rule_dicts for a stray resolved-value parameter.
-"""
 import random
 import unittest
 
@@ -14,9 +6,6 @@ from BaseClasses import CollectionState
 from . import KH1TestBase
 from ..Rules import build_rule_dicts
 
-# Every togglable area on, held identical across both worlds being compared, so the comparison
-# isolates genericity of the *rule logic* from the (expected, documented) non-genericity of which
-# locations/entrances exist at all.
 _MAXIMAL_EXISTENCE_OPTIONS = {
     "super_bosses": True,
     "cups": "hades_cup",
@@ -29,9 +18,6 @@ _MAXIMAL_EXISTENCE_OPTIONS = {
 
 
 class TestRulesBuildDictsAreOptionGeneric(KH1TestBase):
-    """Builds two worlds with deliberately different option values (that historically baked
-    differently-shaped rule trees) and asserts build_rule_dicts() produces byte-identical JSON for
-    every location/entrance, regardless of those differences."""
 
     options = {
         **_MAXIMAL_EXISTENCE_OPTIONS,
@@ -96,18 +82,13 @@ class TestRulesBuildDictsAreOptionGeneric(KH1TestBase):
 
 
 class TestRulesRoundTrip(KH1TestBase):
-    """Confirms exported JSON is actually re-loadable: Rule.from_dict() on the exported dict
-    reconstructs a Rule that resolves identically to the original, across representative states."""
 
     options = {**_MAXIMAL_EXISTENCE_OPTIONS, "logic_difficulty": "proud", "keyblades_unlock_chests": True}
 
     def test_round_trip_optionfilter_rule(self) -> None:
-        # Has an OptionFilter (difficulty tier) nested inside an OptionFilter (keyblades_unlock_chests,
-        # from the generic location_table pass) - a good stress test for from_dict()'s recursion.
         self._assert_round_trips("Agrabah Main Street High Above Palace Gates Entrance Chest")
 
     def test_round_trip_field_resolver_rule(self) -> None:
-        # Uses the custom PuppiesRequiredCount FieldResolver.
         self._assert_round_trips("Traverse Town Piano Room Return 50 Puppies Reward 1")
 
     def _assert_round_trips(self, location_name: str) -> None:
