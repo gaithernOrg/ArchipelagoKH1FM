@@ -813,8 +813,7 @@ class EvidenceBundle(DefaultOnToggle):
     """
     Only the Footprints are in the pool; they are all the evidence Wonderland needs.
 
-    When off, Footprints, Claw Marks, Stench and Antenna are all in the pool. Any one of them lets the trial start,
-    and holding all four lets the Cheshire Cat hand out the Trickmaster reward early.
+    When off, Footprints, Claw Marks, Stench and Antenna are all in the pool. Any one of them lets the trial start.
 
     Forced ON when Stacking World Items is on.
     """
