@@ -585,7 +585,7 @@ def create_regions(kh1world):
         regions["Destiny Islands"].locations.append("Destiny Islands Cove Talk to Kairi (Day 2)")
         regions["Destiny Islands"].locations.append("Destiny Islands Gather Drinking Water (Day 2)")
         regions["Destiny Islands"].locations.append("Destiny Islands Seashore Defeat Riku (Day 1)")
-        regions["Destiny Islands"].locations.append("Destiny Islands Seashore Defeat Trio (Day 2)")
+        regions["Destiny Islands"].locations.append("Destiny Islands Seashore Defeat Trio (Day 1)")
         regions["Destiny Islands"].locations.append("Destiny Islands Gather Coconut (Day 2)")
         regions["Destiny Islands"].locations.append("Destiny Islands Seashore Talk to Kairi Potion Reward (Day 1)")
         regions["Destiny Islands"].locations.append("Destiny Islands Seashore Talk to Kairi Hi-Potion Reward (Day 1)")
