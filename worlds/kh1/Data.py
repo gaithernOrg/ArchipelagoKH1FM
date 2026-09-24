@@ -374,10 +374,13 @@ VANILLA_ABILITY_AP_COSTS = [
     {"Ability Name": "Combo Master",    "AP Cost": 3, "Randomize": True}
     ]
 
+SLIDE_ITEMS = ("Slide 1", "Slide 2", "Slide 3", "Slide 4", "Slide 5", "Slide 6")
+EVIDENCE_ITEMS = ("Footprints", "Claw Marks", "Stench", "Antenna")
+
 WORLD_KEY_ITEMS = {
     "Footprints": "Wonderland",
     "Entry Pass": "Olympus Coliseum",
-    "Slides": "Deep Jungle",
+    "Slide 1": "Deep Jungle",
     "Crystal Trident": "Atlantica",
     "Forget-Me-Not": "Halloween Town",
     "Jack-In-The-Box": "Halloween Town",
@@ -907,7 +910,7 @@ WORD = [
     "Torn Page",
     "Torn Page",
     "Torn Page",
-    "Slides",
+    "Slide 1",
     "Slide 2",
     "Slide 3",
     "Slide 4",

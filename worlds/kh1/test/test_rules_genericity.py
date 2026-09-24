@@ -39,6 +39,8 @@ class TestRulesBuildDictsAreOptionGeneric(KH1TestBase):
         "keyblades_unlock_chests": False,
         "stacking_world_items": False,
         "halloween_town_key_item_bundle": False,
+        "slides_bundle": False,
+        "evidence_bundle": False,
         "puppy_value": 1,
         "day_2_materials": 1,
         "homecoming_materials": 1,
@@ -53,6 +55,8 @@ class TestRulesBuildDictsAreOptionGeneric(KH1TestBase):
             "keyblades_unlock_chests": True,
             "stacking_world_items": True,
             "halloween_town_key_item_bundle": True,
+            "slides_bundle": True,
+            "evidence_bundle": True,
             "puppy_value": 7,
             "day_2_materials": 13,
             "homecoming_materials": 18,
@@ -86,7 +90,7 @@ class TestRulesBuildDictsAreOptionGeneric(KH1TestBase):
             self.fail(
                 "These rules are NOT option-generic - their to_dict() output changed between two "
                 "worlds that only differ in difficulty/keyblades_unlock_chests/stacking_world_items/"
-                "halloween_town_key_item_bundle/puppy_value/day_2_materials/homecoming_materials/"
+                "halloween_town_key_item_bundle/slides_bundle/evidence_bundle/puppy_value/day_2_materials/homecoming_materials/"
                 "required_lucky_emblems_*:\n" + "\n".join(f"  {m}" for m in mismatches)
             )
 

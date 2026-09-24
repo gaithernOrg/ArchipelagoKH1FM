@@ -24,7 +24,7 @@ def build_rules(ctx: RuleContext, enabled: bool) -> dict[str, Rule]:
         "Destiny Islands Cove Gather Mushroom Near Zip Line (Day 2)": raft_materials_rule,
         "Destiny Islands Cove Gather Mushroom in Small Cave (Day 2)": raft_materials_rule,
         "Destiny Islands Cove Talk to Kairi (Day 2)": raft_materials_rule,
-        "Destiny Islands Gather Drinking Water (Day 2)": raft_materials_rule,
+        "Destiny Islands Gather Drinking Water (Day 2)": raft_materials_rule & Has("Empty Bottle"),
         "Destiny Islands Chest": raft_materials_rule,
         "Destiny Islands Seashore Defeat Trio (Day 2)": raft_materials_rule,
         "Destiny Islands Gather Coconut (Day 2)": raft_materials_rule,

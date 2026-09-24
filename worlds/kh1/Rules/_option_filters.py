@@ -17,11 +17,13 @@ from rule_builder.options import OptionFilter
 from ..Data import LOGIC_BEGINNER, LOGIC_NORMAL, LOGIC_PROUD, LOGIC_MINIMAL
 from ..Options import (
     EndoftheWorldUnlock,
+    EvidenceBundle,
     FinalRestDoorKey,
     HalloweenTownKeyItemBundle,
     HundredAcreWood,
     KeybladesUnlockChests,
     LogicDifficulty,
+    SlidesBundle,
     StackingWorldItems,
 )
 
@@ -39,6 +41,10 @@ KEYBLADES_UNLOCK_CHESTS_ON = OptionFilter(KeybladesUnlockChests, True, "eq")
 KEYBLADES_UNLOCK_CHESTS_OFF = OptionFilter(KeybladesUnlockChests, False, "eq")
 STACKING_WORLD_ITEMS_ON = OptionFilter(StackingWorldItems, True, "eq")
 HALLOWEEN_TOWN_KEY_ITEM_BUNDLE_ON = OptionFilter(HalloweenTownKeyItemBundle, True, "eq")
+SLIDES_BUNDLE_ON = OptionFilter(SlidesBundle, True, "eq")
+SLIDES_BUNDLE_OFF = OptionFilter(SlidesBundle, False, "eq")
+EVIDENCE_BUNDLE_ON = OptionFilter(EvidenceBundle, True, "eq")
+EVIDENCE_BUNDLE_OFF = OptionFilter(EvidenceBundle, False, "eq")
 
 FINAL_REST_DOOR_LUCKY_EMBLEMS = OptionFilter(FinalRestDoorKey, "lucky_emblems", "eq")
 FINAL_REST_DOOR_NOT_LUCKY_EMBLEMS = OptionFilter(FinalRestDoorKey, "lucky_emblems", "ne")

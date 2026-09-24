@@ -12,7 +12,7 @@ from ._helpers import has_key_item_rule
 
 
 def build_rules(ctx: RuleContext, jungle_slider: bool) -> dict[str, Rule]:
-    slides = has_key_item_rule("Slides")
+    slides = has_key_item_rule("Slide 1")
 
     return {
         "Deep Jungle Climbing Trees Blue Trinity Chest": Has("Blue Trinity"),

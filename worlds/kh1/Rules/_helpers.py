@@ -10,7 +10,7 @@ not, say, hundred_acre_wood ends up on or off. See _option_filters.py for why th
 from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, HasAll, HasAllCounts, HasAny, HasAnyCount, HasGroup, Or, Rule, True_
 
-from ..Data import WORLD_KEY_ITEMS
+from ..Data import EVIDENCE_ITEMS, SLIDE_ITEMS, WORLD_KEY_ITEMS
 from ..Options import RequiredLuckyEmblemsDoor, RequiredLuckyEmblemsEotW
 from ._constants import ALL_MAGIC, DODGE_AIRGUARD, EMBLEM_PIECES, HJ_GLIDE, KEYBLADES, WORLDS
 from ._custom_rules import AtLeast
@@ -21,6 +21,8 @@ from ._option_filters import (
     ABOVE_PROUD,
     AT_LEAST_MINIMAL,
     BELOW_MINIMAL,
+    EVIDENCE_BUNDLE_OFF,
+    EVIDENCE_BUNDLE_ON,
     FINAL_REST_DOOR_LUCKY_EMBLEMS,
     FINAL_REST_DOOR_NOT_LUCKY_EMBLEMS,
     HALLOWEEN_TOWN_KEY_ITEM_BUNDLE_ON,
@@ -28,6 +30,8 @@ from ._option_filters import (
     HUNDRED_ACRE_WOOD_ON,
     KEYBLADES_UNLOCK_CHESTS_OFF,
     KEYBLADES_UNLOCK_CHESTS_ON,
+    SLIDES_BUNDLE_OFF,
+    SLIDES_BUNDLE_ON,
     STACKING_WORLD_ITEMS_ON,
 )
 
@@ -148,6 +152,18 @@ def has_key_item_rule(key_item: str) -> Rule:
         Has(key_item),
         Has(WORLD_KEY_ITEMS[key_item], count=2) & STACKING_WORLD_ITEMS_ON,
     ]
+    if key_item == "Slide 1":
+        clauses = [
+            Has("Slide 1") & SLIDES_BUNDLE_ON,
+            HasAll(*SLIDE_ITEMS) & SLIDES_BUNDLE_OFF,
+            Has(WORLD_KEY_ITEMS[key_item], count=2) & STACKING_WORLD_ITEMS_ON,
+        ]
+    if key_item == "Footprints":
+        clauses = [
+            Has("Footprints") & EVIDENCE_BUNDLE_ON,
+            HasAny(*EVIDENCE_ITEMS) & EVIDENCE_BUNDLE_OFF,
+            Has(WORLD_KEY_ITEMS[key_item], count=2) & STACKING_WORLD_ITEMS_ON,
+        ]
     if key_item == "Jack-In-The-Box":
         clauses.append(Has("Forget-Me-Not") & HALLOWEEN_TOWN_KEY_ITEM_BUNDLE_ON)
     rule = Or(*clauses)

@@ -13,6 +13,7 @@ from ._helpers import has_all_magic_lvx_rule, has_item_workshop_rule, has_puppie
 def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
     player = kh1world.player
     item_workshop = has_item_workshop_rule()
+    secret_waterway_rule = Has("Red Trinity")  # Alleyway gate to the Secret Waterway
     oathkeeper_event_rule = ctx.emblems & Has("Hollow Bastion") & ctx.x_worlds_6
     synth_items_rule = HasAllCounts({"Orichalcum": 17, "Mythril": 16}) & item_workshop
 
@@ -36,7 +37,9 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
     return {
         "Traverse Town 1st District Candle Puzzle Chest": Has("Progressive Blizzard"),
         "Traverse Town 1st District Accessory Shop Roof Chest": ctx.hj1,
-        "Traverse Town Secret Waterway White Trinity Chest": Has("White Trinity"),
+        "Traverse Town Secret Waterway White Trinity Chest": secret_waterway_rule & Has("White Trinity"),
+        "Traverse Town Secret Waterway Near Stairs Chest": secret_waterway_rule,
+        "Traverse Town Leon Secret Waterway Earthshine Event": secret_waterway_rule,
         "Traverse Town Geppetto's House Chest": ctx.parasite_cage,
         "Traverse Town Item Workshop Right Chest": item_workshop,
         "Traverse Town Item Workshop Left Chest": item_workshop,
@@ -74,8 +77,8 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
             inner_normal & ABOVE_NORMAL,
             inner_proud & ABOVE_PROUD,
         ),
-        "Traverse Town Kairi Secret Waterway Oathkeeper Event": oathkeeper_event_rule,
-        "Traverse Town Secret Waterway Navi Gummi Event": oathkeeper_event_rule,
+        "Traverse Town Kairi Secret Waterway Oathkeeper Event": secret_waterway_rule & oathkeeper_event_rule,
+        "Traverse Town Secret Waterway Navi Gummi Event": secret_waterway_rule & oathkeeper_event_rule,
         "Traverse Town Geppetto's House Geppetto Reward Hyperion Blueprint": (
             ctx.parasite_cage & HasAll("Progressive Fire", *ALL_SUMMON_GEMS)
         ),

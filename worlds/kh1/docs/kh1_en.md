@@ -63,4 +63,4 @@ The game caches your inventory and does not clear the cache when switching slots
 ### Why is my seed missing important world progression items?
 
 This is likely related to the Stacking World Items setting. When it is off, each world will have unique items that allow progression at some point in the world. When it is on, that item is replaced with a second world item.
-Even when Stacking World Items is off, if Halloween Town Key Item Bundle is on then only the Forget-me-not is to be collected.
+Even when Stacking World Items is off, if Halloween Town Key Item Bundle is on then only the Forget-me-not is to be collected, and if Slides Bundle is on then only Slide 1 (shown as "Slides") is to be collected instead of all six slides. Likewise, if Evidence Bundle is on then only the Footprints are to be collected instead of all four pieces of evidence.

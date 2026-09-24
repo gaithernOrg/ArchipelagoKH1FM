@@ -105,6 +105,12 @@ class HundredAcreWood(Toggle):
     """
     display_name = "100 Acre Wood"
 
+class SkipHundredAcreWoodMinigames(Toggle):
+    """
+    Skip the 100 Acre Wood minigames: each one counts as won without being played.
+    """
+    display_name = "Skip 100 Acre Wood Minigames"
+
 class SuperBosses(Toggle):
     """
     Toggle whether to include checks behind Super Bosses.
@@ -384,11 +390,11 @@ class ForceStatsOnLevels(NamedRange):
         "all": 2
     }
 
-class BadStartingWeapons(Toggle):
+class BadKingdomKey(Toggle):
     """
-    Forces Kingdom Key, Dream Sword, Dream Shield, and Dream Staff to have vanilla stats.
+    Forces Kingdom Key to have vanilla stats.
     """
-    display_name = "Bad Starting Weapons"
+    display_name = "Bad Kingdom Key"
 
 class DeathLink(Choice):
     """
@@ -781,7 +787,7 @@ class StackingWorldItems(DefaultOnToggle):
     
     Adds an extra world to the pool for each that has a key item (WL, OC, DJ, HT, HB).
     
-    Forces Halloween Town Key Item Bundle ON.
+    Forces Halloween Town Key Item Bundle, Slides Bundle and Evidence Bundle ON.
     """
     display_name = "Stacking World Items"
 
@@ -792,6 +798,27 @@ class HalloweenTownKeyItemBundle(DefaultOnToggle):
     Removes Jack-in-the-Box from the pool.
     """
     display_name = "Halloween Town Key Item Bundle"
+
+class SlidesBundle(DefaultOnToggle):
+    """
+    Obtaining Slide 1 gives all six slides at once (the item is shown as "Slides" in game).
+    
+    When off, Slide 2 through Slide 6 are separate items too, and all six are needed to show the slides to Jane.
+    
+    Forced ON when Stacking World Items is on.
+    """
+    display_name = "Slides Bundle"
+
+class EvidenceBundle(DefaultOnToggle):
+    """
+    Only the Footprints are in the pool; they are all the evidence Wonderland needs.
+
+    When off, Footprints, Claw Marks, Stench and Antenna are all in the pool. Any one of them lets the trial start,
+    and holding all four lets the Cheshire Cat hand out the Trickmaster reward early.
+
+    Forced ON when Stacking World Items is on.
+    """
+    display_name = "Evidence Bundle"
 
 class RandomizeSpellMPCosts(Choice):
     """
@@ -834,7 +861,7 @@ class IndividualSpellLevelCosts(Toggle):
     If randomizing or shuffling spell MP costs, each indiviudal level of a spell (for example Fire vs Fira vs Firaga)
     can have different MP costs.
     """
-    display_name = "Individal Spell Level Costs"
+    display_name = "Individual Spell Level Costs"
     
 class ScalingSpellPotency(DefaultOnToggle):
     """
@@ -869,6 +896,7 @@ class KH1Options(PerGameCommonOptions):
     super_bosses: SuperBosses
     atlantica: Atlantica
     hundred_acre_wood: HundredAcreWood
+    skip_hundred_acre_wood_minigames: SkipHundredAcreWoodMinigames
     cups: Cups
     randomize_puppies: RandomizePuppies
     puppy_value: PuppyValue
@@ -884,7 +912,7 @@ class KH1Options(PerGameCommonOptions):
     donald_death_link: DonaldDeathLink
     goofy_death_link: GoofyDeathLink
     keyblade_stats: KeybladeStats
-    bad_starting_weapons: BadStartingWeapons
+    bad_kingdom_key: BadKingdomKey
     keyblade_min_str: KeybladeMinStrength
     keyblade_max_str: KeybladeMaxStrength
     keyblade_min_crit_rate: KeybladeMinCritRateBonus
@@ -938,6 +966,8 @@ class KH1Options(PerGameCommonOptions):
     materials_in_pool: MaterialsInPool
     stacking_world_items: StackingWorldItems
     halloween_town_key_item_bundle: HalloweenTownKeyItemBundle
+    slides_bundle: SlidesBundle
+    evidence_bundle: EvidenceBundle
     randomize_spell_mp_costs: RandomizeSpellMPCosts
     spell_mp_cost_min: SpellMPCostMin
     spell_mp_cost_max: SpellMPCostMax
@@ -966,6 +996,7 @@ kh1_option_groups = [
         Atlantica,
         Cups,
         HundredAcreWood,
+        SkipHundredAcreWoodMinigames,
         JungleSlider,
         RandomizeEmblemPieces,
         RandomizePostcards,
@@ -987,7 +1018,7 @@ kh1_option_groups = [
     OptionGroup("Keyblades", [
         KeybladesUnlockChests,
         KeybladeStats,
-        BadStartingWeapons,
+        BadKingdomKey,
         KeybladeMinStrength,
         KeybladeMaxStrength,
         KeybladeMinCritRateBonus,
@@ -1031,6 +1062,8 @@ kh1_option_groups = [
         ExtraSharedAbilities,
         StackingWorldItems,
         HalloweenTownKeyItemBundle,
+        SlidesBundle,
+        EvidenceBundle,
         EXPZeroInPool,
         RandomizePartyMemberStartingAccessories,
         DeathLink,
