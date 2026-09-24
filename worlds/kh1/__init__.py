@@ -13,7 +13,7 @@ from .Regions import connect_entrances, create_regions
 from .Rules import set_rules
 from .Presets import kh1_option_presets
 from .GenerateJSON import generate_json
-from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS
+from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS, SLIDE_ITEMS, EVIDENCE_ITEMS, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS
 
 
 class KH1Web(WebWorld):
@@ -165,6 +165,10 @@ class KH1World(World):
                 item_pool += [self.create_item(WORLD_KEY_ITEMS[name]) for _ in range(0, 1)]
             elif self.options.halloween_town_key_item_bundle and name == "Jack-In-The-Box":
                 continue
+            elif self.options.slides_bundle and name in SLIDE_ITEMS[1:]:
+                continue
+            elif self.options.evidence_bundle and name in EVIDENCE_ITEMS[1:]:
+                continue
             elif name == "Puppy":
                 if self.options.randomize_puppies:
                     item_pool += [self.create_item(name) for _ in range(ceil(99/self.options.puppy_value.value))]
@@ -208,6 +212,9 @@ class KH1World(World):
             elif name == "Mythril":
                 item_pool += [self.create_item(name) for _ in range(0, self.options.mythril_in_pool.value)]
             elif name == "Destiny Islands":
+                if self.options.destiny_islands:
+                    item_pool += [self.create_item(name) for _ in range(0, quantity)]
+            elif name == "Empty Bottle":
                 if self.options.destiny_islands:
                     item_pool += [self.create_item(name) for _ in range(0, quantity)]
             elif name == "Raft Materials":
@@ -286,7 +293,7 @@ class KH1World(World):
                     "augment_abilities_from_pool": bool(self.options.augment_abilities_from_pool),
                     "auto_attack": bool(self.options.auto_attack),
                     "auto_save": bool(self.options.auto_save),
-                    "bad_starting_weapons": bool(self.options.bad_starting_weapons),
+                    "bad_kingdom_key": bool(self.options.bad_kingdom_key),
                     "beep_hack": bool(self.options.beep_hack),
                     "consistent_finishers": bool(self.options.consistent_finishers),
                     "cups": str(self.options.cups.current_key),
@@ -306,8 +313,11 @@ class KH1World(World):
                     "four_by_three": bool(self.options.four_by_three),
                     "goofy_death_link": bool(self.options.goofy_death_link),
                     "halloween_town_key_item_bundle": bool(self.options.halloween_town_key_item_bundle),
+                    "slides_bundle": bool(self.options.slides_bundle),
+                    "evidence_bundle": bool(self.options.evidence_bundle),
                     "homecoming_materials": int(self.options.homecoming_materials.value),
                     "hundred_acre_wood": bool(self.options.hundred_acre_wood),
+                    "skip_hundred_acre_wood_minigames": bool(self.options.skip_hundred_acre_wood_minigames),
                     "individual_spell_level_costs": bool(self.options.individual_spell_level_costs),
                     "interact_in_battle": bool(self.options.interact_in_battle),
                     "jungle_slider": bool(self.options.jungle_slider),
@@ -405,6 +415,12 @@ class KH1World(World):
         if self.options.stacking_world_items.value and not self.options.halloween_town_key_item_bundle.value:
             logging.info(f"{self.player_name}'s value {self.options.halloween_town_key_item_bundle.value} for Halloween Town Key Item Bundle must be TRUE when Stacking World Items is on.  Setting to TRUE")
             self.options.halloween_town_key_item_bundle.value = True
+        if self.options.stacking_world_items.value and not self.options.slides_bundle.value:
+            logging.info(f"{self.player_name}'s value {self.options.slides_bundle.value} for Slides Bundle must be TRUE when Stacking World Items is on.  Setting to TRUE")
+            self.options.slides_bundle.value = True
+        if self.options.stacking_world_items.value and not self.options.evidence_bundle.value:
+            logging.info(f"{self.player_name}'s value {self.options.evidence_bundle.value} for Evidence Bundle must be TRUE when Stacking World Items is on.  Setting to TRUE")
+            self.options.evidence_bundle.value = True
 
     def change_numbers_of_lucky_emblems_to_consider(self) -> None:
         if self.options.end_of_the_world_unlock == "lucky_emblems" and self.options.final_rest_door_key == "lucky_emblems":
@@ -503,9 +519,9 @@ class KH1World(World):
                 max_mp_bonus = max(self.options.keyblade_min_mp.value, self.options.keyblade_max_mp.value)
                 self.options.keyblade_min_mp.value = min_mp_bonus
                 self.options.keyblade_max_mp.value = max_mp_bonus
-                if self.options.bad_starting_weapons:
-                    starting_weapons = keyblade_stats[:4]
-                    other_weapons = keyblade_stats[4:]
+                if self.options.bad_kingdom_key:
+                    starting_weapons = keyblade_stats[:1]
+                    other_weapons = keyblade_stats[1:]
                 else:
                     starting_weapons = []
                     other_weapons = keyblade_stats
@@ -517,9 +533,9 @@ class KH1World(World):
                         keyblade["MP"]  = self.random.randint(min_mp_bonus, max_mp_bonus)
                 keyblade_stats = starting_weapons + other_weapons
             elif self.options.keyblade_stats == "shuffle":
-                if self.options.bad_starting_weapons:
-                    starting_weapons = keyblade_stats[:4]
-                    other_weapons = keyblade_stats[4:]
+                if self.options.bad_kingdom_key:
+                    starting_weapons = keyblade_stats[:1]
+                    other_weapons = keyblade_stats[1:]
                     self.random.shuffle(other_weapons)
                     keyblade_stats = starting_weapons + other_weapons
                 else:

@@ -1,16 +1,7 @@
-"""
-Rule-tree factories mirroring the helper functions in Rules.py.
-
-Unlike Rules.py's helpers (which take already-resolved option values and branch on them in plain
-Python), these read options live at `.resolve(world)` time via OptionFilter/FromOption, so the
-returned Rule trees are reusable across any options - the same tree built once is valid whether or
-not, say, hundred_acre_wood ends up on or off. See _option_filters.py for why that matters.
-"""
-
 from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, HasAll, HasAllCounts, HasAny, HasAnyCount, HasGroup, Or, Rule, True_
 
-from ..Data import WORLD_KEY_ITEMS
+from ..Data import EVIDENCE_ITEMS, SLIDE_ITEMS, WORLD_KEY_ITEMS
 from ..Options import RequiredLuckyEmblemsDoor, RequiredLuckyEmblemsEotW
 from ._constants import ALL_MAGIC, DODGE_AIRGUARD, EMBLEM_PIECES, HJ_GLIDE, KEYBLADES, WORLDS
 from ._custom_rules import AtLeast
@@ -21,6 +12,8 @@ from ._option_filters import (
     ABOVE_PROUD,
     AT_LEAST_MINIMAL,
     BELOW_MINIMAL,
+    EVIDENCE_BUNDLE_OFF,
+    EVIDENCE_BUNDLE_ON,
     FINAL_REST_DOOR_LUCKY_EMBLEMS,
     FINAL_REST_DOOR_NOT_LUCKY_EMBLEMS,
     HALLOWEEN_TOWN_KEY_ITEM_BUNDLE_ON,
@@ -28,6 +21,8 @@ from ._option_filters import (
     HUNDRED_ACRE_WOOD_ON,
     KEYBLADES_UNLOCK_CHESTS_OFF,
     KEYBLADES_UNLOCK_CHESTS_ON,
+    SLIDES_BUNDLE_OFF,
+    SLIDES_BUNDLE_ON,
     STACKING_WORLD_ITEMS_ON,
 )
 
@@ -58,11 +53,6 @@ def has_x_worlds_rule(num_of_worlds: int) -> Rule:
 
 
 def has_x_worlds_rule_pinned_to_beginner(num_of_worlds: int) -> Rule:
-    """Same as has_x_worlds_rule, but ignores the configured difficulty entirely (always behaves as
-    if it were LOGIC_BEGINNER). Used by exactly one location - see traverse_town.py's "Magician's
-    Study Obtained All Arts Items" - which Rules.py deliberately pins this way for softlock
-    prevention, regardless of what difficulty the player actually chose.
-    """
     return AtLeast(num_of_worlds * 2, *_x_worlds_clauses())
 
 
@@ -110,9 +100,6 @@ def has_basic_tools_rule() -> Rule:
         HasAll("Dodge Roll", "Progressive Cure")
         & HasAny("Combo Master", "Strike Raid", "Sonic Blade", "Counterattack")
         & HasAny("Leaf Bracer", "Second Chance", "Guard")
-        # offensive magic pinned to LOGIC_BEGINNER, per Rules.py's has_basic_tools - at Beginner,
-        # has_offensive_magic_rule's ABOVE_NORMAL/ABOVE_PROUD tiers can never apply, so this is
-        # exactly that rule's Beginner-equivalent form.
         & HasAny("Progressive Fire", "Progressive Blizzard")
     )
 
@@ -126,8 +113,6 @@ def has_oogie_manor_rule() -> Rule:
         Has("Progressive Fire"),
         Has("High Jump", count=3) & ABOVE_BEGINNER,
         Has("High Jump", count=2) & ABOVE_NORMAL,
-        # NOTE: in Rules.py these next two clauses are NOT actually gated by `difficulty > LOGIC_NORMAL`
-        # due to `and`/`or` precedence - replicated as unconditional here. See has_oogie_manor in Rules.py.
         HasAll(*HJ_GLIDE),
         can_dumbo_skip_rule(),
         HasAny(*HJ_GLIDE) & ABOVE_PROUD,
@@ -158,6 +143,18 @@ def has_key_item_rule(key_item: str) -> Rule:
         Has(key_item),
         Has(WORLD_KEY_ITEMS[key_item], count=2) & STACKING_WORLD_ITEMS_ON,
     ]
+    if key_item == "Slide 1":
+        clauses = [
+            Has("Slide 1") & SLIDES_BUNDLE_ON,
+            HasAll(*SLIDE_ITEMS) & SLIDES_BUNDLE_OFF,
+            Has(WORLD_KEY_ITEMS[key_item], count=2) & STACKING_WORLD_ITEMS_ON,
+        ]
+    if key_item == "Footprints":
+        clauses = [
+            Has("Footprints") & EVIDENCE_BUNDLE_ON,
+            HasAny(*EVIDENCE_ITEMS) & EVIDENCE_BUNDLE_OFF,
+            Has(WORLD_KEY_ITEMS[key_item], count=2) & STACKING_WORLD_ITEMS_ON,
+        ]
     if key_item == "Jack-In-The-Box":
         clauses.append(Has("Forget-Me-Not") & HALLOWEEN_TOWN_KEY_ITEM_BUNDLE_ON)
     rule = Or(*clauses)

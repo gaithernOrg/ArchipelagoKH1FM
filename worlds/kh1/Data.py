@@ -374,10 +374,13 @@ VANILLA_ABILITY_AP_COSTS = [
     {"Ability Name": "Combo Master",    "AP Cost": 3, "Randomize": True}
     ]
 
+SLIDE_ITEMS = ("Slide 1", "Slide 2", "Slide 3", "Slide 4", "Slide 5", "Slide 6")
+EVIDENCE_ITEMS = ("Footprints", "Claw Marks", "Stench", "Antenna")
+
 WORLD_KEY_ITEMS = {
     "Footprints": "Wonderland",
     "Entry Pass": "Olympus Coliseum",
-    "Slides": "Deep Jungle",
+    "Slide 1": "Deep Jungle",
     "Crystal Trident": "Atlantica",
     "Forget-Me-Not": "Halloween Town",
     "Jack-In-The-Box": "Halloween Town",
@@ -583,7 +586,7 @@ ITEMHELP = [
     "Allows entrance to the Pegasus Cup.",
     "Allows entrance to the Hercules Cup.",
     "Used for item synthesis in Traverse Town.",
-    "A book to be delivered to a{lf}house on the outskirts of town.{lf}Several pages are missing.",
+    "Allows travel to 100 Acre Wood.",
     "Used to progress in Hollow Bastion (Flame).",
     "Used to progress in Hollow Bastion (Chest).",
     "Used to progress in Hollow Bastion (Statue).",
@@ -907,7 +910,7 @@ WORD = [
     "Torn Page",
     "Torn Page",
     "Torn Page",
-    "Slides",
+    "Slide 1",
     "Slide 2",
     "Slide 3",
     "Slide 4",

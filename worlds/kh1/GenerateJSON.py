@@ -146,6 +146,8 @@ def get_settings(world):
 def generate_word(settings):
     seed_words = deepcopy(WORD)
     seed_words[seed_words.index("Puppy")] = f"{settings["puppy_value"]} Puppies"
+    if settings.get("slides_bundle", True):
+        seed_words[seed_words.index("Slide 1")] = "Slides"
     encoded_words = []
     for word in seed_words:
         encoded_word = bytearray()

@@ -1,18 +1,13 @@
-"""Access rules for every "Destiny Islands"-prefixed location.
-
-`enabled` stays a plain Python condition rather than an OptionFilter: every location in this module
-is conditionally created in Regions.py, not just conditionally required.
-"""
-
 from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, Rule
 
-from ..Options import Day2Materials
+from ..Options import Day2Materials, HomecomingMaterials
 from ._context import RuleContext
 
 
 def build_rules(ctx: RuleContext, enabled: bool) -> dict[str, Rule]:
     raft_materials_rule = Has("Raft Materials", count=FromOption(Day2Materials))
+    homecoming_materials_rule = Has("Raft Materials", count=FromOption(HomecomingMaterials))
 
     return {
         "Destiny Islands Seashore Capture Fish 1 (Day 2)": raft_materials_rule,
@@ -23,6 +18,12 @@ def build_rules(ctx: RuleContext, enabled: bool) -> dict[str, Rule]:
         "Destiny Islands Cove Gather Mushroom Near Zip Line (Day 2)": raft_materials_rule,
         "Destiny Islands Cove Gather Mushroom in Small Cave (Day 2)": raft_materials_rule,
         "Destiny Islands Cove Talk to Kairi (Day 2)": raft_materials_rule,
-        "Destiny Islands Gather Drinking Water (Day 2)": raft_materials_rule,
+        "Destiny Islands Gather Drinking Water (Day 2)": raft_materials_rule & Has("Empty Bottle"),
         "Destiny Islands Chest": raft_materials_rule,
+        "Destiny Islands Gather Coconut (Day 2)": raft_materials_rule,
+        "Destiny Islands Seashore Talk to Kairi Potion Reward (Day 1)": raft_materials_rule,
+        "Destiny Islands Seashore Talk to Kairi Hi-Potion Reward (Day 1)": raft_materials_rule,
+        "Destiny Islands Cove Race Riku (Day 2)": raft_materials_rule,
+        "Destiny Islands Cove Talk to Kairi Potion Reward (Day 2)": homecoming_materials_rule,
+        "Destiny Islands Cove Talk to Kairi Hi-Potion Reward (Day 2)": homecoming_materials_rule,
     } if enabled else {}
