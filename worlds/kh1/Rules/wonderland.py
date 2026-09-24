@@ -1,5 +1,3 @@
-"""Access rules for every "Wonderland"-prefixed location."""
-
 from rule_builder.rules import Has, HasAll, HasAllCounts, Or, Rule, True_
 
 from ._option_filters import ABOVE_BEGINNER, ABOVE_NORMAL, ABOVE_PROUD
@@ -40,7 +38,9 @@ def build_rules(ctx: RuleContext) -> dict[str, Rule]:
         "Wonderland Lotus Forest Blue Trinity by Moving Boulder": Has("Blue Trinity") & footprints,
         "Wonderland Bizarre Room Examine Flower Pot": footprints,
         "Wonderland Lotus Forest Yellow Elixir Flower Through Painting": footprints,
+        "Wonderland Lotus Forest Yellow Potion Flower Through Painting": footprints,
         "Wonderland Lotus Forest Red Flower Raise Lily Pads": footprints,
+        "Wonderland Stench Evidence Box": Or(ctx.hj1, ctx.glide),
 
         "Wonderland Rabbit Hole Defeat Heartless 3 Chest": Or(
             ctx.x_worlds_6,
