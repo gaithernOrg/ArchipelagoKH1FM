@@ -117,24 +117,6 @@ class SuperBosses(Toggle):
     """
     display_name = "Super Bosses"
 
-class Cups(Choice):
-    """
-    Determines which cups have their locations added to the multiworld.
-    
-    Please note that the cup items will still appear in the multiworld even if set to off, as they are required to challenge Sephiroth.
-
-    Off: All cup locations are removed
-    
-    Cups: Phil, Pegasus, and Hercules cups are included
-    
-    Hades Cup: Hades Cup is included in addition to Phil, Pegasus, and Hercules cups. If Super Bosses are enabled, then Ice Titan is included
-    """
-    display_name = "Cups"
-    option_off = 0
-    option_cups = 1
-    option_hades_cup = 2
-    default = 0
-
 class CupsStandard(Choice):
     """
     Determines how the Olympus Coliseum cups play.
@@ -925,7 +907,6 @@ class KH1Options(PerGameCommonOptions):
     atlantica: Atlantica
     hundred_acre_wood: HundredAcreWood
     skip_hundred_acre_wood_minigames: SkipHundredAcreWoodMinigames
-    cups: Cups
     cups_standard: CupsStandard
     cups_solo_time_trial: CupsSoloTimeTrial
     randomize_puppies: RandomizePuppies
@@ -1024,7 +1005,6 @@ kh1_option_groups = [
     OptionGroup("Locations", [
         SuperBosses,
         Atlantica,
-        Cups,
         CupsStandard,
         CupsSoloTimeTrial,
         HundredAcreWood,

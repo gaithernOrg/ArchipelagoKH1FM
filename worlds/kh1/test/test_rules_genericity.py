@@ -8,7 +8,6 @@ from ..Rules import build_rule_dicts
 
 _MAXIMAL_EXISTENCE_OPTIONS = {
     "super_bosses": True,
-    "cups": "hades_cup",
     "hundred_acre_wood": True,
     "atlantica": True,
     "destiny_islands": True,
