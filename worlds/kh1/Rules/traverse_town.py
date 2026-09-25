@@ -12,7 +12,6 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
     player = kh1world.player
     item_workshop = has_item_workshop_rule()
     secret_waterway_rule = Has("Red Trinity")  # Alleyway gate to the Secret Waterway
-    oathkeeper_event_rule = ctx.emblems & Has("Hollow Bastion") & ctx.x_worlds_6
     synth_items_rule = HasAllCounts({"Orichalcum": 17, "Mythril": 16}) & item_workshop
 
     inner_normal = (
@@ -75,8 +74,8 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
             inner_normal & ABOVE_NORMAL,
             inner_proud & ABOVE_PROUD,
         ),
-        "Traverse Town Kairi Secret Waterway Oathkeeper Event": secret_waterway_rule & oathkeeper_event_rule,
-        "Traverse Town Secret Waterway Navi Gummi Event": secret_waterway_rule & oathkeeper_event_rule,
+        "Traverse Town Kairi Secret Waterway Oathkeeper Event": secret_waterway_rule,
+        "Traverse Town Secret Waterway Navi Gummi Event": secret_waterway_rule,
         "Traverse Town Geppetto's House Geppetto Reward Hyperion Blueprint": (
             ctx.parasite_cage & HasAll("Progressive Fire", *ALL_SUMMON_GEMS)
         ),
