@@ -51,7 +51,7 @@ def build_rule_dicts(kh1world) -> tuple[dict[str, Rule], dict[str, Rule]]:
     location_rules.update(monstro.build_rules(ctx))
     location_rules.update(halloween_town.build_rules(ctx))
     location_rules.update(olympus_coliseum.build_rules(
-        ctx, options.cups.current_key, bool(options.super_bosses), options.final_rest_door_key.current_key,
+        ctx, bool(options.super_bosses), options.final_rest_door_key.current_key,
     ))
     location_rules.update(neverland.build_rules(ctx, bool(options.super_bosses)))
     location_rules.update(hollow_bastion.build_rules(
