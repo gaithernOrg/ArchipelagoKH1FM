@@ -297,6 +297,8 @@ class KH1World(World):
                     "beep_hack": bool(self.options.beep_hack),
                     "consistent_finishers": bool(self.options.consistent_finishers),
                     "cups": str(self.options.cups.current_key),
+                    "cups_standard": int(self.options.cups_standard.value),
+                    "cups_solo_time_trial": int(self.options.cups_solo_time_trial.value),
                     "day_2_materials": int(self.options.day_2_materials.value),
                     "death_link": str(self.options.death_link.current_key),
                     "destiny_islands": bool(self.options.destiny_islands),

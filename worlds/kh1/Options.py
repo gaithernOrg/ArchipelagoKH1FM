@@ -135,6 +135,35 @@ class Cups(Choice):
     option_hades_cup = 2
     default = 0
 
+class CupsStandard(Choice):
+    """
+    Determines how the Olympus Coliseum cups play.
+
+    Normal: The cups play as in vanilla.
+
+    Bosses Only: Each cup is shortened to its boss matches.
+
+    No Fights: Entering a cup clears it immediately and gives its rewards.
+    """
+    display_name = "Cups Standard"
+    option_normal = 0
+    option_bosses_only = 1
+    option_no_fights = 2
+    default = 0
+
+class CupsSoloTimeTrial(Choice):
+    """
+    Determines how the Solo and Time Trial versions of the cups play.
+
+    Same As Standard: Solo and Time Trial follow the Cups Standard setting.
+
+    Auto Clear: Clearing a cup normally also clears it Solo and Time Trial and gives those rewards.
+    """
+    display_name = "Cups Solo and Time Trial"
+    option_same_as_standard = 0
+    option_auto_clear = 1
+    default = 0
+
 class FinalRestDoorKey(Choice):
     """
     Determines what grants the player the Final Rest Door Key.
@@ -897,6 +926,8 @@ class KH1Options(PerGameCommonOptions):
     hundred_acre_wood: HundredAcreWood
     skip_hundred_acre_wood_minigames: SkipHundredAcreWoodMinigames
     cups: Cups
+    cups_standard: CupsStandard
+    cups_solo_time_trial: CupsSoloTimeTrial
     randomize_puppies: RandomizePuppies
     puppy_value: PuppyValue
     starting_worlds: StartingWorlds
@@ -994,6 +1025,8 @@ kh1_option_groups = [
         SuperBosses,
         Atlantica,
         Cups,
+        CupsStandard,
+        CupsSoloTimeTrial,
         HundredAcreWood,
         SkipHundredAcreWoodMinigames,
         JungleSlider,
