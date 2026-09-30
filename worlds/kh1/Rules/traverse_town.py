@@ -33,7 +33,7 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
 
     return {
         "Traverse Town 1st District Candle Puzzle Chest": Has("Progressive Blizzard"),
-        "Traverse Town 1st District Accessory Shop Roof Chest": ctx.hj1,
+        "Traverse Town 1st District Accessory Shop Roof Chest": ctx.hj1 | ABOVE_BEGINNER,
         "Traverse Town Secret Waterway White Trinity Chest": secret_waterway_rule & Has("White Trinity"),
         "Traverse Town Secret Waterway Near Stairs Chest": secret_waterway_rule,
         "Traverse Town Leon Secret Waterway Earthshine Event": secret_waterway_rule,
