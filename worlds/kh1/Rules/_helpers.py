@@ -122,7 +122,8 @@ def has_oogie_manor_rule() -> Rule:
 def has_item_workshop_rule() -> Rule:
     return Or(
         Has("Green Trinity"),
-        (Has("High Jump", count=2) | (can_dumbo_skip_rule() & Has("Summon Anywhere"))) & ABOVE_NORMAL,
+        Has("High Jump", count=2) & ABOVE_NORMAL,
+        (can_dumbo_skip_rule() & Has("Summon Anywhere")) & ABOVE_PROUD,
     )
 
 
