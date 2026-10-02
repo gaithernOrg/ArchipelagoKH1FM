@@ -6,7 +6,6 @@ from ..Rules import export_rules_to_dict
 
 MAXIMAL_OPTIONS = {
     "super_bosses": True,
-    "cups": "hades_cup",
     "hundred_acre_wood": True,
     "atlantica": True,
     "destiny_islands": True,
