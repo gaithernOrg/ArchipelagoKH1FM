@@ -663,6 +663,12 @@ class FasterAnimations(DefaultOnToggle):
     """
     display_name = "Faster Animations"
 
+class SkipSummonAnimations(Toggle):
+    """
+    If on, summons appear immediately: their entrance cutscenes are skipped and the "Give me strength!" opener is shortened.
+    """
+    display_name = "Skip Summon Animations"
+
 class Unlock0Volume(Toggle):
     """
     If on, volume 1 mutes the audio channel.
@@ -951,6 +957,7 @@ class KH1Options(PerGameCommonOptions):
     early_skip: EarlySkip
     fast_camera: FastCamera
     faster_animations: FasterAnimations
+    skip_summon_animations: SkipSummonAnimations
     unlock_0_volume: Unlock0Volume
     unskippable: Unskippable
     auto_save: AutoSave
@@ -1060,6 +1067,7 @@ kh1_option_groups = [
         EarlySkip,
         FastCamera,
         FasterAnimations,
+        SkipSummonAnimations,
         Unlock0Volume,
         Unskippable,
         AutoSave,

@@ -348,6 +348,7 @@ class KH1World(World):
                     "scaling_spell_potency": bool(self.options.scaling_spell_potency),
                     "seed": self.multiworld.seed_name,
                     "shorten_go_mode": bool(self.options.shorten_go_mode),
+                    "skip_summon_animations": bool(self.options.skip_summon_animations),
                     "slot_name": self.multiworld.get_player_name(self.player),
                     "slot_2_level_checks": int(self.options.slot_2_level_checks.value),
                     "spell_mp_cost_max": int(self.options.spell_mp_cost_max.value),

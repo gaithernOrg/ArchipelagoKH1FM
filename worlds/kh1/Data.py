@@ -371,7 +371,9 @@ VANILLA_ABILITY_AP_COSTS = [
     {"Ability Name": "Leaf Bracer",     "AP Cost": 5, "Randomize": True},
     {"Ability Name": "Evolution",       "AP Cost": 3, "Randomize": True},
     {"Ability Name": "EXP Zero",        "AP Cost": 0, "Randomize": True},
-    {"Ability Name": "Combo Master",    "AP Cost": 3, "Randomize": True}
+    {"Ability Name": "Combo Master",    "AP Cost": 3, "Randomize": True},
+    {"Ability Name": "Finishing Plus",  "AP Cost": 2, "Randomize": True},
+    {"Ability Name": "Upper Slash",     "AP Cost": 2, "Randomize": True}
     ]
 
 SLIDE_ITEMS = ("Slide 1", "Slide 2", "Slide 3", "Slide 4", "Slide 5", "Slide 6")
