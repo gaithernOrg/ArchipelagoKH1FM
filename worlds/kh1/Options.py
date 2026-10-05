@@ -704,7 +704,7 @@ class MaxLevelForSlot2LevelChecks(Range):
     """
     Determines the max level for slot 2 level checks.
     """
-    display_name = "Max Level for Slot 2 Level Checks"
+    display_name = "Max Slot 2 LV Check"
     default = 50
     range_start = 2
     range_end = 100
