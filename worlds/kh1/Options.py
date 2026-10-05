@@ -767,7 +767,7 @@ class MaterialsInPool(Range):
     The amount of Raft Materials required to access Homecoming (Final Bosses).
     """
     display_name = "Materials in Pool"
-    default = 16
+    default = 13
     range_start = 0
     range_end = 20
 
