@@ -380,7 +380,7 @@ class LevelChecks(Range):
     """
     Determines the maximum level for which checks can be obtained.
     """
-    display_name = "Level Checks"
+    display_name = "LV Checks"
     default = 99
     range_start = 0
     range_end = 99
@@ -389,7 +389,7 @@ class ForceStatsOnLevels(NamedRange):
     """
     Determines the minimum level from which only stat ups are obtained on primary level up locations.
     """
-    display_name = "Force Stats on Levels"
+    display_name = "Force Stats on LVs"
     default = 2
     range_start = 2
     range_end = 101
@@ -547,7 +547,7 @@ class Slot2LevelChecks(Range):
     """
     Determines how many levels have an additional item.
     """
-    display_name = "Slot 2 Level Checks"
+    display_name = "Slot 2 LV Checks"
     default = 0
     range_start = 0
     range_end = 33
