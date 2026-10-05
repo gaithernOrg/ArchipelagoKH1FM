@@ -248,7 +248,7 @@ class RequiredLuckyEmblemsEotW(Range):
     """
     If End of the World Unlock is set to "Lucky Emblems", determines the number of Lucky Emblems required.
     """
-    display_name = "Lucky Emblems to Open End of the World"
+    display_name = "End of the World Emblems"
     default = 7
     range_start = 0
     range_end = 20
@@ -257,7 +257,7 @@ class RequiredLuckyEmblemsDoor(Range):
     """
     If Final Rest Door Key is set to "Lucky Emblems", determines the number of Lucky Emblems required.
     """
-    display_name = "Lucky Emblems to Open Final Rest Door"
+    display_name = "Final Rest Door Emblems"
     default = 10
     range_start = 0
     range_end = 20
@@ -290,7 +290,7 @@ class KeybladeMinStrength(Range):
     """
     Determines the minimum STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Minimum STR Bonus"
+    display_name = "Keyblade Min STR Bonus"
     default = 3
     range_start = 0
     range_end = 20
@@ -299,7 +299,7 @@ class KeybladeMaxStrength(Range):
     """
     Determines the maximum STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Maximum STR Bonus"
+    display_name = "Keyblade Max STR Bonus"
     default = 14
     range_start = 0
     range_end = 20
@@ -308,7 +308,7 @@ class KeybladeMinCritRateBonus(Range):
     """
     Determines the minimum Crit Rate bonus a keyblade can have.
     """
-    display_name = "Keyblade Minimum Crit Rate Bonus"
+    display_name = "Keyblade Min Crit Rate Bonus"
     default = 0
     range_start = 0
     range_end = 200
@@ -317,7 +317,7 @@ class KeybladeMaxCritRateBonus(Range):
     """
     Determines the maximum Crit Rate bonus a keyblade can have.
     """
-    display_name = "Keyblade Maximum Crit Rate Bonus"
+    display_name = "Keyblade Max Crit Rate Bonus"
     default = 200
     range_start = 0
     range_end = 200
@@ -326,7 +326,7 @@ class KeybladeMinCritSTRBonus(Range):
     """
     Determines the minimum Crit STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Minimum Crit STR Bonus"
+    display_name = "Keyblade Min Crit STR Bonus"
     default = 0
     range_start = 0
     range_end = 16
@@ -335,7 +335,7 @@ class KeybladeMaxCritSTRBonus(Range):
     """
     Determines the maximum Crit STR bonus a keyblade can have.
     """
-    display_name = "Keyblade Maximum Crit STR Bonus"
+    display_name = "Keyblade Max Crit STR Bonus"
     default = 16
     range_start = 0
     range_end = 16
@@ -344,7 +344,7 @@ class KeybladeMinRecoil(Range):
     """
     Determines the minimum recoil a keyblade can have.
     """
-    display_name = "Keyblade Minimum Recoil"
+    display_name = "Keyblade Min Recoil"
     default = 1
     range_start = 1
     range_end = 90
@@ -353,7 +353,7 @@ class KeybladeMaxRecoil(Range):
     """
     Determines the maximum recoil a keyblade can have.
     """
-    display_name = "Keyblade Maximum Recoil"
+    display_name = "Keyblade Max Recoil"
     default = 90
     range_start = 1
     range_end = 90
@@ -362,7 +362,7 @@ class KeybladeMinMP(Range):
     """
     Determines the minimum MP bonus a keyblade can have.
     """
-    display_name = "Keyblade Minimum MP Bonus"
+    display_name = "Keyblade Min MP Bonus"
     default = -2
     range_start = -2
     range_end = 5
@@ -371,7 +371,7 @@ class KeybladeMaxMP(Range):
     """
     Determines the maximum MP bonus a keyblade can have.
     """
-    display_name = "Keyblade Maximum MP Bonus"
+    display_name = "Keyblade Max MP Bonus"
     default = 3
     range_start = -2
     range_end = 5
@@ -698,7 +698,7 @@ class RandomizePartyMemberStartingAccessories(DefaultOnToggle):
     
     10 random accessories will be distributed amongst any party member aside from Sora in their starting equipment.
     """
-    display_name = "Randomize Party Member Starting Accessories"
+    display_name = "Randomize Accessories"
 
 class MaxLevelForSlot2LevelChecks(Range):
     """
@@ -787,7 +787,7 @@ class StackingWorldItems(DefaultOnToggle):
     
     Adds an extra world to the pool for each that has a key item (WL, OC, DJ, HT, HB).
     
-    Forces Halloween Town Key Item Bundle, Slides Bundle and Evidence Bundle ON.
+    Forces Halloween Town Item Bundle, Slides Bundle and Evidence Bundle ON.
     """
     display_name = "Stacking World Items"
 
@@ -797,7 +797,7 @@ class HalloweenTownKeyItemBundle(DefaultOnToggle):
     
     Removes Jack-in-the-Box from the pool.
     """
-    display_name = "Halloween Town Key Item Bundle"
+    display_name = "Halloween Town Item Bundle"
 
 class SlidesBundle(DefaultOnToggle):
     """
