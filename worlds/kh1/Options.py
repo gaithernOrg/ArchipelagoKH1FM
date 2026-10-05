@@ -938,7 +938,6 @@ class KH1Options(PerGameCommonOptions):
     starting_tools: StartingTools
     remote_items: RemoteItems
     shorten_go_mode: ShortenGoMode
-    death_link: DeathLink
     destiny_islands: DestinyIslands
     orichalcum_in_pool: OrichalcumInPool
     orichalcum_price: OrichalcumPrice
@@ -1079,7 +1078,6 @@ kh1_option_groups = [
         InteractInBattle,
         LogicDifficulty,
         ExtraSharedAbilities,
-        DeathLink,
         DonaldDeathLink,
         GoofyDeathLink,
         RemoteItems,

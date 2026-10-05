@@ -299,7 +299,6 @@ class KH1World(World):
                     "cups_standard": int(self.options.cups_standard.value),
                     "cups_solo_time_trial": int(self.options.cups_solo_time_trial.value),
                     "day_2_materials": int(self.options.day_2_materials.value),
-                    "death_link": str(self.options.death_link.current_key),
                     "destiny_islands": bool(self.options.destiny_islands),
                     "donald_death_link": bool(self.options.donald_death_link),
                     "early_skip": bool(self.options.early_skip),
