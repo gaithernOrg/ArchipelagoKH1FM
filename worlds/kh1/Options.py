@@ -150,9 +150,9 @@ class FinalRestDoorKey(Choice):
     """
     Determines what grants the player the Final Rest Door Key.
     
-    Sephiroth: Defeat Sephiroth
+    Sephiroth: Defeat Sephiroth in Olympus Coliseum
     
-    Unknown: Defeat Unknown
+    Unknown: Defeat the Enigmatic Man in Hollow Bastion
     
     Postcards: Turn in an amount of postcards in Traverse Town
     
@@ -387,18 +387,16 @@ class LevelChecks(Range):
 
 class ForceStatsOnLevels(NamedRange):
     """
-    If this value is less than the value for Level Checks, this determines the minimum level from which only stat ups are obtained at level up locations.
-    
-    For example, if you want to be able to find any multiworld item from levels 2-50, then just stat ups for levels 51-100, set this value to 51.
+    Determines the minimum level from which only stat ups are obtained on primary level up locations.
     """
-    display_name = "Force Stats on Level Starting From"
+    display_name = "Force Stats on Levels"
     default = 2
     range_start = 2
     range_end = 101
     special_range_names = {
-        "none": 101,
-        "multiworld-to-level-50": 51,
-        "all": 2
+        "no levels": 101,
+        "51+": 51,
+        "all levels": 2
     }
 
 class BadKingdomKey(Toggle):
@@ -406,17 +404,6 @@ class BadKingdomKey(Toggle):
     Forces Kingdom Key to have vanilla stats.
     """
     display_name = "Bad Kingdom Key"
-
-class DeathLink(Choice):
-    """
-    If Sora is KO'ed, the other players with "Death Link" on will also be KO'ed.
-    The opposite is also true.
-    """
-    display_name = "Death Link"
-    option_off = 0
-    option_toggle = 1
-    option_on = 2
-    default = 0
 
 class DonaldDeathLink(Toggle):
     """
@@ -545,25 +532,20 @@ class StartingTools(DefaultOnToggle):
 
 class RemoteItems(Choice):
     """
-    Determines if items can be placed on locations in your own world in such a way that will force them to be remote items.
+    Determines how local items (KH1 items found in KH1) are delivered to the player.
     
-    Off: When your items are placed in your world, they can only be placed in locations that they can be acquired without server connection (stats on levels, items in chests, etc).
-    
-    Allow: When your items are placed in your world, items that normally can't be placed in a location in-game are simply made remote (abilities on static events, etc).
-    
-    Full: All items are remote.  Use this when doing something like a co-op seed.
+    Off: The game handles granting local items.
+
+    Full: The server handles granting local items (requires connection to server).
     """
     display_name = "Remote Items"
     option_off = 0
-    option_allow = 1
     option_full = 2
     default = 0
 
 class Slot2LevelChecks(Range):
     """
     Determines how many levels have an additional item.
-    
-    If Remote Items is OFF, these checks will only contain abilities or items for other players.
     """
     display_name = "Slot 2 Level Checks"
     default = 0
@@ -730,6 +712,7 @@ class MaxLevelForSlot2LevelChecks(Range):
 class RandomizeAPCosts(Choice):
     """
     Off: No randomization
+
     Shuffle: Ability AP Costs will be shuffled amongst themselves.
     
     Randomize: Ability AP Costs will be randomized to the specified max and min.
@@ -839,7 +822,7 @@ class EvidenceBundle(DefaultOnToggle):
 class RandomizeSpellMPCosts(Choice):
     """
     Off: No randomization.
-    Shuffle: Spell costs will be shuffled amongst themselves, (2 single pip spells, 3 singe MP spells, 2 double MP spells)
+    Shuffle: Spell costs will be shuffled amongst themselves, (2 single pip spells, 3 single MP spells, 2 double MP spells)
     Randomize: Spell costs will be randomized individually based on the defined upper and lower bounds.
     """
     display_name = "Randomize Spell MP Costs"
