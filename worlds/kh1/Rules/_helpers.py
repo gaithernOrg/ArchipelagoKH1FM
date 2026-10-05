@@ -1,10 +1,9 @@
 from rule_builder.field_resolvers import FromOption
-from rule_builder.rules import Has, HasAll, HasAllCounts, HasAny, HasAnyCount, HasGroup, Or, Rule, True_
+from rule_builder.rules import AtLeast, Has, HasAll, HasAllCounts, HasAny, HasAnyCount, HasGroup, Or, Rule, True_
 
 from ..Data import EVIDENCE_ITEMS, SLIDE_ITEMS, WORLD_KEY_ITEMS
 from ..Options import RequiredLuckyEmblemsDoor, RequiredLuckyEmblemsEotW
 from ._constants import ALL_MAGIC, DODGE_AIRGUARD, EMBLEM_PIECES, HJ_GLIDE, KEYBLADES, WORLDS
-from ._custom_rules import AtLeast
 from ._field_resolvers import PuppiesRequiredCount
 from ._option_filters import (
     ABOVE_BEGINNER,
