@@ -4,13 +4,14 @@ from typing import List
 from math import ceil
 import copy
 
-from BaseClasses import Tutorial
+from BaseClasses import ItemClassification, Tutorial
 from worlds.AutoWorld import WebWorld, World
 from .Items import KH1Item, event_item_table, get_items_by_category, item_table, item_name_groups, get_possible_augments
 from .Locations import location_table, get_locations_by_type, location_name_groups
 from .Options import KH1Options, kh1_option_groups
 from .Regions import connect_entrances, create_regions
 from .Rules import set_rules
+from .Rules._constants import KEYBLADES
 from .Presets import kh1_option_presets
 from .GenerateJSON import generate_json
 from .Data import VANILLA_KEYBLADE_STATS, VANILLA_PUPPY_LOCATIONS, CHAR_TO_KH, VANILLA_ABILITY_AP_COSTS, WORLD_KEY_ITEMS, SLIDE_ITEMS, EVIDENCE_ITEMS, VANILLA_SPELL_COSTS_LVL, VANILLA_SPELL_COSTS_SPELL, POSSIBLE_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS
@@ -369,7 +370,15 @@ class KH1World(World):
 
     def create_item(self, name: str) -> KH1Item:
         data = item_table[name]
-        return KH1Item(name, data.classification, data.code, self.player)
+        return KH1Item(name, self.get_item_classification(name), data.code, self.player)
+
+    def get_item_classification(self, name: str) -> ItemClassification:
+        data = item_table[name]
+        if name in KEYBLADES and not self.options.keyblades_unlock_chests:
+            return ItemClassification.useful
+        if data.category == "Accessory" and not self.options.accessory_augments:
+            return ItemClassification.useful
+        return data.classification
 
     def create_event(self, name: str) -> KH1Item:
         data = event_item_table[name]

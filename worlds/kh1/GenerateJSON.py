@@ -40,22 +40,24 @@ def generate_json(world, output_directory):
     
     item_location_map = get_item_location_map(world)
     location_spheres = get_location_spheres(world)
+    progression_locations = get_progression_locations(world)
     settings = get_settings(world)
     keyblade_stats = world.get_keyblade_stats()
 
     files = {
-        "item_location_map.json":   json.dumps(item_location_map),
-        "location_spheres.json":    json.dumps(location_spheres),
-        "keyblade_stats.json":      json.dumps(keyblade_stats),
-        "settings.json":            json.dumps(settings),
-        "ap_costs.json":            json.dumps(world.get_ap_costs()),
-        "mp_costs.json":            json.dumps(world.get_mp_costs()),
-        "spell_effectiveness.json": json.dumps(world.get_spell_effectiveness()),
-        "mod.yml":                  get_mod_yml(settings),
-        "UK_Word.bin":              generate_word(settings),
-        "UK_ItemHelp.bin":          generate_itemhelp(keyblade_stats, item_location_map),
-        "UK_sysmsg.binl":           generate_sysmsg(world.get_mp_costs()),
-        "icon.png":                 pkgutil.get_data(__name__, "icons/mod_icon.png"),
+        "item_location_map.json":     json.dumps(item_location_map),
+        "location_spheres.json":      json.dumps(location_spheres),
+        "progression_locations.json": json.dumps(progression_locations),
+        "keyblade_stats.json":        json.dumps(keyblade_stats),
+        "settings.json":              json.dumps(settings),
+        "ap_costs.json":              json.dumps(world.get_ap_costs()),
+        "mp_costs.json":              json.dumps(world.get_mp_costs()),
+        "spell_effectiveness.json":   json.dumps(world.get_spell_effectiveness()),
+        "mod.yml":                    get_mod_yml(settings),
+        "UK_Word.bin":                generate_word(settings),
+        "UK_ItemHelp.bin":            generate_itemhelp(keyblade_stats, item_location_map),
+        "UK_sysmsg.binl":             generate_sysmsg(world.get_mp_costs()),
+        "icon.png":                   pkgutil.get_data(__name__, "icons/mod_icon.png"),
     }
 
     mod = KH1Container(files, mod_dir, output_directory, world.player,
@@ -94,6 +96,15 @@ def get_location_spheres(world):
             location_spheres[location_data.code] = sphere_index if reachable else -1
     return location_spheres
 
+def get_progression_locations(world):
+    progression_locations = []
+    for location in world.multiworld.get_filled_locations(world.player):
+        if location.address is None or location.name == "Final Ansem":
+            continue
+        if location.item.advancement:
+            progression_locations.append(location_table[location.name].code)
+    return sorted(progression_locations)
+
 def get_mod_yml(settings):
     seed_str = settings["seed"].lstrip("W")
     hex_seed = f"{int(seed_str):X}" if seed_str.isdigit() else settings["seed"]
@@ -106,6 +117,10 @@ assets:
   method: copy
   source:
     - name: item_location_map.json
+- name: scripts/io_packages/json/progression_locations.json
+  method: copy
+  source:
+    - name: progression_locations.json
 - name: scripts/io_packages/json/keyblade_stats.json
   method: copy
   source:
