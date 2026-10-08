@@ -344,8 +344,6 @@ item_table: Dict[str, KH1ItemData] = {
     #"Evolution":                        KH1ItemData("Abilities",        code = 264_3063, classification = ItemClassification.useful,      type = "Ability",                                         ),
     "EXP Zero":                          KH1ItemData("Abilities",        code = 264_3064, classification = ItemClassification.useful,      type = "Ability",                                         ),
     "Combo Master":                      KH1ItemData("Abilities",        code = 264_3065, classification = ItemClassification.progression, type = "Ability",        augment = True,                  ),
-    "Finishing Plus":                    KH1ItemData("Abilities",        code = 264_3066, classification = ItemClassification.useful,      type = "Ability",                        max_quantity = 2 ),
-    "Upper Slash":                       KH1ItemData("Abilities",        code = 264_3067, classification = ItemClassification.useful,      type = "Ability",                                         ),
     "Finisher Lock":                     KH1ItemData("Augment",          code = 264_4000, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
     "Air Finisher Lock":                 KH1ItemData("Augment",          code = 264_4001, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
     "Haste":                             KH1ItemData("Augment",          code = 264_4002, classification = ItemClassification.useful,      type = "Augment",        augment = True,                  ),
