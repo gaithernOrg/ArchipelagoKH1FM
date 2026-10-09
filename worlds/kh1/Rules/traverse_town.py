@@ -33,7 +33,7 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
 
     return {
         "Traverse Town 1st District Candle Puzzle Chest": Has("Progressive Blizzard"),
-        "Traverse Town 1st District Accessory Shop Roof Chest": ctx.hj1,
+        "Traverse Town 1st District Accessory Shop Roof Chest": ctx.hj1 | ABOVE_BEGINNER,
         "Traverse Town Secret Waterway White Trinity Chest": secret_waterway_rule & Has("White Trinity"),
         "Traverse Town Secret Waterway Near Stairs Chest": secret_waterway_rule,
         "Traverse Town Leon Secret Waterway Earthshine Event": secret_waterway_rule,
@@ -51,7 +51,7 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
         "Traverse Town Geppetto's House Postcard": ctx.parasite_cage,
         "Traverse Town 1st District Blue Trinity by Exit Door": Has("Blue Trinity"),
         "Traverse Town 3rd District Blue Trinity": Has("Blue Trinity"),
-        "Traverse Town Magician's Study Blue Trinity": HasAll("Blue Trinity", "Progressive Fire"),
+        "Traverse Town Magician's Study Blue Trinity": HasAll("Progressive Fire", "Blue Trinity"),
         "Traverse Town Magician's Study Earthshine Event": HasAll("Progressive Fire", "Earthshine"),
         "Traverse Town Magician's Study Naturespark Event": HasAll("Progressive Fire", "Naturespark"),
         "Traverse Town Magician's Study Watergleam Event": HasAll("Progressive Fire", "Watergleam"),
@@ -62,7 +62,7 @@ def build_rules(ctx: RuleContext, kh1world) -> dict[str, Rule]:
             Has("Yellow Trinity"),
             ctx.hj2 & ABOVE_BEGINNER,
             ctx.hj1 & ABOVE_NORMAL,
-            ctx.dumbo_summon,
+            ctx.dumbo_summon & ABOVE_NORMAL,
         ),
         "Traverse Town 1st District Blue Trinity Balcony Chest": Or(
             Has("Blue Trinity") & ctx.glide,
