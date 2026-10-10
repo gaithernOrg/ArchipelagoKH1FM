@@ -53,6 +53,8 @@ def generate_json(world, output_directory):
         "ap_costs.json":              json.dumps(world.get_ap_costs()),
         "mp_costs.json":              json.dumps(world.get_mp_costs()),
         "spell_effectiveness.json":   json.dumps(world.get_spell_effectiveness()),
+        "items.json":                 json.dumps(get_items()),
+        "locations.json":             json.dumps(get_locations()),
         "mod.yml":                    get_mod_yml(settings),
         "UK_Word.bin":                generate_word(settings),
         "UK_ItemHelp.bin":            generate_itemhelp(keyblade_stats, item_location_map),
@@ -76,6 +78,12 @@ def get_item_location_map(world):
             location_id = location_data.code
             location_item_map[location_id] = item_id
     return location_item_map
+
+def get_items():
+    return {data.code: {"name": name, "category": data.category, "type": data.type} for name, data in item_table.items()}
+
+def get_locations():
+    return {data.code: {"name": name, "category": data.category, "type": data.type} for name, data in location_table.items()}
 
 def get_location_spheres(world):
     """
@@ -117,6 +125,10 @@ assets:
   method: copy
   source:
     - name: item_location_map.json
+- name: scripts/io_packages/json/location_spheres.json
+  method: copy
+  source:
+    - name: location_spheres.json
 - name: scripts/io_packages/json/progression_locations.json
   method: copy
   source:
@@ -141,6 +153,14 @@ assets:
   method: copy
   source:
     - name: spell_effectiveness.json
+- name: scripts/io_packages/json/items.json
+  method: copy
+  source:
+    - name: items.json
+- name: scripts/io_packages/json/locations.json
+  method: copy
+  source:
+    - name: locations.json
 - name: remastered/btltbl.bin/UK_Word.bin
   method: copy
   source:
