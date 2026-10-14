@@ -422,28 +422,18 @@ class KeybladesUnlockChests(Toggle):
     If toggled on, the player is required to have a certain keyblade to open chests in certain worlds.
     
     TT   - Lionheart
-    
     WL   - Lady Luck
-    
     OC   - Olympia
-    
     DJ   - Jungle King
-    
     AG   - Three Wishes
-    
     MS   - Wishing Star
-    
     HT   - Pumpkinhead
-    
     NL   - Fairy Harp
-    
     HB   - Divine Rose
-    
     EotW - Oblivion
-    
     HAW  - Spellbinder
-    
     DI   - Oathkeeper
+    AL   - Crabclaw
     """
     display_name = "Keyblades Unlock Chests"
 
