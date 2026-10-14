@@ -444,8 +444,6 @@ class KeybladesUnlockChests(Toggle):
     HAW  - Spellbinder
     
     DI   - Oathkeeper
-    
-    Note: Does not apply to Atlantica, the emblem and carousel chests in Hollow Bastion, or the Aero chest in Neverland currently.
     """
     display_name = "Keyblades Unlock Chests"
 
@@ -776,8 +774,10 @@ class StackingWorldItems(DefaultOnToggle):
     HT - Forget-Me-Not and Jack-In-The-Box
     
     HB - Theon Vol. 6
+
+    AL - Crystal Trident
     
-    Adds an extra world to the pool for each that has a key item (WL, OC, DJ, HT, HB).
+    Adds an extra world to the pool for each that has a key item (WL, OC, DJ, HT, HB, AL).
     
     Forces Halloween Town Item Bundle, Slides Bundle and Evidence Bundle ON.
     """
