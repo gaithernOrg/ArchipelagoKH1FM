@@ -197,8 +197,19 @@ class KH1World(World):
 
 
     def exclude_content(self) -> None:
-        for group in self.options.excluded_content.value:
-            self.options.exclude_locations.value.update(location_name_groups[group])
+        if self.options.exclude_super_bosses:
+            self.exclude_location_group("Super Bosses")
+        if self.options.exclude_jungle_slider:
+            self.exclude_location_group("Jungle Slider")
+        if self.options.exclude_cups:
+            self.exclude_location_group("Cups")
+        if self.options.exclude_hundred_acre_wood:
+            self.exclude_location_group("100 Acre Wood")
+        if self.options.exclude_atlantica:
+            self.exclude_location_group("Atlantica")
+
+    def exclude_location_group(self, group: str) -> None:
+        self.options.exclude_locations.value.update(location_name_groups[group])
 
     def place_final_door_key(self) -> None:
         location_name = self.get_final_door_key_location()

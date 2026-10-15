@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from Options import NamedRange, Choice, Range, Toggle, DefaultOnToggle, OptionSet, OptionGroup
+from Options import NamedRange, Choice, Range, Toggle, DefaultOnToggle, OptionGroup
 from Options import PerGameCommonOptions, StartInventoryPool
 
 class LevelStats(Choice):
@@ -417,12 +417,35 @@ class RandomizePostcards(Choice):
     option_chests = 1
     option_vanilla = 2
 
-class ExcludedContent(OptionSet):
+class ExcludeSuperBosses(Toggle):
     """
-    Locations in these groups will only contain filler.
+    If on, checks behind Super Bosses will only contain filler.
     """
-    display_name = "Excluded Content"
-    valid_keys = ["Super Bosses", "Jungle Slider", "Cups", "100 Acre Wood", "Atlantica"]
+    display_name = "Exclude Super Bosses"
+
+class ExcludeJungleSlider(Toggle):
+    """
+    If on, checks behind the Jungle Slider minigame will only contain filler.
+    """
+    display_name = "Exclude Jungle Slider"
+
+class ExcludeCups(Toggle):
+    """
+    If on, checks in the Olympus Coliseum cups will only contain filler.
+    """
+    display_name = "Exclude Cups"
+
+class ExcludeHundredAcreWood(Toggle):
+    """
+    If on, checks in the 100 Acre Wood will only contain filler.
+    """
+    display_name = "Exclude 100 Acre Wood"
+
+class ExcludeAtlantica(Toggle):
+    """
+    If on, checks in Atlantica will only contain filler.
+    """
+    display_name = "Exclude Atlantica"
 
 class StartingWorlds(Range):
     """
@@ -804,7 +827,11 @@ class KH1Options(PerGameCommonOptions):
     cups_solo_time_trial: CupsSoloTimeTrial
     randomize_puppies: RandomizePuppies
     puppy_value: PuppyValue
-    excluded_content: ExcludedContent
+    exclude_super_bosses: ExcludeSuperBosses
+    exclude_jungle_slider: ExcludeJungleSlider
+    exclude_cups: ExcludeCups
+    exclude_hundred_acre_wood: ExcludeHundredAcreWood
+    exclude_atlantica: ExcludeAtlantica
     starting_worlds: StartingWorlds
     keyblades_unlock_chests: KeybladesUnlockChests
     interact_in_battle: InteractInBattle
@@ -898,7 +925,11 @@ kh1_option_groups = [
         RandomizePostcards,
         RandomizePuppies,
         PuppyValue,
-        ExcludedContent,
+        ExcludeSuperBosses,
+        ExcludeJungleSlider,
+        ExcludeCups,
+        ExcludeHundredAcreWood,
+        ExcludeAtlantica,
     ]),
     OptionGroup("Levels", [
         EXPMultiplier,
