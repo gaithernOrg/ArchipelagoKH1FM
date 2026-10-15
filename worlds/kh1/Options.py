@@ -773,6 +773,23 @@ class AugmentAbilitiesFromPool(Toggle):
     """
     display_name = "Augment Abilities from Pool"
 
+class OffWorldItems(Choice):
+    """
+    Determines what classification of items can be placed in other games in the multiworld.
+    Does nothing if playing a solo seed.
+
+    Any: Any item can be placed in any game.
+
+    Useful+: Only useful or progression items can be placed in another game.
+
+    Progression: Only progression items can be placed in another game.
+    """
+    display_name = "Off-World Items"
+    option_any = 0
+    option_useful_plus = 1
+    option_progression = 2
+    default = 0
+
 @dataclass
 class KH1Options(PerGameCommonOptions):
     final_rest_door_key: FinalRestDoorKey
@@ -856,6 +873,7 @@ class KH1Options(PerGameCommonOptions):
     scaling_spell_potency: ScalingSpellPotency
     accessory_augments: AccessoryAugments
     augment_abilities_from_pool: AugmentAbilitiesFromPool
+    off_world_items: OffWorldItems
     
 
 kh1_option_groups = [
@@ -954,5 +972,6 @@ kh1_option_groups = [
         GoofyDeathLink,
         RemoteItems,
         ShortenGoMode,
+        OffWorldItems,
     ]),
 ]

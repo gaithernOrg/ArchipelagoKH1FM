@@ -2,8 +2,8 @@ import logging
 import re
 from math import ceil
 
-from BaseClasses import ItemClassification, Tutorial
-from Fill import fill_restrictive
+from BaseClasses import CollectionState, ItemClassification, Location, LocationProgressType, Tutorial
+from Fill import FillError, fill_restrictive, remaining_fill
 from worlds.AutoWorld import WebWorld, World
 from .Items import KH1Item, event_item_table, get_items_by_group, item_name_groups, item_table
 from .Locations import get_locations_by_group, location_name_groups, location_table
@@ -125,6 +125,8 @@ class KH1World(World):
     def pre_fill(self):
         if self.options.level_check_items == "stats_and_abilities":
             self.fill_level_checks_with_stats_and_abilities()
+        if self.multiworld.players > 1:
+            self.place_items_not_allowed_off_world()
 
     def generate_output(self, output_directory: str):
         generate_json(self, output_directory)
@@ -364,6 +366,64 @@ class KH1World(World):
         while len(item_pool) < open_locations:
             item_pool.append(self.create_item(self.get_filler_item_name()))
         self.multiworld.itempool += item_pool
+
+    def place_items_not_allowed_off_world(self) -> None:
+        useful_items = []
+        filler_items = []
+        for item in self.multiworld.itempool:
+            if item.player != self.player or self.is_allowed_off_world(item):
+                continue
+            if item.useful:
+                useful_items.append(item)
+            else:
+                filler_items.append(item)
+        self.random.shuffle(useful_items)
+        self.random.shuffle(filler_items)
+        items = useful_items + filler_items
+        items_to_place = list(items)
+        locations = self.get_locations_for_items_not_allowed_off_world()
+        remaining_fill(self.multiworld, locations, items, "Off-World Items", check_location_can_fill=True)
+        if items:
+            raise FillError(f"{self.player_name} has {len(items)} items that are not allowed off-world "
+                            f"and no KH1 locations left to hold them: {items}")
+        for item in items_to_place:
+            item.location.locked = True
+        self.multiworld.itempool = [item for item in self.multiworld.itempool if item.location is None]
+
+    def get_locations_for_items_not_allowed_off_world(self) -> list[Location]:
+        unfilled_locations = self.multiworld.get_unfilled_locations(self.player)
+        reserved_locations = self.get_reserved_sphere_one_locations(unfilled_locations)
+        excluded_locations = []
+        other_locations = []
+        for location in unfilled_locations:
+            if location in reserved_locations:
+                continue
+            if location.name in self.options.priority_locations.value:
+                continue
+            if location.progress_type == LocationProgressType.EXCLUDED:
+                excluded_locations.append(location)
+            else:
+                other_locations.append(location)
+        self.random.shuffle(excluded_locations)
+        self.random.shuffle(other_locations)
+        return excluded_locations + other_locations
+
+    def get_reserved_sphere_one_locations(self, unfilled_locations: list[Location]) -> set[Location]:
+        empty_state = CollectionState(self.multiworld)
+        reachable_locations = self.multiworld.get_reachable_locations(empty_state, self.player)
+        unfilled_sphere_one_locations = []
+        for location in reachable_locations:
+            if location in unfilled_locations:
+                unfilled_sphere_one_locations.append(location)
+        reserved_count = min(2, len(unfilled_sphere_one_locations))
+        return set(self.random.sample(unfilled_sphere_one_locations, reserved_count))
+
+    def is_allowed_off_world(self, item: KH1Item) -> bool:
+        if self.options.off_world_items == "useful_plus":
+            return item.advancement or item.useful
+        if self.options.off_world_items == "progression":
+            return item.advancement
+        return True
 
     def get_lucky_emblems_in_pool(self) -> int:
         eotw_uses_emblems = self.options.end_of_the_world_unlock == "lucky_emblems"
