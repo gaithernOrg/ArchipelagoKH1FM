@@ -422,7 +422,7 @@ class ExcludedContent(OptionSet):
     Locations in these groups will only contain filler.
     """
     display_name = "Excluded Content"
-    valid_keys = ["Super Bosses", "Jungle Slider"]
+    valid_keys = ["Super Bosses", "Jungle Slider", "Cups", "100 Acre Wood", "Atlantica"]
 
 class StartingWorlds(Range):
     """

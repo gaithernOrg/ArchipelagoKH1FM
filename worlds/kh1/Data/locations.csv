@@ -332,8 +332,8 @@ id,name,region,groups
 2656327,Traverse Town Piano Room Return 99 Puppies Reward 2,Traverse Town,
 2656032,Olympus Coliseum Cloud Sonic Blade Event,Olympus Coliseum,Boss
 2656328,Olympus Coliseum Defeat Sephiroth One-Winged Angel Event,Olympus Coliseum,Boss;Super Bosses
-2656329,Olympus Coliseum Defeat Ice Titan Diamond Dust Event,Olympus Coliseum,Boss;Super Bosses
-2656330,Olympus Coliseum Gates Purple Jar After Defeating Hades,Olympus Coliseum,Boss
+2656329,Olympus Coliseum Defeat Ice Titan Diamond Dust Event,Olympus Coliseum,Boss;Super Bosses;Cups
+2656330,Olympus Coliseum Gates Purple Jar After Defeating Hades,Olympus Coliseum,Boss;Cups
 2656331,Halloween Town Guillotine Square Ring Jack's Doorbell 3 Times,Halloween Town,
 2656332,Neverland Clock Tower 01:00 Door,Neverland,Boss
 2656333,Neverland Clock Tower 02:00 Door,Neverland,Boss
@@ -372,7 +372,7 @@ id,name,region,groups
 2656366,Deep Jungle Camp Save Gorillas,Deep Jungle,
 2656367,Deep Jungle Bamboo Thicket Save Gorillas,Deep Jungle,
 2656368,Deep Jungle Climbing Trees Save Gorillas,Deep Jungle,
-2656369,Olympus Coliseum Olympia Chest,Olympus Coliseum,Boss
+2656369,Olympus Coliseum Olympia Chest,Olympus Coliseum,Boss;Cups
 2656370,Deep Jungle Jungle Slider 10 Fruits,Deep Jungle,Boss;Jungle Slider
 2656371,Deep Jungle Jungle Slider 20 Fruits,Deep Jungle,Boss;Jungle Slider
 2656372,Deep Jungle Jungle Slider 30 Fruits,Deep Jungle,Boss;Jungle Slider
@@ -519,7 +519,7 @@ id,name,region,groups
 2657014,Hollow Bastion Defeat Maleficent Ansem's Report 5,Hollow Bastion,Boss
 2657013,Hollow Bastion Speak with Aerith Ansem's Report 6,Hollow Bastion,Boss
 2657012,Halloween Town Defeat Oogie Boogie Ansem's Report 7,Halloween Town,Boss
-2657011,Olympus Coliseum Defeat Hades Ansem's Report 8,Olympus Coliseum,Boss
+2657011,Olympus Coliseum Defeat Hades Ansem's Report 8,Olympus Coliseum,Boss;Cups
 2657028,Neverland Defeat Hook Ansem's Report 9,Neverland,Boss
 2657027,Hollow Bastion Speak with Aerith Ansem's Report 10,Hollow Bastion,Boss
 2657026,Agrabah Defeat Kurt Zisa Ansem's Report 11,Agrabah,Boss;Super Bosses
@@ -723,25 +723,25 @@ id,name,region,groups
 2658198,Level 098 (Slot 2),Levels,
 2658199,Level 099 (Slot 2),Levels,
 2658200,Level 100 (Slot 2),Levels,
-2659001,Complete Phil Cup,Olympus Coliseum,Boss
-2659002,Complete Phil Cup Solo,Olympus Coliseum,Boss
-2659003,Complete Phil Cup Time Trial,Olympus Coliseum,Boss
-2659004,Complete Pegasus Cup,Olympus Coliseum,Boss
-2659005,Complete Pegasus Cup Solo,Olympus Coliseum,Boss
-2659006,Complete Pegasus Cup Time Trial,Olympus Coliseum,Boss
-2659007,Complete Hercules Cup,Olympus Coliseum,Boss
-2659008,Complete Hercules Cup Solo,Olympus Coliseum,Boss
-2659009,Complete Hercules Cup Time Trial,Olympus Coliseum,Boss
-2659010,Complete Hades Cup,Olympus Coliseum,Boss
-2659011,Complete Hades Cup Solo,Olympus Coliseum,Boss
-2659012,Complete Hades Cup Time Trial,Olympus Coliseum,Boss
-2659013,Hades Cup Defeat Cloud and Leon Event,Olympus Coliseum,Boss
-2659014,Hades Cup Defeat Yuffie Event,Olympus Coliseum,Boss
-2659015,Hades Cup Defeat Cerberus Event,Olympus Coliseum,Boss
-2659016,Hades Cup Defeat Behemoth Event,Olympus Coliseum,Boss
-2659017,Hades Cup Defeat Hades Event,Olympus Coliseum,Boss
-2659018,Hercules Cup Defeat Cloud Event,Olympus Coliseum,Boss
-2659019,Hercules Cup Yellow Trinity Event,Olympus Coliseum,Boss
+2659001,Complete Phil Cup,Olympus Coliseum,Boss;Cups
+2659002,Complete Phil Cup Solo,Olympus Coliseum,Boss;Cups
+2659003,Complete Phil Cup Time Trial,Olympus Coliseum,Boss;Cups
+2659004,Complete Pegasus Cup,Olympus Coliseum,Boss;Cups
+2659005,Complete Pegasus Cup Solo,Olympus Coliseum,Boss;Cups
+2659006,Complete Pegasus Cup Time Trial,Olympus Coliseum,Boss;Cups
+2659007,Complete Hercules Cup,Olympus Coliseum,Boss;Cups
+2659008,Complete Hercules Cup Solo,Olympus Coliseum,Boss;Cups
+2659009,Complete Hercules Cup Time Trial,Olympus Coliseum,Boss;Cups
+2659010,Complete Hades Cup,Olympus Coliseum,Boss;Cups
+2659011,Complete Hades Cup Solo,Olympus Coliseum,Boss;Cups
+2659012,Complete Hades Cup Time Trial,Olympus Coliseum,Boss;Cups
+2659013,Hades Cup Defeat Cloud and Leon Event,Olympus Coliseum,Boss;Cups
+2659014,Hades Cup Defeat Yuffie Event,Olympus Coliseum,Boss;Cups
+2659015,Hades Cup Defeat Cerberus Event,Olympus Coliseum,Boss;Cups
+2659016,Hades Cup Defeat Behemoth Event,Olympus Coliseum,Boss;Cups
+2659017,Hades Cup Defeat Hades Event,Olympus Coliseum,Boss;Cups
+2659018,Hercules Cup Defeat Cloud Event,Olympus Coliseum,Boss;Cups
+2659019,Hercules Cup Yellow Trinity Event,Olympus Coliseum,Boss;Cups
 2659100,Accessory Protect Chain,Accessories,Augment
 2659101,Accessory Protera Chain,Accessories,Augment
 2659102,Accessory Protega Chain,Accessories,Augment
