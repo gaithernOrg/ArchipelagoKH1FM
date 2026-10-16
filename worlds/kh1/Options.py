@@ -593,9 +593,10 @@ class AutoSave(DefaultOnToggle):
     """
     If on, enables auto saving.
     
-    Press L1+L2+R1+R2+D-Pad Left to instantly load continue state.
-    
-    Press L1+L2+R1+R2+D-Pad Right to instantly load autosave.
+    Press L1+L2+R1+R2+D-Pad Up to load 1st most recent autosave.
+    Press L1+L2+R1+R2+D-Pad Right to load 2nd most recent autosave.
+    Press L1+L2+R1+R2+D-Pad Down to load 3rd most recent autosave.
+    Press L1+L2+R1+R2+D-Pad Left to load 4th most recent autosave.
     """
     display_name = "AutoSave"
 
