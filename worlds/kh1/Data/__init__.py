@@ -76,3 +76,9 @@ WORLD_KEY_ITEMS = {
     "Jack-In-The-Box": "Halloween Town",
     "Theon Vol. 6": "Hollow Bastion",
 }
+
+DOOR_KEY_LOCATIONS = {
+    "sephiroth": "Olympus Coliseum Defeat Sephiroth Ansem's Report 12",
+    "unknown": "Hollow Bastion Defeat Unknown Ansem's Report 13",
+    "final_rest": "End of the World Final Rest Chest",
+}

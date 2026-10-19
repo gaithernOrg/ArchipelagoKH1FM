@@ -15,18 +15,7 @@ from . import Data
 from .Data import CHAR_TO_KH, CHEST_KEYBLADES, POSSIBLE_SPELL_COSTS
 from .Data import VANILLA_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS, VANILLA_SPELL_LEVEL_COSTS
 from .Data import VANILLA_LEVEL_UP_STATS, WORLD_KEY_ITEMS
-
-
-POOL_ITEM_GROUPS = ("Key Items", "Spells", "Worlds", "Trinities", "Cups", "Summons", "Abilities", "Keyblades",
-                    "Accessories", "Weapons", "Torn Pages")
-STARTING_WORLD_CANDIDATES = ("Wonderland", "Olympus Coliseum", "Deep Jungle", "Agrabah", "Monstro", "Halloween Town",
-                             "Neverland", "Hollow Bastion", "Atlantica", "Destiny Islands")
-STARTING_TOOLS = ["Scan", "Dodge Roll"]
-DOOR_KEY_LOCATIONS = {
-    "sephiroth": "Olympus Coliseum Defeat Sephiroth Ansem's Report 12",
-    "unknown": "Hollow Bastion Defeat Unknown Ansem's Report 13",
-    "final_rest": "End of the World Final Rest Chest",
-}
+from .Data import DOOR_KEY_LOCATIONS
 
 
 class KH1Web(WebWorld):
@@ -258,9 +247,9 @@ class KH1World(World):
     def give_starting_worlds(self) -> list[str]:
         if self.options.starting_worlds.value == 0:
             return []
-        candidates = list(STARTING_WORLD_CANDIDATES)
-        if self.options.end_of_the_world_unlock == "item":
-            candidates.append("End of the World")
+        candidates = sorted(item_name_groups["Worlds"])
+        if self.options.end_of_the_world_unlock != "item":
+            candidates.remove("End of the World")
         starting_worlds = self.random.sample(candidates, min(self.options.starting_worlds.value, len(candidates)))
         for world_name in starting_worlds:
             self.multiworld.push_precollected(self.create_item(world_name))
@@ -269,9 +258,10 @@ class KH1World(World):
     def give_starting_tools(self) -> list[str]:
         if not self.options.starting_tools:
             return []
-        for tool in STARTING_TOOLS:
+        starting_tools = sorted(item_name_groups["Starting Tools"])
+        for tool in starting_tools:
             self.multiworld.push_precollected(self.create_item(tool))
-        return STARTING_TOOLS
+        return starting_tools
 
     def place_starting_accessories(self) -> None:
         for location_name, accessory in zip(self.get_starting_accessory_locations(), self.get_starting_accessories()):
@@ -289,11 +279,7 @@ class KH1World(World):
             self.get_location(f"Level {level:03} (Slot 1)").place_locked_item(self.create_item(stat))
 
     def build_base_item_counts(self) -> dict[str, int]:
-        return {
-            name: data.max_quantity
-            for name, data in item_table.items()
-            if any(group in POOL_ITEM_GROUPS for group in data.groups)
-        }
+        return {name: data.max_quantity for name, data in get_items_by_group("Pool").items()}
 
     def apply_randomize_puppies(self, item_counts: dict[str, int]) -> None:
         if self.options.randomize_puppies:
