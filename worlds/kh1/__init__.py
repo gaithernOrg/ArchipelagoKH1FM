@@ -86,7 +86,7 @@ class KH1World(World):
 
         starting_worlds = self.give_starting_worlds()
         starting_tools = self.give_starting_tools()
-        self.place_starting_accessories()
+        starting_accessories = self.place_starting_accessories()
         self.place_accessory_augments()
         self.place_level_up_stats()
 
@@ -102,7 +102,7 @@ class KH1World(World):
         self.apply_final_rest_door_key(item_counts)
         self.apply_randomize_emblem_pieces(item_counts)
         self.apply_additional_slots(item_counts)
-        self.remove_items(item_counts, starting_worlds + starting_tools + self.get_starting_accessories())
+        self.remove_items(item_counts, starting_worlds + starting_tools + starting_accessories)
         self.apply_augment_abilities_from_pool(item_counts)
         self.apply_bundles(item_counts)
         self.apply_stacking_world_items(item_counts)
@@ -263,9 +263,11 @@ class KH1World(World):
             self.multiworld.push_precollected(self.create_item(tool))
         return starting_tools
 
-    def place_starting_accessories(self) -> None:
-        for location_name, accessory in zip(self.get_starting_accessory_locations(), self.get_starting_accessories()):
+    def place_starting_accessories(self) -> list[str]:
+        starting_accessories = self.get_starting_accessories()
+        for location_name, accessory in zip(self.get_starting_accessory_locations(), starting_accessories):
             self.get_location(location_name).place_locked_item(self.create_item(accessory))
+        return starting_accessories
 
     def place_accessory_augments(self) -> None:
         for augment, location_name in zip(self.get_accessory_augments(), self.get_accessory_locations()):
