@@ -15,6 +15,7 @@ from . import Data
 from .Data import CHAR_TO_KH, CHEST_KEYBLADES, POSSIBLE_SPELL_COSTS
 from .Data import VANILLA_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS, VANILLA_SPELL_LEVEL_COSTS
 from .Data import VANILLA_LEVEL_UP_STATS, WORLD_KEY_ITEMS
+from .Data import PARTY_LEVEL_UP_CODES, VANILLA_PARTY_LEVEL_UPS
 from .Data import DOOR_KEY_LOCATIONS
 
 
@@ -63,6 +64,7 @@ class KH1World(World):
         self.ap_costs = None
         self.mp_costs = None
         self.spell_effectiveness = None
+        self.party_level_ups = None
 
     def generate_early(self):
         self.sort_lucky_emblem_counts()
@@ -102,6 +104,7 @@ class KH1World(World):
         self.apply_final_rest_door_key(item_counts)
         self.apply_randomize_emblem_pieces(item_counts)
         self.apply_additional_slots(item_counts)
+        self.apply_party_abilities_in_pool(item_counts)
         self.remove_items(item_counts, starting_worlds + starting_tools + starting_accessories)
         self.apply_augment_abilities_from_pool(item_counts)
         self.apply_bundles(item_counts)
@@ -359,6 +362,19 @@ class KH1World(World):
         item_counts["Item Slot Increase"] = self.options.additional_item_slots.value
         item_counts["Accessory Slot Increase"] = self.options.additional_accessory_slots.value
 
+    def apply_party_abilities_in_pool(self, item_counts: dict[str, int]) -> None:
+        if self.options.donald_level_abilities == "in_pool":
+            self.add_party_abilities_to_pool(item_counts, "Donald")
+        if self.options.goofy_level_abilities == "in_pool":
+            self.add_party_abilities_to_pool(item_counts, "Goofy")
+
+    def add_party_abilities_to_pool(self, item_counts: dict[str, int], character: str) -> None:
+        for name, data in get_items_by_group(f"{character} Abilities").items():
+            item_counts[name] = data.max_quantity
+
+    def is_party_ability_item(self, character: str, ability: str) -> bool:
+        return f"{character} {ability}" in item_table
+
     def fill_item_pool(self, item_counts: dict[str, int]) -> None:
         item_pool = [self.create_item(name) for name, count in item_counts.items() for _ in range(count)]
         open_locations = len(self.multiworld.get_unfilled_locations(self.player))
@@ -615,6 +631,31 @@ class KH1World(World):
                     self.spell_effectiveness[i] = max(int(effectiveness * cost / vanilla_cost + 0.5), 1)
         return self.spell_effectiveness
 
+    def get_party_level_ups(self) -> dict[str, dict[str, list[int]]]:
+        if self.party_level_ups is None:
+            self.party_level_ups = {
+                "Donald": self.build_party_level_ups(
+                    "Donald", self.options.donald_level_stats, self.options.donald_level_abilities),
+                "Goofy": self.build_party_level_ups(
+                    "Goofy", self.options.goofy_level_stats, self.options.goofy_level_abilities),
+            }
+        return self.party_level_ups
+
+    def build_party_level_ups(self, character: str, stats_option, abilities_option) -> dict[str, list[int]]:
+        stats = []
+        abilities = []
+        for row in VANILLA_PARTY_LEVEL_UPS[character]:
+            stats.append(PARTY_LEVEL_UP_CODES[row["stat"]])
+            if abilities_option == "in_pool" and self.is_party_ability_item(character, row["ability"]):
+                abilities.append(PARTY_LEVEL_UP_CODES["None"])
+            else:
+                abilities.append(PARTY_LEVEL_UP_CODES[row["ability"]])
+        if stats_option == "shuffle":
+            self.random.shuffle(stats)
+        if abilities_option == "shuffle":
+            self.random.shuffle(abilities)
+        return {"stats": stats, "abilities": abilities}
+
     def get_remote_location_ids(self) -> list[int]:
         remote_location_ids = []
         for location in self.multiworld.get_filled_locations(self.player):
@@ -653,6 +694,8 @@ class KH1World(World):
             "day_1_materials": int(self.options.day_1_materials.value),
             "day_2_materials": int(self.options.day_2_materials.value),
             "donald_death_link": bool(self.options.donald_death_link),
+            "donald_level_abilities": str(self.options.donald_level_abilities.current_key),
+            "donald_level_stats": str(self.options.donald_level_stats.current_key),
             "early_skip": bool(self.options.early_skip),
             "end_of_the_world_unlock": str(self.options.end_of_the_world_unlock.current_key),
             "exp_multiplier": int(self.options.exp_multiplier.value) / 16,
@@ -663,6 +706,8 @@ class KH1World(World):
             "final_rest_door_key": str(self.options.final_rest_door_key.current_key),
             "four_by_three": bool(self.options.four_by_three),
             "goofy_death_link": bool(self.options.goofy_death_link),
+            "goofy_level_abilities": str(self.options.goofy_level_abilities.current_key),
+            "goofy_level_stats": str(self.options.goofy_level_stats.current_key),
             "halloween_town_key_item_bundle": bool(self.options.halloween_town_key_item_bundle),
             "slides_bundle": bool(self.options.slides_bundle),
             "evidence_bundle": bool(self.options.evidence_bundle),

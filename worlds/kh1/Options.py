@@ -45,6 +45,64 @@ class LevelCheckItems(Choice):
     option_anything = 1
     default = 0
 
+class DonaldLevelStats(Choice):
+    """
+    Determines the stat increase Donald gets on each level up.
+
+    Vanilla: Each level gives its vanilla stat increase.
+
+    Shuffle: The vanilla stat increases are shuffled across levels.
+    """
+    display_name = "Donald LV Stats"
+    option_vanilla = 0
+    option_shuffle = 1
+    default = 0
+
+class GoofyLevelStats(Choice):
+    """
+    Determines the stat increase Goofy gets on each level up.
+
+    Vanilla: Each level gives its vanilla stat increase.
+
+    Shuffle: The vanilla stat increases are shuffled across levels.
+    """
+    display_name = "Goofy LV Stats"
+    option_vanilla = 0
+    option_shuffle = 1
+    default = 0
+
+class DonaldLevelAbilities(Choice):
+    """
+    Determines the abilities Donald learns on level up.
+
+    Vanilla: Donald learns his vanilla abilities at their vanilla levels.
+
+    Shuffle: Donald's abilities are shuffled across all levels.
+
+    In Pool: Donald's abilities are shuffled into the multiworld.
+    """
+    display_name = "Donald LV Abilities"
+    option_vanilla = 0
+    option_shuffle = 1
+    option_in_pool = 2
+    default = 0
+
+class GoofyLevelAbilities(Choice):
+    """
+    Determines the abilities Goofy learns on level up.
+
+    Vanilla: Goofy learns his vanilla abilities at their vanilla levels.
+
+    Shuffle: Goofy's abilities and accessory slot increases are shuffled across all levels.
+
+    In Pool: Goofy's abilities are shuffled into the multiworld. His accessory slot increases stay at their vanilla levels.
+    """
+    display_name = "Goofy LV Abilities"
+    option_vanilla = 0
+    option_shuffle = 1
+    option_in_pool = 2
+    default = 0
+
 class AdditionalItemSlots(Range):
     """
     Determines the number of additional Item Slot Increases added to the multiworld.
@@ -857,6 +915,10 @@ class KH1Options(PerGameCommonOptions):
     keyblade_min_mp: KeybladeMinMP
     keyblade_max_mp: KeybladeMaxMP
     level_stats: LevelStats
+    donald_level_stats: DonaldLevelStats
+    goofy_level_stats: GoofyLevelStats
+    donald_level_abilities: DonaldLevelAbilities
+    goofy_level_abilities: GoofyLevelAbilities
     level_check_locations: LevelCheckLocations
     level_check_items: LevelCheckItems
     additional_item_slots: AdditionalItemSlots
@@ -937,6 +999,10 @@ kh1_option_groups = [
         LevelStats,
         LevelCheckLocations,
         LevelCheckItems,
+        DonaldLevelStats,
+        GoofyLevelStats,
+        DonaldLevelAbilities,
+        GoofyLevelAbilities,
         AdditionalItemSlots,
         AdditionalAccessorySlots,
     ]),

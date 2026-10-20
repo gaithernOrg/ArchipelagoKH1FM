@@ -22,6 +22,13 @@ def group_spell_levels_by_spell(rows: List[Dict[str, str]]) -> Dict[str, List[Sp
     return levels_by_spell
 
 
+def group_party_level_ups_by_character(rows: List[Dict[str, str]]) -> Dict[str, List[Dict[str, str]]]:
+    level_ups_by_character: Dict[str, List[Dict[str, str]]] = {}
+    for row in rows:
+        level_ups_by_character.setdefault(row["character"], []).append(row)
+    return level_ups_by_character
+
+
 items = load_rows("items.csv")
 event_items = load_rows("event_items.csv")
 locations = load_rows("locations.csv")
@@ -31,6 +38,7 @@ keyblade_stats = load_rows("keyblade_stats.csv")
 ability_ap_costs = load_rows("ability_ap_costs.csv", "utf-8")
 spells = load_rows("spells.csv")
 level_up_stats = load_rows("level_up_stats.csv")
+party_level_ups = load_rows("party_level_ups.csv")
 
 char_to_kh = load_rows("char_to_kh.csv", "utf-8")
 item_help = load_rows("item_help.csv", "utf-8")
@@ -50,6 +58,32 @@ VANILLA_SPELL_LEVEL_COSTS = [int(row["vanilla_cost"]) for row in spells]
 VANILLA_SPELL_COSTS = [30, 30, 100, 100, 100, 200, 200]
 VANILLA_SPELL_EFFECTIVENESS = [int(row["vanilla_effectiveness"]) for row in spells]
 VANILLA_LEVEL_UP_STATS = {int(row["level"]): row["item"] for row in level_up_stats}
+VANILLA_PARTY_LEVEL_UPS = group_party_level_ups_by_character(party_level_ups)
+
+PARTY_LEVEL_UP_CODES = {
+    "None": 0x00,
+    "HP": 0x01,
+    "MP": 0x02,
+    "AP": 0x03,
+    "STR": 0x04,
+    "DEF": 0x05,
+    "Item Slot": 0x06,
+    "Accessory Slot": 0x07,
+    "Treasure Magnet": 0x85,
+    "Second Wind": 0x89,
+    "MP Haste": 0x97,
+    "MP Rage": 0x98,
+    "Second Chance": 0x99,
+    "Berserk": 0x9A,
+    "Jackpot": 0x9B,
+    "Lucky Strike": 0x9C,
+    "Charge": 0x9D,
+    "Rocket": 0x9E,
+    "Tornado": 0x9F,
+    "MP Gift": 0xA0,
+    "Leaf Bracer": 0xBE,
+    "Evolution": 0xBF,
+}
 
 CHEST_KEYBLADES = {
     "Destiny Islands": "Oathkeeper",

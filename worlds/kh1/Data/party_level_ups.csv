@@ -1,0 +1,199 @@
+character,level,stat,ability
+Donald,2,HP,None
+Donald,3,STR,None
+Donald,4,DEF,None
+Donald,5,STR,None
+Donald,6,DEF,None
+Donald,7,STR,None
+Donald,8,HP,None
+Donald,9,DEF,Berserk
+Donald,10,HP,None
+Donald,11,AP,None
+Donald,12,HP,None
+Donald,13,STR,None
+Donald,14,DEF,MP Haste
+Donald,15,Item Slot,None
+Donald,16,AP,None
+Donald,17,STR,None
+Donald,18,HP,None
+Donald,19,DEF,MP Rage
+Donald,20,MP,None
+Donald,21,AP,None
+Donald,22,STR,None
+Donald,23,HP,None
+Donald,24,DEF,Treasure Magnet
+Donald,25,Item Slot,None
+Donald,26,AP,None
+Donald,27,HP,None
+Donald,28,STR,None
+Donald,29,DEF,Second Wind
+Donald,30,MP,None
+Donald,31,AP,None
+Donald,32,HP,None
+Donald,33,STR,None
+Donald,34,DEF,Leaf Bracer
+Donald,35,Item Slot,None
+Donald,36,AP,None
+Donald,37,STR,None
+Donald,38,HP,None
+Donald,39,DEF,Treasure Magnet
+Donald,40,MP,None
+Donald,41,AP,None
+Donald,42,HP,None
+Donald,43,STR,None
+Donald,44,DEF,Lucky Strike
+Donald,45,Item Slot,None
+Donald,46,AP,None
+Donald,47,STR,None
+Donald,48,HP,None
+Donald,49,DEF,MP Rage
+Donald,50,MP,None
+Donald,51,AP,None
+Donald,52,HP,None
+Donald,53,STR,None
+Donald,54,DEF,Jackpot
+Donald,55,HP,None
+Donald,56,AP,None
+Donald,57,STR,None
+Donald,58,HP,None
+Donald,59,DEF,Second Chance
+Donald,60,MP,None
+Donald,61,AP,None
+Donald,62,STR,None
+Donald,63,DEF,None
+Donald,64,AP,None
+Donald,65,STR,None
+Donald,66,DEF,None
+Donald,67,STR,None
+Donald,68,DEF,None
+Donald,69,STR,None
+Donald,70,MP,None
+Donald,71,DEF,None
+Donald,72,STR,None
+Donald,73,DEF,None
+Donald,74,STR,None
+Donald,75,DEF,None
+Donald,76,STR,None
+Donald,77,DEF,None
+Donald,78,STR,None
+Donald,79,DEF,None
+Donald,80,MP,None
+Donald,81,STR,None
+Donald,82,DEF,None
+Donald,83,STR,None
+Donald,84,DEF,None
+Donald,85,STR,None
+Donald,86,DEF,None
+Donald,87,STR,None
+Donald,88,DEF,None
+Donald,89,STR,None
+Donald,90,DEF,None
+Donald,91,STR,None
+Donald,92,DEF,None
+Donald,93,STR,None
+Donald,94,DEF,None
+Donald,95,STR,None
+Donald,96,DEF,None
+Donald,97,STR,None
+Donald,98,DEF,None
+Donald,99,STR,None
+Donald,100,DEF,None
+Goofy,2,DEF,None
+Goofy,3,STR,None
+Goofy,4,DEF,None
+Goofy,5,HP,None
+Goofy,6,DEF,None
+Goofy,7,HP,None
+Goofy,8,DEF,None
+Goofy,9,HP,Rocket
+Goofy,10,STR,None
+Goofy,11,Item Slot,None
+Goofy,12,AP,Jackpot
+Goofy,13,HP,None
+Goofy,14,DEF,None
+Goofy,15,MP,Charge
+Goofy,16,STR,None
+Goofy,17,HP,None
+Goofy,18,AP,Treasure Magnet
+Goofy,19,Item Slot,None
+Goofy,20,DEF,None
+Goofy,21,HP,Tornado
+Goofy,22,STR,None
+Goofy,23,HP,None
+Goofy,24,AP,Lucky Strike
+Goofy,25,Item Slot,None
+Goofy,26,DEF,None
+Goofy,27,HP,Accessory Slot
+Goofy,28,STR,None
+Goofy,29,MP,None
+Goofy,30,AP,Evolution
+Goofy,31,HP,None
+Goofy,32,DEF,None
+Goofy,33,Item Slot,Second Wind
+Goofy,34,STR,None
+Goofy,35,HP,None
+Goofy,36,AP,Second Chance
+Goofy,37,HP,None
+Goofy,38,DEF,None
+Goofy,39,STR,MP Rage
+Goofy,40,AP,None
+Goofy,41,HP,None
+Goofy,42,DEF,MP Gift
+Goofy,43,MP,None
+Goofy,44,STR,None
+Goofy,45,HP,Berserk
+Goofy,46,AP,None
+Goofy,47,DEF,None
+Goofy,48,STR,MP Haste
+Goofy,49,HP,None
+Goofy,50,AP,None
+Goofy,51,HP,Treasure Magnet
+Goofy,52,DEF,None
+Goofy,53,STR,None
+Goofy,54,AP,Accessory Slot
+Goofy,55,HP,None
+Goofy,56,DEF,None
+Goofy,57,MP,MP Rage
+Goofy,58,STR,None
+Goofy,59,HP,None
+Goofy,60,AP,None
+Goofy,61,DEF,None
+Goofy,62,STR,None
+Goofy,63,HP,None
+Goofy,64,AP,None
+Goofy,65,DEF,None
+Goofy,66,STR,None
+Goofy,67,HP,None
+Goofy,68,AP,None
+Goofy,69,DEF,None
+Goofy,70,STR,None
+Goofy,71,AP,None
+Goofy,72,DEF,None
+Goofy,73,STR,None
+Goofy,74,AP,None
+Goofy,75,DEF,None
+Goofy,76,STR,None
+Goofy,77,DEF,None
+Goofy,78,STR,None
+Goofy,79,DEF,None
+Goofy,80,STR,None
+Goofy,81,DEF,None
+Goofy,82,STR,None
+Goofy,83,DEF,None
+Goofy,84,STR,None
+Goofy,85,DEF,None
+Goofy,86,STR,None
+Goofy,87,DEF,None
+Goofy,88,STR,None
+Goofy,89,DEF,None
+Goofy,90,STR,None
+Goofy,91,DEF,None
+Goofy,92,STR,None
+Goofy,93,DEF,None
+Goofy,94,STR,None
+Goofy,95,DEF,None
+Goofy,96,STR,None
+Goofy,97,DEF,None
+Goofy,98,STR,None
+Goofy,99,DEF,None
+Goofy,100,STR,None
