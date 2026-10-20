@@ -12,6 +12,7 @@ from copy import deepcopy
 from .Locations import location_table
 from .Items import item_table
 from .Data import CHAR_TO_KH, ITEMHELP, MP_COST_LABELS, SPELL_LEVELS_BY_SPELL, SYSMSG, WORD
+from .Data import WEAPON_ITEM_HELP_START
 from worlds.Files import APPlayerContainer
 
 class KH1Container(APPlayerContainer):
@@ -39,13 +40,13 @@ def generate_json(world, output_directory):
     location_spheres = get_location_spheres(world)
     progression_locations = get_progression_locations(world)
     settings = get_settings(world)
-    keyblade_stats = world.get_keyblade_stats()
+    weapon_stats = world.get_weapon_stats()
 
     files = {
         "item_location_map.json":     json.dumps(item_location_map),
         "location_spheres.json":      json.dumps(location_spheres),
         "progression_locations.json": json.dumps(progression_locations),
-        "keyblade_stats.json":        json.dumps(keyblade_stats),
+        "weapon_stats.json":          json.dumps(weapon_stats),
         "settings.json":              json.dumps(settings),
         "ap_costs.json":              json.dumps(world.get_ap_costs()),
         "mp_costs.json":              json.dumps(world.get_mp_costs()),
@@ -55,7 +56,7 @@ def generate_json(world, output_directory):
         "locations.json":             json.dumps(get_locations()),
         "mod.yml":                    get_mod_yml(settings),
         "UK_Word.bin":                generate_word(settings),
-        "UK_ItemHelp.bin":            generate_itemhelp(keyblade_stats, item_location_map),
+        "UK_ItemHelp.bin":            generate_itemhelp(weapon_stats, item_location_map),
         "UK_sysmsg.binl":             generate_sysmsg(world.get_mp_costs()),
         "icon.png":                   pkgutil.get_data(__name__, "icons/mod_icon.png"),
     }
@@ -126,10 +127,10 @@ assets:
   method: copy
   source:
     - name: progression_locations.json
-- name: scripts/io_packages/json/keyblade_stats.json
+- name: scripts/io_packages/json/weapon_stats.json
   method: copy
   source:
-    - name: keyblade_stats.json
+    - name: weapon_stats.json
 - name: scripts/io_packages/json/settings.json
   method: copy
   source:
@@ -188,12 +189,13 @@ def generate_word(settings):
         encoded_words.append(bytes(encoded_word))
     return b"\x00".join(encoded_words)
 
-def generate_itemhelp(keyblade_stats, item_location_map):
+def generate_itemhelp(weapon_stats, item_location_map):
     seed_itemhelp = deepcopy(ITEMHELP)
 
-    # Handle keyblade stats
-    for i, stats in enumerate(keyblade_stats):
-        seed_itemhelp[80 + i] = "".join(f"{key} {value} " for key, value in stats.items())
+    for character, character_weapon_stats in weapon_stats.items():
+        first_index = WEAPON_ITEM_HELP_START[character]
+        for i, stats in enumerate(character_weapon_stats):
+            seed_itemhelp[first_index + i] = "".join(f"{key} {value} " for key, value in stats.items())
     
     # Handle augments
     item_code_to_name = {data.code: name for name, data in item_table.items()}

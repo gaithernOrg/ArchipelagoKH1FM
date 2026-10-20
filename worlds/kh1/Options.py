@@ -285,7 +285,7 @@ class KeybladeStats(Choice):
     """
     Determines whether Keyblade stats should be randomized.
     
-    Randomize: Randomly generates stats for each keyblade between the defined minimums and maximums.
+    Randomize: Randomly generates stats for each keyblade between the lowest and highest vanilla values.
     
     Shuffle: Shuffles the stats of the vanilla keyblades amongst each other.
     
@@ -296,95 +296,37 @@ class KeybladeStats(Choice):
     option_shuffle = 1
     option_vanilla = 2
 
-class KeybladeMinStrength(Range):
+class DonaldWeaponStats(Choice):
     """
-    Determines the minimum STR bonus a keyblade can have.
-    """
-    display_name = "Keyblade Min STR Bonus"
-    default = 3
-    range_start = 0
-    range_end = 20
+    Determines whether Donald's weapon stats should be randomized.
 
-class KeybladeMaxStrength(Range):
-    """
-    Determines the maximum STR bonus a keyblade can have.
-    """
-    display_name = "Keyblade Max STR Bonus"
-    default = 14
-    range_start = 0
-    range_end = 20
+    Vanilla: Donald's weapon stats are unchanged.
 
-class KeybladeMinCritRateBonus(Range):
+    Shuffle: Shuffles the stats of Donald's vanilla weapons amongst each other.
+
+    Randomize: Randomly generates stats for each of Donald's weapons between the lowest and highest vanilla values.
     """
-    Determines the minimum Crit Rate bonus a keyblade can have.
-    """
-    display_name = "Keyblade Min Crit Rate Bonus"
+    display_name = "Donald Weapon Stats"
+    option_vanilla = 0
+    option_shuffle = 1
+    option_randomize = 2
     default = 0
-    range_start = 0
-    range_end = 200
 
-class KeybladeMaxCritRateBonus(Range):
+class GoofyWeaponStats(Choice):
     """
-    Determines the maximum Crit Rate bonus a keyblade can have.
-    """
-    display_name = "Keyblade Max Crit Rate Bonus"
-    default = 200
-    range_start = 0
-    range_end = 200
+    Determines whether Goofy's weapon stats should be randomized.
 
-class KeybladeMinCritSTRBonus(Range):
+    Vanilla: Goofy's weapon stats are unchanged.
+
+    Shuffle: Shuffles the stats of Goofy's vanilla weapons amongst each other.
+
+    Randomize: Randomly generates stats for each of Goofy's weapons between the lowest and highest vanilla values.
     """
-    Determines the minimum Crit STR bonus a keyblade can have.
-    """
-    display_name = "Keyblade Min Crit STR Bonus"
+    display_name = "Goofy Weapon Stats"
+    option_vanilla = 0
+    option_shuffle = 1
+    option_randomize = 2
     default = 0
-    range_start = 0
-    range_end = 16
-
-class KeybladeMaxCritSTRBonus(Range):
-    """
-    Determines the maximum Crit STR bonus a keyblade can have.
-    """
-    display_name = "Keyblade Max Crit STR Bonus"
-    default = 16
-    range_start = 0
-    range_end = 16
-
-class KeybladeMinRecoil(Range):
-    """
-    Determines the minimum recoil a keyblade can have.
-    """
-    display_name = "Keyblade Min Recoil"
-    default = 1
-    range_start = 1
-    range_end = 90
-
-class KeybladeMaxRecoil(Range):
-    """
-    Determines the maximum recoil a keyblade can have.
-    """
-    display_name = "Keyblade Max Recoil"
-    default = 90
-    range_start = 1
-    range_end = 90
-
-class KeybladeMinMP(Range):
-    """
-    Determines the minimum MP bonus a keyblade can have.
-    """
-    display_name = "Keyblade Min MP Bonus"
-    default = -2
-    range_start = -2
-    range_end = 5
-
-class KeybladeMaxMP(Range):
-    """
-    Determines the maximum MP bonus a keyblade can have.
-    """
-    display_name = "Keyblade Max MP Bonus"
-    default = 3
-    range_start = -2
-    range_end = 5
 
 class BadKingdomKey(Toggle):
     """
@@ -904,17 +846,9 @@ class KH1Options(PerGameCommonOptions):
     goofy_death_link: GoofyDeathLink
     keyblade_stats: KeybladeStats
     bad_kingdom_key: BadKingdomKey
-    keyblade_min_str: KeybladeMinStrength
-    keyblade_max_str: KeybladeMaxStrength
-    keyblade_min_crit_rate: KeybladeMinCritRateBonus
-    keyblade_max_crit_rate: KeybladeMaxCritRateBonus
-    keyblade_min_crit_str: KeybladeMinCritSTRBonus
-    keyblade_max_crit_str: KeybladeMaxCritSTRBonus
-    keyblade_min_recoil: KeybladeMinRecoil
-    keyblade_max_recoil: KeybladeMaxRecoil
-    keyblade_min_mp: KeybladeMinMP
-    keyblade_max_mp: KeybladeMaxMP
     level_stats: LevelStats
+    donald_weapon_stats: DonaldWeaponStats
+    goofy_weapon_stats: GoofyWeaponStats
     donald_level_stats: DonaldLevelStats
     goofy_level_stats: GoofyLevelStats
     donald_level_abilities: DonaldLevelAbilities
@@ -1010,16 +944,8 @@ kh1_option_groups = [
         KeybladesUnlockChests,
         KeybladeStats,
         BadKingdomKey,
-        KeybladeMaxStrength,
-        KeybladeMinStrength,
-        KeybladeMaxCritRateBonus,
-        KeybladeMinCritRateBonus,
-        KeybladeMaxCritSTRBonus,
-        KeybladeMinCritSTRBonus,
-        KeybladeMaxRecoil,
-        KeybladeMinRecoil,
-        KeybladeMaxMP,
-        KeybladeMinMP,
+        DonaldWeaponStats,
+        GoofyWeaponStats,
         AccessoryAugments,
         AugmentAbilitiesFromPool,
         RandomizePartyMemberStartingAccessories,

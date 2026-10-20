@@ -22,11 +22,11 @@ def group_spell_levels_by_spell(rows: List[Dict[str, str]]) -> Dict[str, List[Sp
     return levels_by_spell
 
 
-def group_party_level_ups_by_character(rows: List[Dict[str, str]]) -> Dict[str, List[Dict[str, str]]]:
-    level_ups_by_character: Dict[str, List[Dict[str, str]]] = {}
+def group_rows_by_character(rows: List[Dict[str, str]]) -> Dict[str, List[Dict[str, str]]]:
+    rows_by_character: Dict[str, List[Dict[str, str]]] = {}
     for row in rows:
-        level_ups_by_character.setdefault(row["character"], []).append(row)
-    return level_ups_by_character
+        rows_by_character.setdefault(row["character"], []).append(row)
+    return rows_by_character
 
 
 items = load_rows("items.csv")
@@ -34,7 +34,7 @@ event_items = load_rows("event_items.csv")
 locations = load_rows("locations.csv")
 event_locations = load_rows("event_locations.csv")
 
-keyblade_stats = load_rows("keyblade_stats.csv")
+weapon_stats = load_rows("weapon_stats.csv")
 ability_ap_costs = load_rows("ability_ap_costs.csv", "utf-8")
 spells = load_rows("spells.csv")
 level_up_stats = load_rows("level_up_stats.csv")
@@ -58,7 +58,10 @@ VANILLA_SPELL_LEVEL_COSTS = [int(row["vanilla_cost"]) for row in spells]
 VANILLA_SPELL_COSTS = [30, 30, 100, 100, 100, 200, 200]
 VANILLA_SPELL_EFFECTIVENESS = [int(row["vanilla_effectiveness"]) for row in spells]
 VANILLA_LEVEL_UP_STATS = {int(row["level"]): row["item"] for row in level_up_stats}
-VANILLA_PARTY_LEVEL_UPS = group_party_level_ups_by_character(party_level_ups)
+VANILLA_PARTY_LEVEL_UPS = group_rows_by_character(party_level_ups)
+VANILLA_WEAPON_STATS = group_rows_by_character(weapon_stats)
+WEAPON_ITEM_HELP_START = {"Sora": 80, "Donald": 102, "Goofy": 118}
+WEAPON_STAT_NAMES = ["STR", "CRR", "CRB", "REC", "MP"]
 
 PARTY_LEVEL_UP_CODES = {
     "None": 0x00,

@@ -16,6 +16,7 @@ from .Data import CHAR_TO_KH, CHEST_KEYBLADES, POSSIBLE_SPELL_COSTS
 from .Data import VANILLA_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS, VANILLA_SPELL_LEVEL_COSTS
 from .Data import VANILLA_LEVEL_UP_STATS, WORLD_KEY_ITEMS
 from .Data import PARTY_LEVEL_UP_CODES, VANILLA_PARTY_LEVEL_UPS
+from .Data import VANILLA_WEAPON_STATS, WEAPON_STAT_NAMES
 from .Data import DOOR_KEY_LOCATIONS
 
 
@@ -65,6 +66,7 @@ class KH1World(World):
         self.mp_costs = None
         self.spell_effectiveness = None
         self.party_level_ups = None
+        self.weapon_stats = None
 
     def generate_early(self):
         self.sort_lucky_emblem_counts()
@@ -521,35 +523,53 @@ class KH1World(World):
                 self.accessory_augments = self.random.sample(candidates, len(self.get_accessory_locations()))
         return self.accessory_augments
 
-    def get_keyblade_stats(self) -> list[dict[str, int]]:
-        keyblade_stats = [
-            {stat: int(value) for stat, value in row.items() if stat != "keyblade"} for row in Data.keyblade_stats
-        ]
+    def get_weapon_stats(self) -> dict[str, list[dict[str, int]]]:
+        if self.weapon_stats is None:
+            self.weapon_stats = {
+                "Sora": self.build_keyblade_stats(),
+                "Donald": self.build_party_weapon_stats("Donald", self.options.donald_weapon_stats),
+                "Goofy": self.build_party_weapon_stats("Goofy", self.options.goofy_weapon_stats),
+            }
+        return self.weapon_stats
+
+    def build_keyblade_stats(self) -> list[dict[str, int]]:
+        keyblade_stats = self.get_vanilla_weapon_stats("Sora")
+        vanilla_ranges = self.get_vanilla_stat_ranges(keyblade_stats)
         if self.options.bad_kingdom_key:
             kept, changed = keyblade_stats[:1], keyblade_stats[1:]
         else:
             kept, changed = [], keyblade_stats
         if self.options.keyblade_stats == "randomize":
-            self.randomize_keyblade_stats(changed)
+            self.randomize_weapon_stats(changed, vanilla_ranges)
         elif self.options.keyblade_stats == "shuffle":
             self.random.shuffle(changed)
         return kept + changed
 
-    def randomize_keyblade_stats(self, keyblade_stats: list[dict[str, int]]) -> None:
-        ranges = {
-            "STR": self.sorted_range(self.options.keyblade_min_str, self.options.keyblade_max_str),
-            "CRR": self.sorted_range(self.options.keyblade_min_crit_rate, self.options.keyblade_max_crit_rate),
-            "CRB": self.sorted_range(self.options.keyblade_min_crit_str, self.options.keyblade_max_crit_str),
-            "REC": self.sorted_range(self.options.keyblade_min_recoil, self.options.keyblade_max_recoil),
-            "MP": self.sorted_range(self.options.keyblade_min_mp, self.options.keyblade_max_mp),
-        }
-        for stats in keyblade_stats:
+    def build_party_weapon_stats(self, character: str, weapon_stats_option) -> list[dict[str, int]]:
+        weapon_stats = self.get_vanilla_weapon_stats(character)
+        if weapon_stats_option == "shuffle":
+            self.random.shuffle(weapon_stats)
+        elif weapon_stats_option == "randomize":
+            self.randomize_weapon_stats(weapon_stats, self.get_vanilla_stat_ranges(weapon_stats))
+        return weapon_stats
+
+    def get_vanilla_weapon_stats(self, character: str) -> list[dict[str, int]]:
+        weapon_stats = []
+        for row in VANILLA_WEAPON_STATS[character]:
+            weapon_stats.append({stat: int(row[stat]) for stat in WEAPON_STAT_NAMES})
+        return weapon_stats
+
+    def get_vanilla_stat_ranges(self, weapon_stats: list[dict[str, int]]) -> dict[str, tuple[int, int]]:
+        ranges = {}
+        for stat in WEAPON_STAT_NAMES:
+            vanilla_values = [stats[stat] for stats in weapon_stats]
+            ranges[stat] = (min(vanilla_values), max(vanilla_values))
+        return ranges
+
+    def randomize_weapon_stats(self, weapon_stats: list[dict[str, int]], ranges: dict[str, tuple[int, int]]) -> None:
+        for stats in weapon_stats:
             for stat, (low, high) in ranges.items():
                 stats[stat] = self.random.randint(low, high)
-
-    def sorted_range(self, minimum_option, maximum_option) -> tuple[int, int]:
-        minimum_option.value, maximum_option.value = sorted((minimum_option.value, maximum_option.value))
-        return minimum_option.value, maximum_option.value
 
     def get_ap_costs(self) -> list[dict[str, str | int]]:
         if self.ap_costs is None:
@@ -696,6 +716,7 @@ class KH1World(World):
             "donald_death_link": bool(self.options.donald_death_link),
             "donald_level_abilities": str(self.options.donald_level_abilities.current_key),
             "donald_level_stats": str(self.options.donald_level_stats.current_key),
+            "donald_weapon_stats": str(self.options.donald_weapon_stats.current_key),
             "early_skip": bool(self.options.early_skip),
             "end_of_the_world_unlock": str(self.options.end_of_the_world_unlock.current_key),
             "exp_multiplier": int(self.options.exp_multiplier.value) / 16,
@@ -708,6 +729,7 @@ class KH1World(World):
             "goofy_death_link": bool(self.options.goofy_death_link),
             "goofy_level_abilities": str(self.options.goofy_level_abilities.current_key),
             "goofy_level_stats": str(self.options.goofy_level_stats.current_key),
+            "goofy_weapon_stats": str(self.options.goofy_weapon_stats.current_key),
             "halloween_town_key_item_bundle": bool(self.options.halloween_town_key_item_bundle),
             "slides_bundle": bool(self.options.slides_bundle),
             "evidence_bundle": bool(self.options.evidence_bundle),
