@@ -417,22 +417,6 @@ class RandomizePostcards(Choice):
     option_chests = 1
     option_vanilla = 2
 
-class SpellLocations(Choice):
-    """
-    Determines how magic spells are randomized
-
-    Randomized: Spells are shuffled into the multiworld
-
-    Vanilla: Spells are in their original locations
-
-    Shuffled: Spells are shuffled amongst their original locations
-    """
-    display_name = "Spell Locations"
-    option_randomized = 0
-    option_vanilla = 1
-    option_shuffled = 2
-    default = 0
-
 class ExcludeSuperBosses(Toggle):
     """
     If on, checks behind Super Bosses will only contain filler.
@@ -858,7 +842,6 @@ class KH1Options(PerGameCommonOptions):
     exp_zero_in_pool: EXPZeroInPool
     randomize_emblem_pieces: RandomizeEmblemPieces
     randomize_postcards: RandomizePostcards
-    spell_locations: SpellLocations
     donald_death_link: DonaldDeathLink
     goofy_death_link: GoofyDeathLink
     keyblade_stats: KeybladeStats
@@ -941,7 +924,6 @@ kh1_option_groups = [
         SkipHundredAcreWoodMinigames,
         RandomizeEmblemPieces,
         RandomizePostcards,
-        SpellLocations,
         RandomizePuppies,
         PuppyValue,
         ExcludeSuperBosses,
