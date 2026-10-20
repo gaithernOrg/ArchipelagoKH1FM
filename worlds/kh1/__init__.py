@@ -83,6 +83,7 @@ class KH1World(World):
         self.place_vanilla_emblem_pieces()
         self.place_vanilla_postcards()
         self.place_vanilla_puppies()
+        self.place_vanilla_spells()
 
         starting_worlds = self.give_starting_worlds()
         starting_tools = self.give_starting_tools()
@@ -96,6 +97,7 @@ class KH1World(World):
         self.apply_end_of_the_world_unlock(item_counts)
         self.apply_exp_zero_in_pool(item_counts)
         self.apply_randomize_postcards(item_counts)
+        self.apply_spell_locations(item_counts)
         self.apply_synthesis_materials(item_counts)
         self.apply_raft_materials(item_counts)
         self.apply_lucky_emblems(item_counts)
@@ -112,6 +114,8 @@ class KH1World(World):
         set_rules(self)
 
     def pre_fill(self):
+        if self.options.spell_locations == "shuffled":
+            self.fill_shuffled_spells()
         if self.options.level_check_items == "stats_and_abilities":
             self.fill_level_checks_with_stats_and_abilities()
         if self.multiworld.players > 1:
@@ -244,6 +248,13 @@ class KH1World(World):
         for location_name in get_locations_by_group("Puppy"):
             self.get_location(location_name).place_locked_item(self.create_item("Puppy"))
 
+    def place_vanilla_spells(self) -> None:
+        if self.options.spell_locations != "vanilla":
+            return
+        for spell in sorted(item_name_groups["Spells"]):
+            for location_name in sorted(location_name_groups[spell]):
+                self.get_location(location_name).place_locked_item(self.create_item(spell))
+
     def give_starting_worlds(self) -> list[str]:
         if self.options.starting_worlds.value == 0:
             return []
@@ -308,6 +319,11 @@ class KH1World(World):
             item_counts["Postcard"] = 0
         elif postcard_mode == "chests":
             item_counts["Postcard"] = len(location_name_groups["Postcard"] & location_name_groups["Chest"])
+
+    def apply_spell_locations(self, item_counts: dict[str, int]) -> None:
+        if self.options.spell_locations == "vanilla":
+            for spell in item_name_groups["Spells"]:
+                item_counts[spell] = 0
 
     def apply_synthesis_materials(self, item_counts: dict[str, int]) -> None:
         item_counts["Mythril"] = self.options.mythril_in_pool.value
@@ -474,6 +490,17 @@ class KH1World(World):
         self.multiworld.itempool = [item for item in self.multiworld.itempool if id(item) not in placed]
         fill_restrictive(self.multiworld, self.multiworld.get_all_state(), locations, items,
                          single_player_placement=True, lock=True, allow_partial=True, name="KH1 Level Checks")
+
+    def fill_shuffled_spells(self) -> None:
+        locations = [self.get_location(name) for name in sorted(location_name_groups["Spell"])]
+        spell_names = item_name_groups["Spells"]
+        spells = [item for item in self.multiworld.itempool if item.player == self.player and item.name in spell_names]
+        placed = {id(item) for item in spells}
+        self.multiworld.itempool = [item for item in self.multiworld.itempool if id(item) not in placed]
+        self.random.shuffle(locations)
+        self.random.shuffle(spells)
+        fill_restrictive(self.multiworld, self.multiworld.get_all_state(), locations, spells,
+                         single_player_placement=True, lock=True, allow_excluded=True, name="KH1 Shuffled Spells")
 
     def get_starting_accessory_locations(self) -> list[str]:
         if self.starting_accessory_locations is None:
@@ -706,6 +733,7 @@ class KH1World(World):
             "spell_mp_cost_max": int(self.options.spell_mp_cost_max.value),
             "spell_mp_cost_min": int(self.options.spell_mp_cost_min.value),
             "spell_effectiveness": self.get_spell_effectiveness(),
+            "spell_locations": str(self.options.spell_locations.current_key),
             "spell_mp_costs": self.mp_costs,
             "stacking_world_items": bool(self.options.stacking_world_items),
             "starting_items": [item.code for item in self.multiworld.precollected_items[self.player]],

@@ -230,47 +230,47 @@ id,name,region,groups
 2654772,End of the World Final Rest Chest,End of the World,Chest;Boss
 2655092,Monstro Chamber 6 White Trinity Chest,Monstro,Chest;Boss
 2656011,Traverse Town Defeat Guard Armor Dodge Roll Event,Traverse Town,
-2656012,Traverse Town Defeat Guard Armor Fire Event,Traverse Town,
+2656012,Traverse Town Defeat Guard Armor Fire Event,Traverse Town,Spell;Progressive Fire
 2656013,Traverse Town Defeat Guard Armor Blue Trinity Event,Traverse Town,
 2656014,Traverse Town Leon Secret Waterway Earthshine Event,Traverse Town,
 2656015,Traverse Town Kairi Secret Waterway Oathkeeper Event,Traverse Town,
 2656016,Traverse Town Defeat Guard Armor Brave Warrior Event,Traverse Town,
 2656017,Traverse Town Defeat Guard Armor 500 Munny Reward,Traverse Town,
 2656021,Deep Jungle Defeat Sabor White Fang Event,Deep Jungle,Boss
-2656022,Deep Jungle Defeat Clayton Cure Event,Deep Jungle,Boss
+2656022,Deep Jungle Defeat Clayton Cure Event,Deep Jungle,Boss;Spell;Progressive Cure
 2656023,Deep Jungle Seal Keyhole Jungle King Event,Deep Jungle,Boss
 2656024,Deep Jungle Seal Keyhole Red Trinity Event,Deep Jungle,Boss
-2656031,Olympus Coliseum Clear Phil's Training Thunder Event,Olympus Coliseum,
+2656031,Olympus Coliseum Clear Phil's Training Thunder Event,Olympus Coliseum,Spell;Progressive Thunder
 2656033,Olympus Coliseum Defeat Cerberus Inferno Band Event,Olympus Coliseum,Boss
-2656041,Wonderland Defeat Trickmaster Blizzard Event,Wonderland,Boss
+2656041,Wonderland Defeat Trickmaster Blizzard Event,Wonderland,Boss;Spell;Progressive Blizzard
 2656042,Wonderland Defeat Trickmaster Ifrit's Horn Event,Wonderland,Boss
 2656051,Agrabah Defeat Pot Centipede Ray of Light Event,Agrabah,Boss
-2656052,Agrabah Defeat Jafar Blizzard Event,Agrabah,Boss
-2656053,Agrabah Defeat Jafar Genie Fire Event,Agrabah,Boss
+2656052,Agrabah Defeat Jafar Blizzard Event,Agrabah,Boss;Spell;Progressive Blizzard
+2656053,Agrabah Defeat Jafar Genie Fire Event,Agrabah,Boss;Spell;Progressive Fire
 2656054,Agrabah Seal Keyhole Genie Event,Agrabah,Boss
 2656055,Agrabah Seal Keyhole Three Wishes Event,Agrabah,Boss
 2656056,Agrabah Seal Keyhole Green Trinity Event,Agrabah,Boss
 2656061,Monstro Defeat Parasite Cage I Goofy Cheer Event,Monstro,Boss
-2656062,Monstro Defeat Parasite Cage II Stop Event,Monstro,Boss
+2656062,Monstro Defeat Parasite Cage II Stop Event,Monstro,Boss;Spell;Progressive Stop
 2656071,Atlantica Defeat Ursula I Mermaid Kick Event,Atlantica,Boss
-2656072,Atlantica Defeat Ursula II Thunder Event,Atlantica,Boss
+2656072,Atlantica Defeat Ursula II Thunder Event,Atlantica,Boss;Spell;Progressive Thunder
 2656073,Atlantica Seal Keyhole Crabclaw Event,Atlantica,Boss
 2656081,Halloween Town Defeat Oogie Boogie Holy Circlet Event,Halloween Town,Boss
-2656082,Halloween Town Defeat Oogie's Manor Gravity Event,Halloween Town,Boss
+2656082,Halloween Town Defeat Oogie's Manor Gravity Event,Halloween Town,Boss;Spell;Progressive Gravity
 2656083,Halloween Town Seal Keyhole Pumpkinhead Event,Halloween Town,Boss
 2656091,Neverland Defeat Anti Sora Raven's Claw Event,Neverland,Boss
-2656092,Neverland Encounter Hook Cure Event,Neverland,Boss
+2656092,Neverland Encounter Hook Cure Event,Neverland,Boss;Spell;Progressive Cure
 2656093,Neverland Seal Keyhole Fairy Harp Event,Neverland,Boss
 2656094,Neverland Seal Keyhole Tinker Bell Event,Neverland,Boss
 2656095,Neverland Seal Keyhole Glide Event,Neverland,Boss
-2656096,Neverland Defeat Phantom Stop Event,Neverland,Boss;Super Bosses
+2656096,Neverland Defeat Phantom Stop Event,Neverland,Boss;Super Bosses;Spell;Progressive Stop
 2656097,Neverland Defeat Captain Hook Ars Arcanum Event,Neverland,Boss
 2656101,Hollow Bastion Defeat Riku I White Trinity Event,Hollow Bastion,Boss
 2656102,Hollow Bastion Defeat Maleficent Donald Cheer Event,Hollow Bastion,Boss
 2656103,Hollow Bastion Defeat Dragon Maleficent Fireglow Event,Hollow Bastion,Boss
 2656104,Hollow Bastion Defeat Riku II Ragnarok Event,Hollow Bastion,Boss
 2656105,Hollow Bastion Defeat Behemoth Omega Arts Event,Hollow Bastion,Boss
-2656106,Hollow Bastion Speak to Princesses Fire Event,Hollow Bastion,Boss
+2656106,Hollow Bastion Speak to Princesses Fire Event,Hollow Bastion,Boss;Spell;Progressive Fire
 2656111,End of the World Defeat Chernabog Superglide Event,End of the World,Boss
 2656112,Neverland Seal Keyhole Navi-G Piece Event,Neverland,Boss
 2656113,Traverse Town Secret Waterway Navi Gummi Event,Traverse Town,
@@ -289,7 +289,7 @@ id,name,region,groups
 2656127,Traverse Town Mail Postcard 08 Event,Traverse Town,
 2656128,Traverse Town Mail Postcard 09 Event,Traverse Town,
 2656129,Traverse Town Mail Postcard 10 Event,Traverse Town,
-2656131,Traverse Town Defeat Opposite Armor Aero Event,Traverse Town,Boss
+2656131,Traverse Town Defeat Opposite Armor Aero Event,Traverse Town,Boss;Spell;Progressive Aero
 2656132,Traverse Town Defeat Opposite Armor Navi-G Piece Event,Traverse Town,Boss
 2656201,Atlantica Undersea Gorge Blizzard Clam,Atlantica,
 2656202,Atlantica Undersea Gorge Ocean Floor Clam,Atlantica,
@@ -328,7 +328,7 @@ id,name,region,groups
 2656321,Traverse Town Piano Room Return 70 Puppies,Traverse Town,
 2656322,Traverse Town Piano Room Return 80 Puppies,Traverse Town,
 2656324,Traverse Town Piano Room Return 90 Puppies,Traverse Town,
-2656326,Traverse Town Piano Room Return 99 Puppies Reward 1,Traverse Town,
+2656326,Traverse Town Piano Room Return 99 Puppies Reward 1,Traverse Town,Spell;Progressive Aero
 2656327,Traverse Town Piano Room Return 99 Puppies Reward 2,Traverse Town,
 2656032,Olympus Coliseum Cloud Sonic Blade Event,Olympus Coliseum,Boss
 2656328,Olympus Coliseum Defeat Sephiroth One-Winged Angel Event,Olympus Coliseum,Boss;Super Bosses
@@ -347,7 +347,7 @@ id,name,region,groups
 2656341,Neverland Clock Tower 10:00 Door,Neverland,Boss
 2656342,Neverland Clock Tower 11:00 Door,Neverland,Boss
 2656343,Neverland Clock Tower 12:00 Door,Neverland,Boss
-2656344,Neverland Hold Aero Chest,Neverland,Chest
+2656344,Neverland Hold Aero Chest,Neverland,Chest;Spell;Progressive Aero
 2656345,100 Acre Wood Bouncing Spot Turn in Rare Nut 1,100 Acre Wood,
 2656346,100 Acre Wood Bouncing Spot Turn in Rare Nut 2,100 Acre Wood,
 2656347,100 Acre Wood Bouncing Spot Turn in Rare Nut 3,100 Acre Wood,
@@ -356,7 +356,7 @@ id,name,region,groups
 2656350,100 Acre Wood Pooh's House Owl Cheer,100 Acre Wood,
 2656351,100 Acre Wood Convert Torn Page 1,100 Acre Wood,
 2656352,100 Acre Wood Convert Torn Page 2,100 Acre Wood,
-2656353,100 Acre Wood Convert Torn Page 3,100 Acre Wood,
+2656353,100 Acre Wood Convert Torn Page 3,100 Acre Wood,Spell;Progressive Stop
 2656354,100 Acre Wood Convert Torn Page 4,100 Acre Wood,
 2656355,100 Acre Wood Convert Torn Page 5,100 Acre Wood,
 2656356,100 Acre Wood Pooh's House Start Fire,100 Acre Wood,
@@ -449,7 +449,7 @@ id,name,region,groups
 2656520,Traverse Town 1st District Leon Gift,Traverse Town,
 2656521,Traverse Town 1st District Aerith Gift,Traverse Town,
 2656522,Hollow Bastion Library Speak to Belle Divine Rose,Hollow Bastion,Boss
-2656523,Hollow Bastion Library Speak to Aerith Cure,Hollow Bastion,Boss
+2656523,Hollow Bastion Library Speak to Aerith Cure,Hollow Bastion,Boss;Spell;Progressive Cure
 2656600,Traverse Town 1st District Blue Trinity by Exit Door,Traverse Town,
 2656601,Traverse Town 3rd District Blue Trinity,Traverse Town,
 2656602,Traverse Town Magician's Study Blue Trinity,Traverse Town,
@@ -723,7 +723,7 @@ id,name,region,groups
 2658198,Level 098 (Slot 2),Levels,
 2658199,Level 099 (Slot 2),Levels,
 2658200,Level 100 (Slot 2),Levels,
-2659001,Complete Phil Cup,Olympus Coliseum,Boss;Cups
+2659001,Complete Phil Cup,Olympus Coliseum,Boss;Cups;Spell;Progressive Gravity
 2659002,Complete Phil Cup Solo,Olympus Coliseum,Boss;Cups
 2659003,Complete Phil Cup Time Trial,Olympus Coliseum,Boss;Cups
 2659004,Complete Pegasus Cup,Olympus Coliseum,Boss;Cups
@@ -737,9 +737,9 @@ id,name,region,groups
 2659012,Complete Hades Cup Time Trial,Olympus Coliseum,Boss;Cups
 2659013,Hades Cup Defeat Cloud and Leon Event,Olympus Coliseum,Boss;Cups
 2659014,Hades Cup Defeat Yuffie Event,Olympus Coliseum,Boss;Cups
-2659015,Hades Cup Defeat Cerberus Event,Olympus Coliseum,Boss;Cups
-2659016,Hades Cup Defeat Behemoth Event,Olympus Coliseum,Boss;Cups
-2659017,Hades Cup Defeat Hades Event,Olympus Coliseum,Boss;Cups
+2659015,Hades Cup Defeat Cerberus Event,Olympus Coliseum,Boss;Cups;Spell;Progressive Thunder
+2659016,Hades Cup Defeat Behemoth Event,Olympus Coliseum,Boss;Cups;Spell;Progressive Blizzard
+2659017,Hades Cup Defeat Hades Event,Olympus Coliseum,Boss;Cups;Spell;Progressive Gravity
 2659018,Hercules Cup Defeat Cloud Event,Olympus Coliseum,Boss;Cups
 2659019,Hercules Cup Yellow Trinity Event,Olympus Coliseum,Boss;Cups
 2659100,Accessory Protect Chain,Accessories,Augment
