@@ -362,6 +362,7 @@ id,name,groups,classification,max_quantity,active
 2644040,Grounded,Augments,useful,1,1
 2645005,Donald Treasure Magnet,Donald Abilities,useful,2,1
 2645009,Donald Second Wind,Donald Abilities,useful,1,1
+2645016,Donald Cheer,Donald Abilities;Pool,useful,1,1
 2645023,Donald MP Haste,Donald Abilities,useful,1,1
 2645024,Donald MP Rage,Donald Abilities,useful,2,1
 2645025,Donald Second Chance,Donald Abilities,useful,1,1
@@ -371,6 +372,7 @@ id,name,groups,classification,max_quantity,active
 2645062,Donald Leaf Bracer,Donald Abilities,useful,1,1
 2646005,Goofy Treasure Magnet,Goofy Abilities,useful,2,1
 2646009,Goofy Second Wind,Goofy Abilities,useful,1,1
+2646016,Goofy Cheer,Goofy Abilities;Pool,useful,1,1
 2646023,Goofy MP Haste,Goofy Abilities,useful,1,1
 2646024,Goofy MP Rage,Goofy Abilities,useful,2,1
 2646025,Goofy Second Chance,Goofy Abilities,useful,1,1
