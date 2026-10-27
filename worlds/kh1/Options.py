@@ -18,18 +18,18 @@ class LevelStats(Choice):
 
 class LevelCheckLocations(Choice):
     """
-    Determines which levels can have additional checks.
+    Determines which levels can have checks.
 
-    LV 50: 33 additional checks spread randomly across levels 2-50.
+    LV 50: 33 checks spread randomly across levels 2-50.
 
-    LV 99: 33 additional checks spread randomly across levels 2-99.
+    LV 99: 33 checks spread randomly across levels 2-99.
 
-    LV 1: No additional level checks.
+    None: No level checks.
     """
     display_name = "LV Check Locations"
     option_level_50 = 0
     option_level_99 = 1
-    option_level_1 = 2
+    option_none = 2
     default = 0
 
 class LevelCheckItems(Choice):
