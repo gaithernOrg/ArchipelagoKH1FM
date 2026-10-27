@@ -32,7 +32,7 @@ OPTION_DRIVEN_LOCATION_GROUPS: Set[str] = {"Levels", "Accessory", "Augment"}
 
 
 def get_active_locations(kh1world) -> Dict[str, KH1LocationData]:
-    option_driven_names = set(kh1world.get_level_locations())
+    option_driven_names = set(kh1world.get_level_check_locations())
     option_driven_names.update(kh1world.get_starting_accessory_locations())
     option_driven_names.update(kh1world.get_accessory_locations())
     active = {name: data for name, data in location_table.items()

@@ -51,6 +51,7 @@ def generate_json(world, output_directory):
         "ap_costs.json":              json.dumps(world.get_ap_costs()),
         "mp_costs.json":              json.dumps(world.get_mp_costs()),
         "spell_effectiveness.json":   json.dumps(world.get_spell_effectiveness()),
+        "sora_level_ups.json":        json.dumps(world.get_sora_level_ups()),
         "party_level_ups.json":       json.dumps(world.get_party_level_ups()),
         "items.json":                 json.dumps(get_items()),
         "locations.json":             json.dumps(get_locations()),
@@ -147,6 +148,10 @@ assets:
   method: copy
   source:
     - name: spell_effectiveness.json
+- name: scripts/io_packages/json/sora_level_ups.json
+  method: copy
+  source:
+    - name: sora_level_ups.json
 - name: scripts/io_packages/json/party_level_ups.json
   method: copy
   source:

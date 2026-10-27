@@ -65,6 +65,7 @@ class KH1World(World):
         self.ap_costs = None
         self.mp_costs = None
         self.spell_effectiveness = None
+        self.sora_level_ups = None
         self.party_level_ups = None
         self.weapon_stats = None
 
@@ -92,7 +93,6 @@ class KH1World(World):
         starting_tools = self.give_starting_tools()
         starting_accessories = self.place_starting_accessories()
         self.place_accessory_augments()
-        self.place_level_up_stats()
 
         item_counts = self.build_base_item_counts()
         self.apply_randomize_puppies(item_counts)
@@ -280,13 +280,6 @@ class KH1World(World):
         for augment, location_name in zip(self.get_accessory_augments(), self.get_accessory_locations()):
             self.get_location(location_name).place_locked_item(self.create_item(augment))
 
-    def place_level_up_stats(self) -> None:
-        stats = list(VANILLA_LEVEL_UP_STATS.values())
-        if self.options.level_stats == "shuffle":
-            self.random.shuffle(stats)
-        for level, stat in zip(VANILLA_LEVEL_UP_STATS, stats):
-            self.get_location(f"Level {level:03} (Slot 1)").place_locked_item(self.create_item(stat))
-
     def build_base_item_counts(self) -> dict[str, int]:
         return {name: data.max_quantity for name, data in get_items_by_group("Pool").items()}
 
@@ -461,10 +454,6 @@ class KH1World(World):
             return self.options.required_lucky_emblems_door.value
         return -1
 
-    def get_level_locations(self) -> list[str]:
-        stat_locations = [f"Level {level:03} (Slot 1)" for level in VANILLA_LEVEL_UP_STATS]
-        return stat_locations + self.get_level_check_locations()
-
     def get_level_check_locations(self) -> list[str]:
         if self.level_check_locations is None:
             mode = self.options.level_check_locations.current_key
@@ -474,7 +463,7 @@ class KH1World(World):
                 levels = self.random.sample(range(2, 100), 33)
             else:
                 levels = []
-            self.level_check_locations = [f"Level {level:03} (Slot 2)" for level in sorted(levels)]
+            self.level_check_locations = [f"Level {level:03}" for level in sorted(levels)]
         return self.level_check_locations
 
     def get_level_check_item_names(self) -> set[str]:
@@ -652,6 +641,16 @@ class KH1World(World):
                         zip(VANILLA_SPELL_EFFECTIVENESS, self.get_mp_costs(), VANILLA_SPELL_LEVEL_COSTS)):
                     self.spell_effectiveness[i] = max(int(effectiveness * cost / vanilla_cost + 0.5), 1)
         return self.spell_effectiveness
+
+    def get_sora_level_ups(self) -> dict[int, int]:
+        if self.sora_level_ups is None:
+            stats = list(VANILLA_LEVEL_UP_STATS.values())
+            if self.options.level_stats == "shuffle":
+                self.random.shuffle(stats)
+            self.sora_level_ups = {}
+            for level, stat in zip(VANILLA_LEVEL_UP_STATS, stats):
+                self.sora_level_ups[level] = item_table[stat].code
+        return self.sora_level_ups
 
     def get_party_level_ups(self) -> dict[str, dict[str, list[int]]]:
         if self.party_level_ups is None:

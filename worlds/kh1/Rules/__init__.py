@@ -39,15 +39,13 @@ def build_area_rules(kh1world) -> dict[str, Rule]:
 
 
 def build_level_rules(kh1world) -> dict[str, Rule]:
-    level_locations = kh1world.get_level_locations()
+    level_locations = kh1world.get_level_check_locations()
     location_rules: dict[str, Rule] = {}
     for level in range(2, 101):
         worlds_required = min((level - 1) // 10 * 2, 8)
-        rule = has_x_worlds_rule(worlds_required)
-        for slot in ("Slot 1", "Slot 2"):
-            location_name = f"Level {level:03} ({slot})"
-            if location_name in level_locations:
-                location_rules[location_name] = rule
+        location_name = f"Level {level:03}"
+        if location_name in level_locations:
+            location_rules[location_name] = has_x_worlds_rule(worlds_required)
     return location_rules
 
 
