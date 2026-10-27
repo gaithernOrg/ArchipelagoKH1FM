@@ -55,4 +55,5 @@ def build_rules() -> dict[str, Rule]:
         "Neverland Clock Tower 11:00 Door": Has("Green Trinity"),
         "Neverland Clock Tower 12:00 Door": Has("Green Trinity"),
         "Neverland Defeat Phantom Stop Event": phantom_rule,
+        "Neverland Pirate Ship Jet Balloon Defeat Reward": HasAll("Green Trinity", "Progressive Stop") & Has("Progressive Aero", count=3),
     }

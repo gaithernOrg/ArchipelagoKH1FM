@@ -157,4 +157,6 @@ def build_rules(kh1world) -> dict[str, Rule]:
         "Traverse Town Synth Item 31": synth_items_rule,
         "Traverse Town Synth Item 32": synth_items_rule,
         "Traverse Town Synth Item 33": synth_items_rule,
+        "Traverse Town Red Room White Mushroom Fire x3 Reward": HasAll("Red Trinity", "Progressive Fire"),
+        "Traverse Town 2nd District Sniperwild 30th Defeated Reward": Has("Red Trinity"),
     }

@@ -19,4 +19,5 @@ def build_rules() -> dict[str, Rule]:
         "Atlantica Triton's Palace Thunder Clam": Has("Progressive Thunder"),
         "Atlantica Cavern Nook Clam": crystal_trident,
         "Atlantica Defeat Ursula II Ansem's Report 3": ursula_2_rule,
+        "Atlantica Below Deck White Mushroom Stop x3 Reward": ursula_2_rule & Has("Progressive Stop"),
     }

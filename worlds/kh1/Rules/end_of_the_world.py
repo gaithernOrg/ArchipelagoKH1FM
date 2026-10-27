@@ -24,4 +24,5 @@ def build_rules() -> dict[str, Rule]:
         "End of the World Giant Crevasse 3rd Chest": giant_crevasse_2nd_3rd,
         "End of the World Giant Crevasse 4th Chest": giant_crevasse_4th_chest_rule,
         "End of the World World Terminus Agrabah Chest": world_terminus_agrabah_chest_rule,
+        "End of the World Linked Worlds White Mushroom Thunder x3 Reward": Has("Progressive Thunder"),
     }

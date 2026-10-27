@@ -193,6 +193,8 @@ class KH1World(World):
     def exclude_content(self) -> None:
         if self.options.exclude_super_bosses:
             self.exclude_location_group("Super Bosses")
+        if self.options.exclude_rare_heartless:
+            self.exclude_location_group("Rare Heartless")
         if self.options.exclude_jungle_slider:
             self.exclude_location_group("Jungle Slider")
         if self.options.exclude_cups:
@@ -688,6 +690,8 @@ class KH1World(World):
             elif location.item.player != self.player:
                 remote_location_ids.append(location_data.code)
             elif "Synth" in location_data.groups and location.item.name not in item_name_groups["Items"]:
+                remote_location_ids.append(location_data.code)
+            elif "Rare Heartless" in location_data.groups and location.item.name not in item_name_groups["Items"]:
                 remote_location_ids.append(location_data.code)
         return remote_location_ids
 

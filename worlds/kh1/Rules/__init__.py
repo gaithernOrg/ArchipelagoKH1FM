@@ -72,11 +72,11 @@ def add_chest_rules(location_rules: dict[str, Rule]) -> None:
         add_location_rule(location_rules, location_name, chest_keyblade)
 
 
-def add_synth_item_rules(kh1world) -> None:
+def add_regular_items_only_rules(kh1world, location_group: str) -> None:
     if kh1world.options.remote_items.current_key != "off":
         return
     player = kh1world.player
-    for location_name in get_locations_by_group("Synth"):
+    for location_name in get_locations_by_group(location_group):
         add_item_rule(kh1world.get_location(location_name),
                       lambda item: item.player != player or item.name in item_name_groups["Items"])
 
@@ -115,6 +115,7 @@ def set_rules(kh1world) -> None:
         kh1world.set_rule(kh1world.get_entrance(name), rule)
     for name, rule in location_rules.items():
         kh1world.set_rule(kh1world.get_location(name), rule)
-    add_synth_item_rules(kh1world)
+    add_regular_items_only_rules(kh1world, "Synth")
+    add_regular_items_only_rules(kh1world, "Rare Heartless")
 
     kh1world.multiworld.completion_condition[kh1world.player] = lambda state: state.has("Victory", kh1world.player)

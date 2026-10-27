@@ -74,4 +74,6 @@ def build_rules() -> dict[str, Rule]:
         "Wonderland Tea Party Garden Right Yellow Chair": tea_party_garden_chair,
         "Wonderland Tea Party Garden Left Gray Chair": tea_party_garden_chair,
         "Wonderland Tea Party Garden Right Brown Chair": tea_party_garden_chair,
+        "Wonderland Lotus Forest White Mushroom Blizzard x3 Reward": footprints & Has("Progressive Blizzard"),
+        "Wonderland Bizarre Room Gigas Shadow 7th Defeated Reward": footprints,
     }

@@ -1,4 +1,4 @@
-from rule_builder.rules import Has, Rule
+from rule_builder.rules import Has, HasAll, Rule
 
 from ._helpers import GLIDE, HIGH_JUMP, HIGH_JUMP_AND_GLIDE
 from ._helpers import HIGH_JUMP_OR_GLIDE, by_difficulty, has_key_item_rule
@@ -43,4 +43,7 @@ def build_rules() -> dict[str, Rule]:
         "Deep Jungle Jungle Slider 30 Fruits": slides,
         "Deep Jungle Jungle Slider 40 Fruits": slides,
         "Deep Jungle Jungle Slider 50 Fruits": slides,
+        "Deep Jungle Camp White Mushroom Cure x3 Reward": slides & Has("Progressive Cure"),
+        "Deep Jungle Tree House Pink Agaricus 100 Hits Reward": slides & Has("Progressive Aero", count=2) & HasAll("Progressive Stop", "Ragnarok"),
+        "Deep Jungle Bamboo Thicket Black Ballade 4 Strikes Reward": slides,
     }

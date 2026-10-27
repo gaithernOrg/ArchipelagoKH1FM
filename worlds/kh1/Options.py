@@ -423,6 +423,12 @@ class ExcludeSuperBosses(Toggle):
     """
     display_name = "Exclude Super Bosses"
 
+class ExcludeRareHeartless(Toggle):
+    """
+    If on, checks on rare and mushroom Heartless will only contain filler.
+    """
+    display_name = "Exclude Rare Heartless"
+
 class ExcludeJungleSlider(Toggle):
     """
     If on, checks behind the Jungle Slider minigame will only contain filler.
@@ -829,6 +835,7 @@ class KH1Options(PerGameCommonOptions):
     randomize_puppies: RandomizePuppies
     puppy_value: PuppyValue
     exclude_super_bosses: ExcludeSuperBosses
+    exclude_rare_heartless: ExcludeRareHeartless
     exclude_jungle_slider: ExcludeJungleSlider
     exclude_cups: ExcludeCups
     exclude_hundred_acre_wood: ExcludeHundredAcreWood
@@ -923,6 +930,7 @@ kh1_option_groups = [
         RandomizePuppies,
         PuppyValue,
         ExcludeSuperBosses,
+        ExcludeRareHeartless,
         ExcludeJungleSlider,
         ExcludeCups,
         ExcludeHundredAcreWood,

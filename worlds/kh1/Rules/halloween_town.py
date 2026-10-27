@@ -1,4 +1,4 @@
-from rule_builder.rules import Has, Rule
+from rule_builder.rules import Has, HasAny, Rule
 
 from ._helpers import BASIC_TOOLS, COMBO_MASTER, DODGE_ROLL_AND_AIR_GUARD, DUMBO_SKIP, GLIDE
 from ._helpers import HIGH_JUMP, HIGH_JUMP_2, HIGH_JUMP_3, HIGH_JUMP_AND_GLIDE
@@ -63,4 +63,7 @@ def build_rules() -> dict[str, Rule]:
         "Halloween Town Guillotine Square Pumpkin Structure Left Chest": pumpkin_structure,
         "Halloween Town Guillotine Square Pumpkin Structure Right Chest": pumpkin_structure,
         "Halloween Town Bridge Left of Gate Chest": bridge_left_of_gate_chest_rule,
+        "Halloween Town Graveyard White Mushroom Aero x3 Reward": fmn_and_jitb & oogie_manor & Has("Progressive Aero"),
+        "Halloween Town Bridge Rare Truffle Juggle 100 Reward": fmn_and_jitb & oogie_manor & Has("Progressive Aero", count=2),
+        "Halloween Town Manor Ruins Chimera 9 Heads Reward": fmn_and_jitb & oogie_manor & Has("Progressive Aero", count=3) & HasAny("Genie", "Bambi", "Simba"),
     }

@@ -37,4 +37,5 @@ def build_rules() -> dict[str, Rule]:
         "Monstro Chamber 3 Platform Above Chamber 2 Entrance Chest": by_difficulty(beginner=HIGH_JUMP, normal=True),
         "Monstro Chamber 3 Platform Near Chamber 6 Entrance Chest": by_difficulty(beginner=HIGH_JUMP, normal=True),
         "Monstro Chamber 5 Atop Barrel Chest": by_difficulty(beginner=HIGH_JUMP, proud=True),
+        "Monstro Stomach Grand Ghost Defeat Reward": PARASITE_CAGE,
     }

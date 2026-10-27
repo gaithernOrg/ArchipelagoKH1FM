@@ -114,4 +114,5 @@ def build_rules() -> dict[str, Rule]:
         "Hollow Bastion Entrance Hall Emblem Piece (Fountain)": emblem_piece_chest_fountain_rule,
         "Hollow Bastion Defeat Unknown Ansem's Report 13": unknown_rule,
         "Hollow Bastion Defeat Unknown EXP Necklace Event": unknown_rule,
+        "Hollow Bastion Grand Hall Stealth Soldier Defeat Reward": EMBLEMS & Has("Progressive Stop"),
     }
