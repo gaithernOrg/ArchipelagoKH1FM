@@ -75,7 +75,7 @@ def build_rules() -> dict[str, Rule]:
         "Agrabah Defeat Kurt Zisa Ansem's Report 11": kurt_zisa_rule,
         "Agrabah Defeat Kurt Zisa Zantetsuken Event": kurt_zisa_rule,
         "Agrabah Cave of Wonders Treasure Room White Mushroom Gravity x3 Reward": Has("Progressive Gravity"),
-        "Agrabah Palace Gates Pot Scorpion 11th Pot Reward": Has("Guard"),
+        "Agrabah Palace Gates Pot Scorpion Defeated Reward": Has("Guard"),
     }
 
     return rules
