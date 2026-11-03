@@ -370,7 +370,7 @@ class KH1World(World):
             item_counts[name] = data.max_quantity
 
     def is_party_ability_item(self, character: str, ability: str) -> bool:
-        return f"{character} {ability}" in item_table
+        return f"{ability} ({character})" in item_table
 
     def fill_item_pool(self, item_counts: dict[str, int]) -> None:
         item_pool = [self.create_item(name) for name, count in item_counts.items() for _ in range(count)]
