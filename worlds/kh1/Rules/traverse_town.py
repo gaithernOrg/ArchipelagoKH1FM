@@ -29,9 +29,9 @@ def build_rules(kh1world) -> dict[str, Rule]:
     )
     summon_gems_rule = HasAll("Progressive Fire", *sorted(item_name_groups["Summon Gems"]))
     mystical_house_yellow_trinity_rule = Has("Progressive Fire") & by_difficulty(
-        beginner=Has("Yellow Trinity") | DUMBO_SUMMON,
+        beginner=Has("Yellow Trinity"),
         normal=HIGH_JUMP_2,
-        proud=HIGH_JUMP,
+        proud=HIGH_JUMP | DUMBO_SUMMON,
     )
     blue_trinity_balcony_rule = by_difficulty(
         beginner=Has("Blue Trinity") & GLIDE,

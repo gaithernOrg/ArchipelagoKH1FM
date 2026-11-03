@@ -98,9 +98,9 @@ def can_dumbo_skip_rule() -> Rule:
 
 def has_oogie_manor_rule() -> Rule:
     return by_difficulty(
-        beginner=Has("Progressive Fire") | HasAll("High Jump", "Progressive Glide") | can_dumbo_skip_rule(),
+        beginner=Has("Progressive Fire"),
         normal=Has("High Jump", count=3),
-        proud=Has("High Jump", count=2),
+        proud=Has("High Jump", count=2) | HasAll("High Jump", "Progressive Glide") | can_dumbo_skip_rule(),
         minimal=HasAny("High Jump", "Progressive Glide"),
     )
 
