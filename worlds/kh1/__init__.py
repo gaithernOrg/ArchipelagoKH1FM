@@ -459,8 +459,8 @@ class KH1World(World):
             mode = self.options.level_check_locations.current_key
             if mode == "level_50":
                 levels = self.random.sample(range(2, 51), 33)
-            elif mode == "level_99":
-                levels = self.random.sample(range(2, 100), 33)
+            elif mode == "level_100":
+                levels = self.random.sample(range(2, 101), 33)
             else:
                 levels = []
             self.level_check_locations = [f"Level {level:03}" for level in sorted(levels)]

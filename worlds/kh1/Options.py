@@ -22,13 +22,13 @@ class LevelCheckLocations(Choice):
 
     LV 50: 33 checks spread randomly across levels 2-50.
 
-    LV 99: 33 checks spread randomly across levels 2-99.
+    LV 100: 33 checks spread randomly across levels 2-100.
 
     None: No level checks.
     """
     display_name = "LV Check Locations"
     option_level_50 = 0
-    option_level_99 = 1
+    option_level_100 = 1
     option_none = 2
     default = 0
 
