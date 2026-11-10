@@ -64,7 +64,7 @@ def build_rules() -> dict[str, Rule]:
     )
     flame_emblem_piece_rule = (
         emblem_piece_chest_fountain_rule
-        & by_difficulty(beginner=Has("Progressive Fire"), minimal=True)
+        & by_difficulty(beginner=Has("Progressive Fire"), minimal=EMBLEMS)
         & by_difficulty(beginner=GLIDE | Has("Progressive Thunder"), normal=HIGH_JUMP, proud=True)
     )
 
