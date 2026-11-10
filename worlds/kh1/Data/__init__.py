@@ -30,9 +30,9 @@ def group_rows_by_character(rows: List[Dict[str, str]]) -> Dict[str, List[Dict[s
 
 
 items = load_rows("items.csv")
-event_items = load_rows("event_items.csv")
 locations = load_rows("locations.csv")
-event_locations = load_rows("event_locations.csv")
+events = load_rows("events.csv")
+entrances = load_rows("entrances.csv", "utf-8")
 
 weapon_stats = load_rows("weapon_stats.csv")
 ability_ap_costs = load_rows("ability_ap_costs.csv", "utf-8")

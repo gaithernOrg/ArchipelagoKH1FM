@@ -1,26 +1,26 @@
 id,name,region,groups
 2650011,Destiny Islands Chest,Destiny Islands,Chest
-2650211,Traverse Town 1st District Candle Puzzle Chest,Traverse Town,Chest
-2650212,Traverse Town 1st District Accessory Shop Roof Chest,Traverse Town,Chest;Postcard
-2650213,Traverse Town 2nd District Boots and Shoes Awning Chest,Traverse Town,Chest;Postcard
-2650214,Traverse Town 2nd District Rooftop Chest,Traverse Town,Chest
-2650251,Traverse Town 2nd District Gizmo Shop Facade Chest,Traverse Town,Chest
-2650252,Traverse Town Alleyway Balcony Chest,Traverse Town,Chest
-2650253,Traverse Town Alleyway Blue Room Awning Chest,Traverse Town,Chest
-2650254,Traverse Town Alleyway Corner Chest,Traverse Town,Chest
-2650292,Traverse Town Green Room Clock Puzzle Chest,Traverse Town,Chest
-2650293,Traverse Town Green Room Table Chest,Traverse Town,Chest
-2650294,Traverse Town Red Room Chest,Traverse Town,Chest
-2650331,Traverse Town Mystical House Yellow Trinity Chest,Traverse Town,Chest
-2650332,Traverse Town Accessory Shop Chest,Traverse Town,Chest
-2650333,Traverse Town Secret Waterway White Trinity Chest,Traverse Town,Chest
-2650334,Traverse Town Geppetto's House Chest,Traverse Town,Chest;Boss
-2650371,Traverse Town Item Workshop Right Chest,Traverse Town,Chest
-2650411,Traverse Town 1st District Blue Trinity Balcony Chest,Traverse Town,Chest;Postcard
-2650891,Traverse Town Mystical House Glide Chest,Traverse Town,Chest;Puppy
-2650892,Traverse Town Alleyway Behind Crates Chest,Traverse Town,Chest;Puppy
-2650893,Traverse Town Item Workshop Left Chest,Traverse Town,Chest;Puppy
-2650894,Traverse Town Secret Waterway Near Stairs Chest,Traverse Town,Chest;Puppy
+2650211,Traverse Town 1st District Candle Puzzle Chest,Traverse Town 1st District,Traverse Town;Chest
+2650212,Traverse Town 1st District Accessory Shop Roof Chest,Traverse Town 1st District,Traverse Town;Chest;Postcard
+2650213,Traverse Town 2nd District Boots and Shoes Awning Chest,Traverse Town 2nd District,Traverse Town;Chest;Postcard
+2650214,Traverse Town 2nd District Rooftop Chest,Traverse Town 2nd District (Rooftops),Traverse Town;Chest
+2650251,Traverse Town 2nd District Gizmo Shop Facade Chest,Traverse Town 2nd District,Traverse Town;Chest
+2650252,Traverse Town Alleyway Balcony Chest,Traverse Town Alleyway,Traverse Town;Chest
+2650253,Traverse Town Alleyway Blue Room Awning Chest,Traverse Town Alleyway,Traverse Town;Chest
+2650254,Traverse Town Alleyway Corner Chest,Traverse Town Alleyway,Traverse Town;Chest
+2650292,Traverse Town Green Room Clock Puzzle Chest,Traverse Town Green Room,Traverse Town;Chest
+2650293,Traverse Town Green Room Table Chest,Traverse Town Green Room,Traverse Town;Chest
+2650294,Traverse Town Red Room Chest,Traverse Town Red Room,Traverse Town;Chest
+2650331,Traverse Town Mystical House Yellow Trinity Chest,Traverse Town Mystical House,Traverse Town;Chest
+2650332,Traverse Town Accessory Shop Chest,Traverse Town Accessory Shop,Traverse Town;Chest
+2650333,Traverse Town Secret Waterway White Trinity Chest,Traverse Town Secret Waterway,Traverse Town;Chest
+2650334,Traverse Town Geppetto's House Chest,Traverse Town Geppetto's House,Traverse Town;Chest;Boss
+2650371,Traverse Town Item Workshop Right Chest,Traverse Town Item Workshop,Traverse Town;Chest
+2650411,Traverse Town 1st District Blue Trinity Balcony Chest,Traverse Town 1st District (Balcony),Traverse Town;Chest;Postcard
+2650891,Traverse Town Mystical House Glide Chest,Traverse Town Mystical House,Traverse Town;Chest;Puppy
+2650892,Traverse Town Alleyway Behind Crates Chest,Traverse Town Alleyway (Behind Crates),Traverse Town;Chest;Puppy
+2650893,Traverse Town Item Workshop Left Chest,Traverse Town Item Workshop,Traverse Town;Chest;Puppy
+2650894,Traverse Town Secret Waterway Near Stairs Chest,Traverse Town Secret Waterway,Traverse Town;Chest;Puppy
 2650931,Wonderland Rabbit Hole Green Trinity Chest,Wonderland,Chest
 2650932,Wonderland Rabbit Hole Defeat Heartless 1 Chest,Wonderland,Chest
 2650933,Wonderland Rabbit Hole Defeat Heartless 2 Chest,Wonderland,Chest
@@ -229,13 +229,13 @@ id,name,region,groups
 2654771,End of the World World Terminus Hollow Bastion Chest,End of the World,Chest;Boss
 2654772,End of the World Final Rest Chest,End of the World,Chest;Boss
 2655092,Monstro Chamber 6 White Trinity Chest,Monstro,Chest;Boss
-2656011,Traverse Town Defeat Guard Armor Dodge Roll Event,Traverse Town,
-2656012,Traverse Town Defeat Guard Armor Fire Event,Traverse Town,
-2656013,Traverse Town Defeat Guard Armor Blue Trinity Event,Traverse Town,
-2656014,Traverse Town Leon Secret Waterway Earthshine Event,Traverse Town,
-2656015,Traverse Town Kairi Secret Waterway Oathkeeper Event,Traverse Town,
-2656016,Traverse Town Defeat Guard Armor Brave Warrior Event,Traverse Town,
-2656017,Traverse Town Defeat Guard Armor 500 Munny Reward,Traverse Town,
+2656011,Traverse Town Defeat Guard Armor Dodge Roll Event,Traverse Town 3rd District,Traverse Town
+2656012,Traverse Town Defeat Guard Armor Fire Event,Traverse Town 3rd District,Traverse Town
+2656013,Traverse Town Defeat Guard Armor Blue Trinity Event,Traverse Town 3rd District,Traverse Town
+2656014,Traverse Town Leon Secret Waterway Earthshine Event,Traverse Town Secret Waterway,Traverse Town
+2656015,Traverse Town Kairi Secret Waterway Oathkeeper Event,Traverse Town Secret Waterway,Traverse Town
+2656016,Traverse Town Defeat Guard Armor Brave Warrior Event,Traverse Town 3rd District,Traverse Town
+2656017,Traverse Town Defeat Guard Armor 500 Munny Reward,Traverse Town 3rd District,Traverse Town
 2656021,Deep Jungle Defeat Sabor White Fang Event,Deep Jungle,Boss
 2656022,Deep Jungle Defeat Clayton Cure Event,Deep Jungle,Boss
 2656023,Deep Jungle Seal Keyhole Jungle King Event,Deep Jungle,Boss
@@ -273,24 +273,24 @@ id,name,region,groups
 2656106,Hollow Bastion Speak to Princesses Fire Event,Hollow Bastion,Boss
 2656111,End of the World Defeat Chernabog Superglide Event,End of the World,Boss
 2656112,Neverland Seal Keyhole Navi-G Piece Event,Neverland,Boss
-2656113,Traverse Town Secret Waterway Navi Gummi Event,Traverse Town,
-2656114,Traverse Town Magician's Study Earthshine Event,Traverse Town,
-2656115,Traverse Town Magician's Study Naturespark Event,Traverse Town,
-2656116,Traverse Town Magician's Study Watergleam Event,Traverse Town,
-2656117,Traverse Town Magician's Study Fireglow Event,Traverse Town,
-2656118,Traverse Town Magician's Study Lord Fortune Event,Traverse Town,
-2656120,Traverse Town Mail Postcard 01 Event,Traverse Town,
-2656121,Traverse Town Mail Postcard 02 Event,Traverse Town,
-2656122,Traverse Town Mail Postcard 03 Event,Traverse Town,
-2656123,Traverse Town Mail Postcard 04 Event,Traverse Town,
-2656124,Traverse Town Mail Postcard 05 Event,Traverse Town,
-2656125,Traverse Town Mail Postcard 06 Event,Traverse Town,
-2656126,Traverse Town Mail Postcard 07 Event,Traverse Town,
-2656127,Traverse Town Mail Postcard 08 Event,Traverse Town,
-2656128,Traverse Town Mail Postcard 09 Event,Traverse Town,
-2656129,Traverse Town Mail Postcard 10 Event,Traverse Town,
-2656131,Traverse Town Defeat Opposite Armor Aero Event,Traverse Town,Boss
-2656132,Traverse Town Defeat Opposite Armor Navi-G Piece Event,Traverse Town,Boss
+2656113,Traverse Town Secret Waterway Navi Gummi Event,Traverse Town Secret Waterway,Traverse Town
+2656114,Traverse Town Magician's Study Earthshine Event,Traverse Town Magician's Study,Traverse Town
+2656115,Traverse Town Magician's Study Naturespark Event,Traverse Town Magician's Study,Traverse Town
+2656116,Traverse Town Magician's Study Watergleam Event,Traverse Town Magician's Study,Traverse Town
+2656117,Traverse Town Magician's Study Fireglow Event,Traverse Town Magician's Study,Traverse Town
+2656118,Traverse Town Magician's Study Lord Fortune Event,Traverse Town Magician's Study,Traverse Town
+2656120,Traverse Town Mail Postcard 01 Event,Traverse Town 1st District,Traverse Town
+2656121,Traverse Town Mail Postcard 02 Event,Traverse Town 1st District,Traverse Town
+2656122,Traverse Town Mail Postcard 03 Event,Traverse Town 1st District,Traverse Town
+2656123,Traverse Town Mail Postcard 04 Event,Traverse Town 1st District,Traverse Town
+2656124,Traverse Town Mail Postcard 05 Event,Traverse Town 1st District,Traverse Town
+2656125,Traverse Town Mail Postcard 06 Event,Traverse Town 1st District,Traverse Town
+2656126,Traverse Town Mail Postcard 07 Event,Traverse Town 1st District,Traverse Town
+2656127,Traverse Town Mail Postcard 08 Event,Traverse Town 1st District,Traverse Town
+2656128,Traverse Town Mail Postcard 09 Event,Traverse Town 1st District,Traverse Town
+2656129,Traverse Town Mail Postcard 10 Event,Traverse Town 1st District,Traverse Town
+2656131,Traverse Town Defeat Opposite Armor Aero Event,Traverse Town 3rd District,Traverse Town;Boss
+2656132,Traverse Town Defeat Opposite Armor Navi-G Piece Event,Traverse Town 3rd District,Traverse Town;Boss
 2656201,Atlantica Undersea Gorge Blizzard Clam,Atlantica,
 2656202,Atlantica Undersea Gorge Ocean Floor Clam,Atlantica,
 2656203,Atlantica Undersea Valley Higher Cave Clam,Atlantica,
@@ -307,29 +307,29 @@ id,name,region,groups
 2656214,Atlantica Below Deck Clam,Atlantica,
 2656215,Atlantica Undersea Garden Clam,Atlantica,
 2656216,Atlantica Undersea Cave Clam,Atlantica,
-2656303,Traverse Town Geppetto's House Geppetto Reward Cid Blueprint,Traverse Town,Boss
-2656304,Traverse Town Geppetto's House Geppetto Reward Geppetto Blueprint,Traverse Town,Boss
-2656305,Traverse Town Geppetto's House Geppetto Reward Aerith Blueprint,Traverse Town,Boss
-2656306,Traverse Town Geppetto's House Geppetto Reward Yuffie Blueprint,Traverse Town,Boss
-2656307,Traverse Town Geppetto's House Geppetto Reward Leon Blueprint,Traverse Town,Boss
-2656308,Traverse Town Geppetto's House Geppetto Reward Cactaur Blueprint,Traverse Town,Boss
-2656309,Traverse Town Geppetto's House Geppetto Reward Hyperion Blueprint,Traverse Town,Boss
-2656310,Traverse Town Geppetto's House Pinocchio Reward Chocobo Blueprint,Traverse Town,Boss
-2656311,Traverse Town Magician's Study Obtained All Arts Items,Traverse Town,
-2656312,Traverse Town Magician's Study Obtained All LV1 Magic,Traverse Town,
-2656313,Traverse Town Magician's Study Obtained All LV3 Magic,Traverse Town,
-2656314,Traverse Town Piano Room Return 10 Puppies,Traverse Town,
-2656315,Traverse Town Piano Room Return 20 Puppies,Traverse Town,
-2656316,Traverse Town Piano Room Return 30 Puppies,Traverse Town,
-2656317,Traverse Town Piano Room Return 40 Puppies,Traverse Town,
-2656318,Traverse Town Piano Room Return 50 Puppies Reward 1,Traverse Town,
-2656319,Traverse Town Piano Room Return 50 Puppies Reward 2,Traverse Town,
-2656320,Traverse Town Piano Room Return 60 Puppies,Traverse Town,
-2656321,Traverse Town Piano Room Return 70 Puppies,Traverse Town,
-2656322,Traverse Town Piano Room Return 80 Puppies,Traverse Town,
-2656324,Traverse Town Piano Room Return 90 Puppies,Traverse Town,
-2656326,Traverse Town Piano Room Return 99 Puppies Reward 1,Traverse Town,
-2656327,Traverse Town Piano Room Return 99 Puppies Reward 2,Traverse Town,
+2656303,Traverse Town Geppetto's House Geppetto Reward Cid Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656304,Traverse Town Geppetto's House Geppetto Reward Geppetto Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656305,Traverse Town Geppetto's House Geppetto Reward Aerith Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656306,Traverse Town Geppetto's House Geppetto Reward Yuffie Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656307,Traverse Town Geppetto's House Geppetto Reward Leon Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656308,Traverse Town Geppetto's House Geppetto Reward Cactaur Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656309,Traverse Town Geppetto's House Geppetto Reward Hyperion Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656310,Traverse Town Geppetto's House Pinocchio Reward Chocobo Blueprint,Traverse Town Geppetto's House,Traverse Town;Boss
+2656311,Traverse Town Magician's Study Obtained All Arts Items,Traverse Town Magician's Study,Traverse Town
+2656312,Traverse Town Magician's Study Obtained All LV1 Magic,Traverse Town Magician's Study,Traverse Town
+2656313,Traverse Town Magician's Study Obtained All LV3 Magic,Traverse Town Magician's Study,Traverse Town
+2656314,Traverse Town Piano Room Return 10 Puppies,Traverse Town Piano Room,Traverse Town
+2656315,Traverse Town Piano Room Return 20 Puppies,Traverse Town Piano Room,Traverse Town
+2656316,Traverse Town Piano Room Return 30 Puppies,Traverse Town Piano Room,Traverse Town
+2656317,Traverse Town Piano Room Return 40 Puppies,Traverse Town Piano Room,Traverse Town
+2656318,Traverse Town Piano Room Return 50 Puppies Reward 1,Traverse Town Piano Room,Traverse Town
+2656319,Traverse Town Piano Room Return 50 Puppies Reward 2,Traverse Town Piano Room,Traverse Town
+2656320,Traverse Town Piano Room Return 60 Puppies,Traverse Town Piano Room,Traverse Town
+2656321,Traverse Town Piano Room Return 70 Puppies,Traverse Town Piano Room,Traverse Town
+2656322,Traverse Town Piano Room Return 80 Puppies,Traverse Town Piano Room,Traverse Town
+2656324,Traverse Town Piano Room Return 90 Puppies,Traverse Town Piano Room,Traverse Town
+2656326,Traverse Town Piano Room Return 99 Puppies Reward 1,Traverse Town Piano Room,Traverse Town
+2656327,Traverse Town Piano Room Return 99 Puppies Reward 2,Traverse Town Piano Room,Traverse Town
 2656032,Olympus Coliseum Cloud Sonic Blade Event,Olympus Coliseum,Boss
 2656328,Olympus Coliseum Defeat Sephiroth One-Winged Angel Event,Olympus Coliseum,Boss;Super Bosses
 2656329,Olympus Coliseum Defeat Ice Titan Diamond Dust Event,Olympus Coliseum,Boss;Super Bosses;Cups
@@ -378,7 +378,7 @@ id,name,region,groups
 2656372,Deep Jungle Jungle Slider 30 Fruits,Deep Jungle,Boss;Jungle Slider
 2656373,Deep Jungle Jungle Slider 40 Fruits,Deep Jungle,Boss;Jungle Slider
 2656374,Deep Jungle Jungle Slider 50 Fruits,Deep Jungle,Boss;Jungle Slider
-2656375,Traverse Town 1st District Speak with Cid Event,Traverse Town,
+2656375,Traverse Town 1st District Speak with Cid Event,Traverse Town 1st District,Traverse Town
 2656376,Wonderland Bizarre Room Read Book,Wonderland,
 2656377,Olympus Coliseum Coliseum Gates Green Trinity,Olympus Coliseum,
 2656378,Agrabah Defeat Kurt Zisa Zantetsuken Event,Agrabah,Boss;Super Bosses
@@ -400,59 +400,59 @@ id,name,region,groups
 2656394,Wonderland Claw Marks Evidence Box,Wonderland,Chest
 2656395,Wonderland Stench Evidence Box,Wonderland,Chest
 2656396,Wonderland Antenna Evidence Box,Wonderland,Chest
-2656400,Traverse Town Synth 15 Items,Traverse Town,
-2656401,Traverse Town Synth Item 01,Traverse Town,Synth
-2656402,Traverse Town Synth Item 02,Traverse Town,Synth
-2656403,Traverse Town Synth Item 03,Traverse Town,Synth
-2656404,Traverse Town Synth Item 04,Traverse Town,Synth
-2656405,Traverse Town Synth Item 05,Traverse Town,Synth
-2656406,Traverse Town Synth Item 06,Traverse Town,Synth
-2656407,Traverse Town Synth Item 07,Traverse Town,Synth
-2656408,Traverse Town Synth Item 08,Traverse Town,Synth
-2656409,Traverse Town Synth Item 09,Traverse Town,Synth
-2656410,Traverse Town Synth Item 10,Traverse Town,Synth
-2656411,Traverse Town Synth Item 11,Traverse Town,Synth
-2656412,Traverse Town Synth Item 12,Traverse Town,Synth
-2656413,Traverse Town Synth Item 13,Traverse Town,Synth
-2656414,Traverse Town Synth Item 14,Traverse Town,Synth
-2656415,Traverse Town Synth Item 15,Traverse Town,Synth
-2656416,Traverse Town Synth Item 16,Traverse Town,Synth
-2656417,Traverse Town Synth Item 17,Traverse Town,Synth
-2656418,Traverse Town Synth Item 18,Traverse Town,Synth
-2656419,Traverse Town Synth Item 19,Traverse Town,Synth
-2656420,Traverse Town Synth Item 20,Traverse Town,Synth
-2656421,Traverse Town Synth Item 21,Traverse Town,Synth
-2656422,Traverse Town Synth Item 22,Traverse Town,Synth
-2656423,Traverse Town Synth Item 23,Traverse Town,Synth
-2656424,Traverse Town Synth Item 24,Traverse Town,Synth
-2656425,Traverse Town Synth Item 25,Traverse Town,Synth
-2656426,Traverse Town Synth Item 26,Traverse Town,Synth
-2656427,Traverse Town Synth Item 27,Traverse Town,Synth
-2656428,Traverse Town Synth Item 28,Traverse Town,Synth
-2656429,Traverse Town Synth Item 29,Traverse Town,Synth
-2656430,Traverse Town Synth Item 30,Traverse Town,Synth
-2656431,Traverse Town Synth Item 31,Traverse Town,Synth
-2656432,Traverse Town Synth Item 32,Traverse Town,Synth
-2656433,Traverse Town Synth Item 33,Traverse Town,Synth
-2656500,Traverse Town Item Shop Postcard,Traverse Town,Postcard
-2656501,Traverse Town 1st District Safe Postcard,Traverse Town,Postcard
-2656502,Traverse Town Gizmo Shop Postcard 1,Traverse Town,Postcard
-2656503,Traverse Town Gizmo Shop Postcard 2,Traverse Town,Postcard
-2656504,Traverse Town Item Workshop Postcard,Traverse Town,Postcard
-2656505,Traverse Town 3rd District Balcony Postcard,Traverse Town,Postcard
-2656506,Traverse Town Geppetto's House Postcard,Traverse Town,Boss;Postcard
+2656400,Traverse Town Synth 15 Items,Traverse Town Item Workshop,Traverse Town
+2656401,Traverse Town Synth Item 01,Traverse Town Item Workshop,Traverse Town;Synth
+2656402,Traverse Town Synth Item 02,Traverse Town Item Workshop,Traverse Town;Synth
+2656403,Traverse Town Synth Item 03,Traverse Town Item Workshop,Traverse Town;Synth
+2656404,Traverse Town Synth Item 04,Traverse Town Item Workshop,Traverse Town;Synth
+2656405,Traverse Town Synth Item 05,Traverse Town Item Workshop,Traverse Town;Synth
+2656406,Traverse Town Synth Item 06,Traverse Town Item Workshop,Traverse Town;Synth
+2656407,Traverse Town Synth Item 07,Traverse Town Item Workshop,Traverse Town;Synth
+2656408,Traverse Town Synth Item 08,Traverse Town Item Workshop,Traverse Town;Synth
+2656409,Traverse Town Synth Item 09,Traverse Town Item Workshop,Traverse Town;Synth
+2656410,Traverse Town Synth Item 10,Traverse Town Item Workshop,Traverse Town;Synth
+2656411,Traverse Town Synth Item 11,Traverse Town Item Workshop,Traverse Town;Synth
+2656412,Traverse Town Synth Item 12,Traverse Town Item Workshop,Traverse Town;Synth
+2656413,Traverse Town Synth Item 13,Traverse Town Item Workshop,Traverse Town;Synth
+2656414,Traverse Town Synth Item 14,Traverse Town Item Workshop,Traverse Town;Synth
+2656415,Traverse Town Synth Item 15,Traverse Town Item Workshop,Traverse Town;Synth
+2656416,Traverse Town Synth Item 16,Traverse Town Item Workshop,Traverse Town;Synth
+2656417,Traverse Town Synth Item 17,Traverse Town Item Workshop,Traverse Town;Synth
+2656418,Traverse Town Synth Item 18,Traverse Town Item Workshop,Traverse Town;Synth
+2656419,Traverse Town Synth Item 19,Traverse Town Item Workshop,Traverse Town;Synth
+2656420,Traverse Town Synth Item 20,Traverse Town Item Workshop,Traverse Town;Synth
+2656421,Traverse Town Synth Item 21,Traverse Town Item Workshop,Traverse Town;Synth
+2656422,Traverse Town Synth Item 22,Traverse Town Item Workshop,Traverse Town;Synth
+2656423,Traverse Town Synth Item 23,Traverse Town Item Workshop,Traverse Town;Synth
+2656424,Traverse Town Synth Item 24,Traverse Town Item Workshop,Traverse Town;Synth
+2656425,Traverse Town Synth Item 25,Traverse Town Item Workshop,Traverse Town;Synth
+2656426,Traverse Town Synth Item 26,Traverse Town Item Workshop,Traverse Town;Synth
+2656427,Traverse Town Synth Item 27,Traverse Town Item Workshop,Traverse Town;Synth
+2656428,Traverse Town Synth Item 28,Traverse Town Item Workshop,Traverse Town;Synth
+2656429,Traverse Town Synth Item 29,Traverse Town Item Workshop,Traverse Town;Synth
+2656430,Traverse Town Synth Item 30,Traverse Town Item Workshop,Traverse Town;Synth
+2656431,Traverse Town Synth Item 31,Traverse Town Item Workshop,Traverse Town;Synth
+2656432,Traverse Town Synth Item 32,Traverse Town Item Workshop,Traverse Town;Synth
+2656433,Traverse Town Synth Item 33,Traverse Town Item Workshop,Traverse Town;Synth
+2656500,Traverse Town Item Shop Postcard,Traverse Town Item Shop,Traverse Town;Postcard
+2656501,Traverse Town 1st District Safe Postcard,Traverse Town 1st District,Traverse Town;Postcard
+2656502,Traverse Town Gizmo Shop Postcard 1,Traverse Town Gizmo Shop,Traverse Town;Postcard
+2656503,Traverse Town Gizmo Shop Postcard 2,Traverse Town Gizmo Shop,Traverse Town;Postcard
+2656504,Traverse Town Item Workshop Postcard,Traverse Town Item Workshop,Traverse Town;Postcard
+2656505,Traverse Town 3rd District Balcony Postcard,Traverse Town 3rd District,Traverse Town;Postcard
+2656506,Traverse Town Geppetto's House Postcard,Traverse Town Geppetto's House,Traverse Town;Boss;Postcard
 2656508,Halloween Town Lab Torn Page,Halloween Town,
 2656516,Hollow Bastion Entrance Hall Emblem Piece (Flame),Hollow Bastion,Boss
 2656517,Hollow Bastion Entrance Hall Emblem Piece (Chest),Hollow Bastion,Chest;Boss
 2656518,Hollow Bastion Entrance Hall Emblem Piece (Statue),Hollow Bastion,Boss
 2656519,Hollow Bastion Entrance Hall Emblem Piece (Fountain),Hollow Bastion,Boss
-2656520,Traverse Town 1st District Leon Gift,Traverse Town,
-2656521,Traverse Town 1st District Aerith Gift,Traverse Town,
+2656520,Traverse Town 1st District Leon Gift,Traverse Town 1st District,Traverse Town
+2656521,Traverse Town 1st District Aerith Gift,Traverse Town 1st District,Traverse Town
 2656522,Hollow Bastion Library Speak to Belle Divine Rose,Hollow Bastion,Boss
 2656523,Hollow Bastion Library Speak to Aerith Cure,Hollow Bastion,Boss
-2656600,Traverse Town 1st District Blue Trinity by Exit Door,Traverse Town,
-2656601,Traverse Town 3rd District Blue Trinity,Traverse Town,
-2656602,Traverse Town Magician's Study Blue Trinity,Traverse Town,
+2656600,Traverse Town 1st District Blue Trinity by Exit Door,Traverse Town 1st District,Traverse Town
+2656601,Traverse Town 3rd District Blue Trinity,Traverse Town 3rd District,Traverse Town
+2656602,Traverse Town Magician's Study Blue Trinity,Traverse Town Magician's Study,Traverse Town
 2656603,Wonderland Lotus Forest Blue Trinity in Alcove,Wonderland,
 2656604,Wonderland Lotus Forest Blue Trinity by Moving Boulder,Wonderland,
 2656605,Agrabah Bazaar Blue Trinity,Agrabah,
@@ -497,10 +497,10 @@ id,name,region,groups
 2655105,Destiny Islands Cove Race Riku (Day 2),Destiny Islands,
 2655106,Destiny Islands Cove Talk to Kairi Potion Reward (Day 2),Destiny Islands,
 2655107,Destiny Islands Cove Talk to Kairi Hi-Potion Reward (Day 2),Destiny Islands,
-2656800,Donald Starting Accessory 1,Traverse Town,Accessory
-2656801,Donald Starting Accessory 2,Traverse Town,Accessory
-2656802,Goofy Starting Accessory 1,Traverse Town,Accessory
-2656803,Goofy Starting Accessory 2,Traverse Town,Accessory
+2656800,Donald Starting Accessory 1,Traverse Town 1st District,Traverse Town;Accessory
+2656801,Donald Starting Accessory 2,Traverse Town 1st District,Traverse Town;Accessory
+2656802,Goofy Starting Accessory 1,Traverse Town 1st District,Traverse Town;Accessory
+2656803,Goofy Starting Accessory 2,Traverse Town 1st District,Traverse Town;Accessory
 2656804,Tarzan Starting Accessory 1,Deep Jungle,Accessory
 2656805,Aladdin Starting Accessory 1,Agrabah,Accessory
 2656806,Aladdin Starting Accessory 2,Agrabah,Accessory
@@ -697,7 +697,7 @@ id,name,region,groups
 2659152,Accessory Royal Crown,Accessories,Augment
 2659153,Accessory Prime Cap,Accessories,Augment
 2659154,Accessory Obsidian Ring,Accessories,Augment
-2659201,Traverse Town Red Room White Mushroom Fire x3 Reward,Traverse Town,Rare Heartless;Boss
+2659201,Traverse Town Red Room White Mushroom Fire x3 Reward,Traverse Town Red Room,Traverse Town;Rare Heartless;Boss
 2659202,Wonderland Lotus Forest White Mushroom Blizzard x3 Reward,Wonderland,Rare Heartless;Boss
 2659203,End of the World Linked Worlds White Mushroom Thunder x3 Reward,End of the World,Rare Heartless;Boss
 2659204,Deep Jungle Camp White Mushroom Cure x3 Reward,Deep Jungle,Rare Heartless;Boss
@@ -707,7 +707,7 @@ id,name,region,groups
 2659208,Halloween Town Bridge Rare Truffle Juggle 100 Reward,Halloween Town,Rare Heartless;Boss
 2659209,Deep Jungle Tree House Pink Agaricus 100 Hits Reward,Deep Jungle,Rare Heartless;Boss
 2659210,Wonderland Bizarre Room Gigas Shadow 7th Defeated Reward,Wonderland,Rare Heartless;Boss
-2659211,Traverse Town 2nd District Sniperwild 30th Defeated Reward,Traverse Town,Rare Heartless;Boss
+2659211,Traverse Town 2nd District Sniperwild 30th Defeated Reward,Traverse Town 2nd District,Traverse Town;Rare Heartless;Boss
 2659212,Agrabah Palace Gates Pot Scorpion Defeated Reward,Agrabah,Rare Heartless;Boss
 2659213,Monstro Stomach Grand Ghost Defeat Reward,Monstro,Rare Heartless;Boss
 2659214,Halloween Town Manor Ruins Chimera 9 Heads Reward,Halloween Town,Rare Heartless;Boss

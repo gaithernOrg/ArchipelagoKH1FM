@@ -2,7 +2,8 @@ from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, HasAll, Rule
 
 from worlds.generic.Rules import add_item_rule
-from ..Locations import get_locations_by_group
+from .. import Data
+from ..Locations import doorway_into_room_name, get_locations_by_group, world_of_region
 from ..Items import item_name_groups
 from ..Options import Day2Materials
 from . import agrabah, atlantica, deep_jungle, destiny_islands, end_of_the_world
@@ -66,7 +67,8 @@ def add_boss_rules(location_rules: dict[str, Rule]) -> None:
 
 def add_chest_rules(location_rules: dict[str, Rule]) -> None:
     for location_name, location_data in get_locations_by_group("Chest").items():
-        chest_keyblade = Has(CHEST_KEYBLADES[location_data.region]) | KEYBLADES_UNLOCK_CHESTS_OFF
+        world = world_of_region(location_data.region)
+        chest_keyblade = Has(CHEST_KEYBLADES[world]) | KEYBLADES_UNLOCK_CHESTS_OFF
         add_location_rule(location_rules, location_name, chest_keyblade)
 
 
@@ -92,8 +94,17 @@ def build_entrance_rules() -> dict[str, Rule]:
         "Neverland": Has("Neverland") & X_WORLDS_4,
         "Hollow Bastion": Has("Hollow Bastion") & X_WORLDS_6,
         "End of the World": X_WORLDS_8 & EOTW_ACCESS,
-        "100 Acre Wood": HasAll("Progressive Fire", "Old Book"),
+        "Traverse Town Magician's Study 100 Acre Wood Entrance": HasAll("Progressive Fire", "Old Book"),
     }
+
+
+def build_doorway_rules(room_rules: dict[str, Rule]) -> dict[str, Rule]:
+    doorway_rules = {}
+    for row in Data.entrances:
+        room = row["From Region"]
+        if room in room_rules:
+            doorway_rules[doorway_into_room_name(row["Entrance Name"])] = room_rules[room]
+    return doorway_rules
 
 
 def build_rule_dicts(kh1world) -> tuple[dict[str, Rule], dict[str, Rule]]:
@@ -103,7 +114,11 @@ def build_rule_dicts(kh1world) -> tuple[dict[str, Rule], dict[str, Rule]]:
     location_rules["Final Ansem"] = build_final_ansem_rule()
     add_boss_rules(location_rules)
     add_chest_rules(location_rules)
-    return location_rules, build_entrance_rules()
+    location_rules.update(traverse_town.build_event_rules())
+    entrance_rules = build_entrance_rules()
+    entrance_rules.update(traverse_town.build_door_rules())
+    entrance_rules.update(build_doorway_rules(traverse_town.build_room_rules()))
+    return location_rules, entrance_rules
 
 
 def set_rules(kh1world) -> None:

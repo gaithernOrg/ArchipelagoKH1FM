@@ -1,0 +1,75 @@
+World,Entrance Name,From Region,To Region,Randomize,Area,Exit ID,Arrival ID
+Traverse Town,Traverse Town 1st District 1st District (Balcony) Entrance,Traverse Town 1st District,Traverse Town 1st District (Balcony),0,,,
+Traverse Town,Traverse Town 1st District 2nd District Entrance,Traverse Town 1st District,Traverse Town 2nd District,1,0x0,0x8,0x1
+Traverse Town,Traverse Town 1st District 3rd District Entrance,Traverse Town 1st District,Traverse Town 3rd District,1,0x0,0x11,0x2
+Traverse Town,Traverse Town 1st District Accessory Shop Entrance,Traverse Town 1st District,Traverse Town Accessory Shop,1,0x0,0x33,0x5
+Traverse Town,Traverse Town 1st District Alleyway (Behind Crates) Entrance,Traverse Town 1st District,Traverse Town Alleyway (Behind Crates),1,0x0,0x21,0x7
+Traverse Town,Traverse Town 1st District Geppetto's House Entrance,Traverse Town 1st District,Traverse Town Geppetto's House,1,0x0,0x39,0x41
+Traverse Town,Traverse Town 1st District Item Workshop Entrance,Traverse Town 1st District,Traverse Town Item Workshop,1,0x0,0x34,0x6
+Traverse Town,Traverse Town 1st District Lower Item Shop Entrance,Traverse Town 1st District,Traverse Town Item Shop,1,0x0,0x31,0x3
+Traverse Town,Traverse Town 1st District Upper Item Shop Entrance,Traverse Town 1st District,Traverse Town Item Shop,1,0x0,0x32,0x4
+Traverse Town,Traverse Town 1st District World Exit,Traverse Town 1st District,World Map,1,,,
+Traverse Town,Traverse Town 1st District (Balcony) 1st District Entrance,Traverse Town 1st District (Balcony),Traverse Town 1st District,0,,,
+Traverse Town,Traverse Town 2nd District 1st District Entrance,Traverse Town 2nd District,Traverse Town 1st District,1,0x1,0x1,0x8
+Traverse Town,Traverse Town 2nd District 2nd District (Rooftops) Entrance,Traverse Town 2nd District,Traverse Town 2nd District (Rooftops),0,,,
+Traverse Town,Traverse Town 2nd District 3rd District Ground Entrance,Traverse Town 2nd District,Traverse Town 3rd District,1,0x1,0x15,0x9
+Traverse Town,Traverse Town 2nd District Alleyway Entrance,Traverse Town 2nd District,Traverse Town Alleyway,1,0x1,0x22,0xA
+Traverse Town,Traverse Town 2nd District Gizmo Shop By Ladder Entrance,Traverse Town 2nd District,Traverse Town Gizmo Shop,1,0x1,0x20,0xE
+Traverse Town,Traverse Town 2nd District Gizmo Shop By Stairs Entrance,Traverse Town 2nd District,Traverse Town Gizmo Shop,1,0x1,0x1F,0xD
+Traverse Town,Traverse Town 2nd District Hallway Near Alleyway Entrance,Traverse Town 2nd District,Traverse Town Hallway,1,0x1,0x2F,0xB
+Traverse Town,Traverse Town 2nd District Hallway Near Gizmo Shop Entrance,Traverse Town 2nd District,Traverse Town Hallway,1,0x1,0x2E,0xC
+Traverse Town,Traverse Town 2nd District Piano Room Entrance,Traverse Town 2nd District,Traverse Town Piano Room,1,0x1,0x1E,0xF
+Traverse Town,Traverse Town 2nd District (Rooftops) 2nd District Entrance,Traverse Town 2nd District (Rooftops),Traverse Town 2nd District,0,,,
+Traverse Town,Traverse Town 2nd District (Rooftops) 3rd District Entrance,Traverse Town 2nd District (Rooftops),Traverse Town 3rd District,1,0x1,0x12,0x10
+Traverse Town,Traverse Town 3rd District 1st District Entrance,Traverse Town 3rd District,Traverse Town 1st District,1,0x2,0x2,0x11
+Traverse Town,Traverse Town 3rd District 2nd District (Rooftops) Entrance,Traverse Town 3rd District,Traverse Town 2nd District (Rooftops),1,0x2,0x10,0x12
+Traverse Town,Traverse Town 3rd District 2nd District Entrance,Traverse Town 3rd District,Traverse Town 2nd District,1,0x2,0x9,0x15
+Traverse Town,Traverse Town 3rd District Mystical House Entrance,Traverse Town 3rd District,Traverse Town Mystical House,1,0x2,0x37,0x13
+Traverse Town,Traverse Town 3rd District Vacant House Entrance,Traverse Town 3rd District,Traverse Town Vacant House,1,0x2,0x16,0x14
+Traverse Town,Traverse Town Accessory Shop 1st District Entrance,Traverse Town Accessory Shop,Traverse Town 1st District,1,0xA,0x5,0x33
+Traverse Town,Traverse Town Accessory Shop Item Workshop Entrance,Traverse Town Accessory Shop,Traverse Town Item Workshop,1,0xA,0x36,0x35
+Traverse Town,Traverse Town Accessory Shop Save Point,Traverse Town Accessory Shop,World Map,1,,,
+Traverse Town,Traverse Town Alleyway 2nd District Entrance,Traverse Town Alleyway,Traverse Town 2nd District,1,0x4,0xA,0x22
+Traverse Town,Traverse Town Alleyway Alleyway (Behind Crates) Entrance,Traverse Town Alleyway,Traverse Town Alleyway (Behind Crates),0,,,
+Traverse Town,Traverse Town Alleyway Dalmatian's Den Entrance,Traverse Town Alleyway,Traverse Town Dalmatian's Den,1,0x4,0x17,0x23
+Traverse Town,Traverse Town Alleyway Green Room Entrance,Traverse Town Alleyway,Traverse Town Green Room,1,0x4,0x26,0x24
+Traverse Town,Traverse Town Alleyway Red Room Entrance,Traverse Town Alleyway,Traverse Town Red Room,1,0x4,0x29,0x25
+Traverse Town,Traverse Town Alleyway Secret Waterway Entrance,Traverse Town Alleyway,Traverse Town Secret Waterway,1,0x4,0x40,0x30
+Traverse Town,Traverse Town Alleyway (Behind Crates) 1st District Entrance,Traverse Town Alleyway (Behind Crates),Traverse Town 1st District,0,0x4,0x7,0x21
+Traverse Town,Traverse Town Alleyway (Behind Crates) Alleyway Entrance,Traverse Town Alleyway (Behind Crates),Traverse Town Alleyway,0,,,
+Traverse Town,Traverse Town Dalmatian's Den Alleyway Entrance,Traverse Town Dalmatian's Den,Traverse Town Alleyway,1,0xD,0x23,0x17
+Traverse Town,Traverse Town Dalmatian's Den Dining Room Entrance,Traverse Town Dalmatian's Den,Traverse Town Dining Room,1,0xD,0x19,0x18
+Traverse Town,Traverse Town Dining Room Dalmatian's Den Entrance,Traverse Town Dining Room,Traverse Town Dalmatian's Den,1,0xE,0x18,0x19
+Traverse Town,Traverse Town Dining Room Living Room Entrance,Traverse Town Dining Room,Traverse Town Living Room,1,0xE,0x1B,0x1A
+Traverse Town,Traverse Town Geppetto's House 1st District Entrance,Traverse Town Geppetto's House,Traverse Town 1st District,1,0xC,0x41,0x39
+Traverse Town,Traverse Town Gizmo Shop 2nd District Near Ladder Entrance,Traverse Town Gizmo Shop,Traverse Town 2nd District,1,0x11,0xE,0x20
+Traverse Town,Traverse Town Gizmo Shop 2nd District Near Stairs Entrance,Traverse Town Gizmo Shop,Traverse Town 2nd District,1,0x11,0xD,0x1F
+Traverse Town,Traverse Town Green Room Alleyway Entrance,Traverse Town Green Room,Traverse Town Alleyway,1,0x5,0x24,0x26
+Traverse Town,Traverse Town Green Room Hallway Entrance,Traverse Town Green Room,Traverse Town Hallway,1,0x5,0x2C,0x28
+Traverse Town,Traverse Town Green Room Red Room Entrance,Traverse Town Green Room,Traverse Town Red Room,1,0x5,0x2A,0x27
+Traverse Town,Traverse Town Hallway 2nd District Near Green Room Entrance,Traverse Town Hallway,Traverse Town 2nd District,1,0x7,0xB,0x2F
+Traverse Town,Traverse Town Hallway 2nd District Near Red Room Entrance,Traverse Town Hallway,Traverse Town 2nd District,1,0x7,0xC,0x2E
+Traverse Town,Traverse Town Hallway Green Room Entrance,Traverse Town Hallway,Traverse Town Green Room,1,0x7,0x28,0x2C
+Traverse Town,Traverse Town Hallway Red Room Entrance,Traverse Town Hallway,Traverse Town Red Room,1,0x7,0x2B,0x2D
+Traverse Town,Traverse Town Item Shop 1st District Lower Entrance,Traverse Town Item Shop,Traverse Town 1st District,1,0x9,0x3,0x31
+Traverse Town,Traverse Town Item Shop 1st District Upper Entrance,Traverse Town Item Shop,Traverse Town 1st District,1,0x9,0x4,0x32
+Traverse Town,Traverse Town Item Workshop 1st District Entrance,Traverse Town Item Workshop,Traverse Town 1st District,1,0xB,0x6,0x34
+Traverse Town,Traverse Town Item Workshop Accessory Shop Entrance,Traverse Town Item Workshop,Traverse Town Accessory Shop,1,0xB,0x35,0x36
+Traverse Town,Traverse Town Living Room Dining Room Entrance,Traverse Town Living Room,Traverse Town Dining Room,1,0xF,0x1A,0x1B
+Traverse Town,Traverse Town Living Room Piano Room Entrance,Traverse Town Living Room,Traverse Town Piano Room,1,0xF,0x1D,0x1C
+Traverse Town,Traverse Town Magician's Lab Magician's Study Entrance,Traverse Town Magician's Lab,Traverse Town Magician's Study,1,0x14,0x3C,0x3E
+Traverse Town,Traverse Town Magician's Study 100 Acre Wood Entrance,Traverse Town Magician's Study,100 Acre Wood,1,,,
+Traverse Town,Traverse Town Magician's Study Magician's Lab Entrance,Traverse Town Magician's Study,Traverse Town Magician's Lab,1,0x13,0x3E,0x3C
+Traverse Town,Traverse Town Magician's Study Mystical House Entrance,Traverse Town Magician's Study,Traverse Town Mystical House,1,0x13,0x38,0x3B
+Traverse Town,Traverse Town Magician's Study Save Point,Traverse Town Magician's Study,World Map,1,,,
+Traverse Town,Traverse Town Magician's Study Secret Waterway Entrance,Traverse Town Magician's Study,Traverse Town Secret Waterway,1,0x13,0x3F,0x3D
+Traverse Town,Traverse Town Mystical House 3rd District Entrance,Traverse Town Mystical House,Traverse Town 3rd District,1,0x8,0x13,0x37
+Traverse Town,Traverse Town Mystical House Magician's Study Entrance,Traverse Town Mystical House,Traverse Town Magician's Study,1,0x8,0x3B,0x38
+Traverse Town,Traverse Town Piano Room 2nd District Entrance,Traverse Town Piano Room,Traverse Town 2nd District,1,0x10,0xF,0x1E
+Traverse Town,Traverse Town Piano Room Living Room Entrance,Traverse Town Piano Room,Traverse Town Living Room,1,0x10,0x1C,0x1D
+Traverse Town,Traverse Town Red Room Alleyway Entrance,Traverse Town Red Room,Traverse Town Alleyway,1,0x6,0x25,0x29
+Traverse Town,Traverse Town Red Room Green Room Entrance,Traverse Town Red Room,Traverse Town Green Room,1,0x6,0x27,0x2A
+Traverse Town,Traverse Town Red Room Hallway Entrance,Traverse Town Red Room,Traverse Town Hallway,1,0x6,0x2D,0x2B
+Traverse Town,Traverse Town Secret Waterway Alleyway Entrance,Traverse Town Secret Waterway,Traverse Town Alleyway,1,0x16,0x30,0x40
+Traverse Town,Traverse Town Secret Waterway Magician's Study Entrance,Traverse Town Secret Waterway,Traverse Town Magician's Study,1,0x16,0x3D,0x3F
+Traverse Town,Traverse Town Vacant House 3rd District Entrance,Traverse Town Vacant House,Traverse Town 3rd District,1,0x3,0x14,0x16

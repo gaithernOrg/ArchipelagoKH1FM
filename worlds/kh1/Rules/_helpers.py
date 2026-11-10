@@ -105,7 +105,7 @@ def has_oogie_manor_rule() -> Rule:
     )
 
 
-def has_item_workshop_rule() -> Rule:
+def has_item_workshop_rule_entrance_from_accessory_shop_rule() -> Rule:
     return by_difficulty(
         beginner=Has("Green Trinity"),
         proud=Has("High Jump", count=2) | (can_dumbo_skip_rule() & Has("Summon Anywhere")),

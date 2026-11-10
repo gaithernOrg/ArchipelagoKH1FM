@@ -41,5 +41,4 @@ def build_item_name_groups(table: Dict[str, KH1ItemData]) -> Dict[str, Set[str]]
 
 
 item_table: Dict[str, KH1ItemData] = build_item_table(Data.items)
-event_item_table: Dict[str, KH1ItemData] = build_item_table(Data.event_items)
 item_name_groups: Dict[str, Set[str]] = build_item_name_groups(item_table)

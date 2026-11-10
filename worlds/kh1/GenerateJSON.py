@@ -9,7 +9,7 @@ import zipfile
 import json
 from copy import deepcopy
 
-from .Locations import location_table
+from .Locations import event_location_table, location_table, world_of_region
 from .Items import item_table
 from .Data import CHAR_TO_KH, ITEMHELP, MP_COST_LABELS, SPELL_LEVELS_BY_SPELL, SYSMSG, WORD
 from .Data import WEAPON_ITEM_HELP_START
@@ -69,7 +69,7 @@ def generate_json(world, output_directory):
 def get_item_location_map(world):
     location_item_map = {}
     for location in world.multiworld.get_filled_locations(world.player):
-        if location.name != "Final Ansem":
+        if location.name not in event_location_table:
             if world.player != location.item.player or (world.player == location.item.player and world.options.remote_items.current_key == "full" and {"Accessory", "Augment"}.isdisjoint(location_table[location.name].groups)):
                 item_id = 2641230
             else:
@@ -83,7 +83,7 @@ def get_items():
     return {data.code: {"name": name} for name, data in item_table.items()}
 
 def get_locations():
-    return {data.code: {"name": name, "category": data.region, "type": ";".join(data.groups)} for name, data in location_table.items()}
+    return {data.code: {"name": name, "category": world_of_region(data.region), "type": ";".join(data.groups)} for name, data in location_table.items()}
 
 def get_location_spheres(world):
     location_spheres = {}
@@ -93,7 +93,7 @@ def get_location_spheres(world):
             reachable = False
             continue
         for location in sphere:
-            if location.player != world.player or location.name == "Final Ansem":
+            if location.player != world.player or location.name in event_location_table:
                 continue
             location_data = location_table[location.name]
             location_spheres[location_data.code] = sphere_index if reachable else -1

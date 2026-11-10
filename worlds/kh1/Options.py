@@ -453,6 +453,12 @@ class ExcludeAtlantica(Toggle):
     """
     display_name = "Exclude Atlantica"
 
+class RandomizeEntrances(Toggle):
+    """
+    If on, the doors between rooms are shuffled. Only Traverse Town for now.
+    """
+    display_name = "Randomize Entrances"
+
 class StartingWorlds(Range):
     """
     Number of random worlds to start with in addition to Traverse Town, which is always available.
@@ -840,6 +846,7 @@ class KH1Options(PerGameCommonOptions):
     exclude_cups: ExcludeCups
     exclude_hundred_acre_wood: ExcludeHundredAcreWood
     exclude_atlantica: ExcludeAtlantica
+    randomize_entrances: RandomizeEntrances
     starting_worlds: StartingWorlds
     keyblades_unlock_chests: KeybladesUnlockChests
     interact_in_battle: InteractInBattle
@@ -935,6 +942,9 @@ kh1_option_groups = [
         ExcludeCups,
         ExcludeHundredAcreWood,
         ExcludeAtlantica,
+    ]),
+    OptionGroup("Entrances", [
+        RandomizeEntrances,
     ]),
     OptionGroup("Levels", [
         EXPMultiplier,

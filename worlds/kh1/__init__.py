@@ -5,10 +5,10 @@ from math import ceil
 from BaseClasses import CollectionState, ItemClassification, Location, LocationProgressType, Tutorial
 from Fill import FillError, fill_restrictive, remaining_fill
 from worlds.AutoWorld import WebWorld, World
-from .Items import KH1Item, event_item_table, get_items_by_group, item_name_groups, item_table
-from .Locations import get_locations_by_group, location_name_groups, location_table
+from .Items import KH1Item, get_items_by_group, item_name_groups, item_table
+from .Locations import event_location_table, get_locations_by_group, location_name_groups, location_table
 from .Options import KH1Options, kh1_option_groups
-from .Regions import connect_entrances, create_regions
+from .Regions import connect_entrances, create_regions, get_door_destinations
 from .Rules import set_rules
 from .GenerateJSON import generate_json
 from . import Data
@@ -84,7 +84,7 @@ class KH1World(World):
 
     def create_items(self):
         self.place_final_door_key()
-        self.place_victory()
+        self.place_events()
         self.place_vanilla_emblem_pieces()
         self.place_vanilla_postcards()
         self.place_vanilla_puppies()
@@ -129,8 +129,7 @@ class KH1World(World):
         return KH1Item(name, self.get_item_classification(name), item_table[name].code, self.player)
 
     def create_event(self, name: str) -> KH1Item:
-        data = event_item_table[name]
-        return KH1Item(name, data.classification, data.code, self.player)
+        return KH1Item(name, ItemClassification.progression, None, self.player)
 
     def get_item_classification(self, name: str) -> ItemClassification:
         if name in CHEST_KEYBLADES.values() and not self.options.keyblades_unlock_chests:
@@ -225,8 +224,10 @@ class KH1World(World):
             return f"Traverse Town Piano Room Return {required_puppies} Puppies"
         return None
 
-    def place_victory(self) -> None:
-        self.get_location("Final Ansem").place_locked_item(self.create_event("Victory"))
+    def place_events(self) -> None:
+        for row in Data.events:
+            location = self.get_location(row["location"])
+            location.place_locked_item(self.create_event(row["item"]))
 
     def place_vanilla_emblem_pieces(self) -> None:
         if self.options.randomize_emblem_pieces:
@@ -680,7 +681,7 @@ class KH1World(World):
     def get_remote_location_ids(self) -> list[int]:
         remote_location_ids = []
         for location in self.multiworld.get_filled_locations(self.player):
-            if location.name == "Final Ansem":
+            if location.name in event_location_table:
                 continue
             location_data = location_table[location.name]
             if self.options.remote_items.current_key == "full":
@@ -697,7 +698,7 @@ class KH1World(World):
     def get_synthesis_item_name_byte_arrays(self) -> list[list[int]]:
         byte_arrays = []
         for location in self.multiworld.get_filled_locations(self.player):
-            if location.name == "Final Ansem" or "Synth" not in location_table[location.name].groups:
+            if location.name in event_location_table or "Synth" not in location_table[location.name].groups:
                 continue
             item_name = re.sub("[^A-Za-z0-9 ]+", "", location.item.name.replace("Progressive", "Prog"))[:14]
             byte_arrays.append([CHAR_TO_KH[character] for character in item_name])
@@ -765,6 +766,9 @@ class KH1World(World):
             "puppy_value": int(self.options.puppy_value.value),
             "randomize_ap_costs": str(self.options.randomize_ap_costs.current_key),
             "randomize_emblem_pieces": bool(self.options.randomize_emblem_pieces),
+            "randomize_entrances": bool(self.options.randomize_entrances),
+            "entrance_pairings": self.entrance_pairings,
+            "door_destinations": get_door_destinations(self),
             "randomize_party_member_starting_accessories": bool(self.options.randomize_party_member_starting_accessories),
             "randomize_postcards": str(self.options.randomize_postcards.current_key),
             "randomize_puppies": bool(self.options.randomize_puppies),
