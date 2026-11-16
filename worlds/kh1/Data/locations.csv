@@ -21,25 +21,25 @@ id,name,region,groups
 2650892,Traverse Town Alleyway Behind Crates Chest,Traverse Town Alleyway (Behind Crates),Traverse Town;Chest;Puppy
 2650893,Traverse Town Item Workshop Left Chest,Traverse Town Item Workshop,Traverse Town;Chest;Puppy
 2650894,Traverse Town Secret Waterway Near Stairs Chest,Traverse Town Secret Waterway,Traverse Town;Chest;Puppy
-2650931,Wonderland Rabbit Hole Green Trinity Chest,Wonderland,Chest
-2650932,Wonderland Rabbit Hole Defeat Heartless 1 Chest,Wonderland,Chest
-2650933,Wonderland Rabbit Hole Defeat Heartless 2 Chest,Wonderland,Chest
-2650934,Wonderland Rabbit Hole Defeat Heartless 3 Chest,Wonderland,Chest
-2650971,Wonderland Bizarre Room Green Trinity Chest,Wonderland,Chest
-2651011,Wonderland Queen's Castle Hedge Left Red Chest,Wonderland,Chest
-2651012,Wonderland Queen's Castle Hedge Right Blue Chest,Wonderland,Chest;Puppy
-2651013,Wonderland Queen's Castle Hedge Right Red Chest,Wonderland,Chest
-2651014,Wonderland Lotus Forest Thunder Plant Chest,Wonderland,Chest
-2651051,Wonderland Lotus Forest Through the Painting Thunder Plant Chest,Wonderland,Chest;Puppy
-2651052,Wonderland Lotus Forest Glide Chest,Wonderland,Chest
-2651053,Wonderland Lotus Forest Nut Chest,Wonderland,Chest;Puppy
-2651054,Wonderland Lotus Forest Corner Chest,Wonderland,Chest
-2651091,Wonderland Bizarre Room Lamp Chest,Wonderland,Chest
-2651093,Wonderland Tea Party Garden Above Lotus Forest Entrance 2nd Chest,Wonderland,Chest
-2651094,Wonderland Tea Party Garden Above Lotus Forest Entrance 1st Chest,Wonderland,Chest;Puppy
-2651131,Wonderland Tea Party Garden Bear and Clock Puzzle Chest,Wonderland,Chest
-2651132,Wonderland Tea Party Garden Across From Bizarre Room Entrance Chest,Wonderland,Chest
-2651133,Wonderland Lotus Forest Through the Painting White Trinity Chest,Wonderland,Chest
+2650931,Wonderland Rabbit Hole Green Trinity Chest,Wonderland Rabbit Hole,Wonderland;Chest
+2650932,Wonderland Rabbit Hole Defeat Heartless 1 Chest,Wonderland Rabbit Hole,Wonderland;Chest
+2650933,Wonderland Rabbit Hole Defeat Heartless 2 Chest,Wonderland Rabbit Hole,Wonderland;Chest
+2650934,Wonderland Rabbit Hole Defeat Heartless 3 Chest,Wonderland Rabbit Hole,Chest
+2650971,Wonderland Bizarre Room Green Trinity Chest,Wonderland Bizarre Room (Sora Small),Chest
+2651011,Wonderland Queen's Castle Hedge Left Red Chest,Wonderland Queen's Castle (Left Hedge),Chest
+2651012,Wonderland Queen's Castle Hedge Right Blue Chest,Wonderland Queen's Castle (Right Hedge),Chest;Puppy
+2651013,Wonderland Queen's Castle Hedge Right Red Chest,Wonderland Queen's Castle (Right Hedge),Chest
+2651014,Wonderland Lotus Forest Thunder Plant Chest,Wonderland Lotus Forest (Alcove),Chest
+2651051,Wonderland Lotus Forest Through the Painting Thunder Plant Chest,Wonderland Lotus Forest (Through Painting),Chest;Puppy
+2651052,Wonderland Lotus Forest Glide Chest,Wonderland Lotus Forest (By Tea Party Garden Entrance),Chest
+2651053,Wonderland Lotus Forest Nut Chest,Wonderland Lotus Forest,Chest;Puppy
+2651054,Wonderland Lotus Forest Corner Chest,Wonderland Lotus Forest (Corner),Chest
+2651091,Wonderland Bizarre Room Lamp Chest,Wonderland Bizarre Room (Painting),Chest
+2651093,Wonderland Tea Party Garden Above Lotus Forest Entrance 2nd Chest,Wonderland Tea Party Garden (Above Lotus Forest),Chest
+2651094,Wonderland Tea Party Garden Above Lotus Forest Entrance 1st Chest,Wonderland Tea Party Garden (Above Lotus Forest),Chest;Puppy
+2651131,Wonderland Tea Party Garden Bear and Clock Puzzle Chest,Wonderland Tea Party Garden (From Bizarre Room),Chest
+2651132,Wonderland Tea Party Garden Across From Bizarre Room Entrance Chest,Wonderland Tea Party Garden (Across from Bizarre Room),Chest
+2651133,Wonderland Lotus Forest Through the Painting White Trinity Chest,Wonderland Lotus Forest (Through Painting),Chest
 2651213,Deep Jungle Tree House Beneath Tree House Chest,Deep Jungle,Chest
 2651214,Deep Jungle Tree House Rooftop Chest,Deep Jungle,Chest
 2651251,Deep Jungle Hippo's Lagoon Center Chest,Deep Jungle,Chest;Puppy
@@ -242,8 +242,8 @@ id,name,region,groups
 2656024,Deep Jungle Seal Keyhole Red Trinity Event,Deep Jungle,Boss
 2656031,Olympus Coliseum Clear Phil's Training Thunder Event,Olympus Coliseum,
 2656033,Olympus Coliseum Defeat Cerberus Inferno Band Event,Olympus Coliseum,Boss
-2656041,Wonderland Defeat Trickmaster Blizzard Event,Wonderland,Boss
-2656042,Wonderland Defeat Trickmaster Ifrit's Horn Event,Wonderland,Boss
+2656041,Wonderland Defeat Trickmaster Blizzard Event,Wonderland Bizarre Room (Small),Boss
+2656042,Wonderland Defeat Trickmaster Ifrit's Horn Event,Wonderland Bizarre Room (Small),Boss
 2656051,Agrabah Defeat Pot Centipede Ray of Light Event,Agrabah,Boss
 2656052,Agrabah Defeat Jafar Blizzard Event,Agrabah,Boss
 2656053,Agrabah Defeat Jafar Genie Fire Event,Agrabah,Boss
@@ -379,7 +379,7 @@ id,name,region,groups
 2656373,Deep Jungle Jungle Slider 40 Fruits,Deep Jungle,Boss;Jungle Slider
 2656374,Deep Jungle Jungle Slider 50 Fruits,Deep Jungle,Boss;Jungle Slider
 2656375,Traverse Town 1st District Speak with Cid Event,Traverse Town 1st District,Traverse Town
-2656376,Wonderland Bizarre Room Read Book,Wonderland,
+2656376,Wonderland Bizarre Room Read Book,Wonderland Bizarre Room (Large),
 2656377,Olympus Coliseum Coliseum Gates Green Trinity,Olympus Coliseum,
 2656378,Agrabah Defeat Kurt Zisa Zantetsuken Event,Agrabah,Boss;Super Bosses
 2656379,Hollow Bastion Defeat Unknown EXP Necklace Event,Hollow Bastion,Boss;Super Bosses
@@ -388,7 +388,7 @@ id,name,region,groups
 2656382,Halloween Town Graveyard Forget-Me-Not Event,Halloween Town,
 2656383,Deep Jungle Tent Protect-G Event,Deep Jungle,
 2656384,Deep Jungle Cavern of Hearts Navi-G Piece Event,Deep Jungle,Boss
-2656385,Wonderland Bizarre Room Navi-G Piece Event,Wonderland,Boss
+2656385,Wonderland Bizarre Room Navi-G Piece Event,Wonderland Bizarre Room (Small),Boss
 2656386,Olympus Coliseum Coliseum Gates Entry Pass Event,Olympus Coliseum,
 2656387,Deep Jungle Camp Slide 1,Deep Jungle,
 2656388,Deep Jungle Camp Slide 2,Deep Jungle,
@@ -396,10 +396,10 @@ id,name,region,groups
 2656390,Deep Jungle Camp Slide 4,Deep Jungle,
 2656391,Deep Jungle Camp Slide 5,Deep Jungle,
 2656392,Deep Jungle Camp Slide 6,Deep Jungle,
-2656393,Wonderland Footprints Evidence Box,Wonderland,Chest
-2656394,Wonderland Claw Marks Evidence Box,Wonderland,Chest
-2656395,Wonderland Stench Evidence Box,Wonderland,Chest
-2656396,Wonderland Antenna Evidence Box,Wonderland,Chest
+2656393,Wonderland Footprints Evidence Box,Wonderland Lotus Forest,Chest
+2656394,Wonderland Claw Marks Evidence Box,Wonderland Bizarre Room (On Shelf),Chest
+2656395,Wonderland Stench Evidence Box,Wonderland Bizarre Room (On Stove),Chest
+2656396,Wonderland Antenna Evidence Box,Wonderland Lotus Forest,Chest
 2656400,Traverse Town Synth 15 Items,Traverse Town Item Workshop,Traverse Town
 2656401,Traverse Town Synth Item 01,Traverse Town Item Workshop,Traverse Town;Synth
 2656402,Traverse Town Synth Item 02,Traverse Town Item Workshop,Traverse Town;Synth
@@ -439,7 +439,7 @@ id,name,region,groups
 2656502,Traverse Town Gizmo Shop Postcard 1,Traverse Town Gizmo Shop,Traverse Town;Postcard
 2656503,Traverse Town Gizmo Shop Postcard 2,Traverse Town Gizmo Shop,Traverse Town;Postcard
 2656504,Traverse Town Item Workshop Postcard,Traverse Town Item Workshop,Traverse Town;Postcard
-2656505,Traverse Town 3rd District Balcony Postcard,Traverse Town 3rd District,Traverse Town;Postcard
+2656505,Traverse Town 3rd District Balcony Postcard,Traverse Town 3rd District (Balcony),Traverse Town;Postcard
 2656506,Traverse Town Geppetto's House Postcard,Traverse Town Geppetto's House,Traverse Town;Boss;Postcard
 2656508,Halloween Town Lab Torn Page,Halloween Town,
 2656516,Hollow Bastion Entrance Hall Emblem Piece (Flame),Hollow Bastion,Boss
@@ -453,8 +453,8 @@ id,name,region,groups
 2656600,Traverse Town 1st District Blue Trinity by Exit Door,Traverse Town 1st District,Traverse Town
 2656601,Traverse Town 3rd District Blue Trinity,Traverse Town 3rd District,Traverse Town
 2656602,Traverse Town Magician's Study Blue Trinity,Traverse Town Magician's Study,Traverse Town
-2656603,Wonderland Lotus Forest Blue Trinity in Alcove,Wonderland,
-2656604,Wonderland Lotus Forest Blue Trinity by Moving Boulder,Wonderland,
+2656603,Wonderland Lotus Forest Blue Trinity in Alcove,Wonderland Lotus Forest,
+2656604,Wonderland Lotus Forest Blue Trinity by Moving Boulder,Wonderland Lotus Forest (Alcove),
 2656605,Agrabah Bazaar Blue Trinity,Agrabah,
 2656606,Monstro Mouth Blue Trinity,Monstro,Boss
 2656607,Monstro Chamber 5 Blue Trinity,Monstro,
@@ -463,19 +463,19 @@ id,name,region,groups
 2656610,Deep Jungle Treetop Green Trinity,Deep Jungle,
 2656611,Agrabah Cave of Wonders Treasure Room Red Trinity,Agrabah,Boss
 2656612,Monstro Throat Blue Trinity,Monstro,Boss
-2656613,Wonderland Bizarre Room Examine Flower Pot,Wonderland,
-2656614,Wonderland Lotus Forest Red Ether Flower Across from Queen's Castle,Wonderland,
-2656615,Wonderland Lotus Forest Yellow Potion Flower in Center Alcove,Wonderland,
-2656616,Wonderland Lotus Forest Yellow Elixir Flower Through Painting,Wonderland,
-2656617,Wonderland Lotus Forest Red Flower Raise Lily Pads,Wonderland,
-2656618,Wonderland Tea Party Garden Left Cushioned Chair,Wonderland,
-2656619,Wonderland Tea Party Garden Left Pink Chair,Wonderland,
-2656620,Wonderland Tea Party Garden Right Yellow Chair,Wonderland,
-2656621,Wonderland Tea Party Garden Left Gray Chair,Wonderland,
-2656622,Wonderland Tea Party Garden Right Brown Chair,Wonderland,
+2656613,Wonderland Bizarre Room Examine Flower Pot,Wonderland Bizarre Room (Small),
+2656614,Wonderland Lotus Forest Red Ether Flower Across from Queen's Castle,Wonderland Lotus Forest,
+2656615,Wonderland Lotus Forest Yellow Potion Flower in Center Alcove,Wonderland Lotus Forest (Alcove),
+2656616,Wonderland Lotus Forest Yellow Elixir Flower Through Painting,Wonderland Lotus Forest (Through Painting),
+2656617,Wonderland Lotus Forest Red Flower Raise Lily Pads,Wonderland Lotus Forest (Alcove),
+2656618,Wonderland Tea Party Garden Left Cushioned Chair,Wonderland Tea Party Garden,
+2656619,Wonderland Tea Party Garden Left Pink Chair,Wonderland Tea Party Garden,
+2656620,Wonderland Tea Party Garden Right Yellow Chair,Wonderland Tea Party Garden,
+2656621,Wonderland Tea Party Garden Left Gray Chair,Wonderland Tea Party Garden,
+2656622,Wonderland Tea Party Garden Right Brown Chair,Wonderland Tea Party Garden,
 2656623,Hollow Bastion Lift Stop from Waterway Examine Node,Hollow Bastion,Boss
-2656624,Wonderland Lotus Forest Yellow Potion Flower Through Painting,Wonderland,
-2656625,Wonderland Lotus Forest Red Ether Flower Along Wall,Wonderland,
+2656624,Wonderland Lotus Forest Yellow Potion Flower Through Painting,Wonderland Lotus Forest (Through Painting),
+2656625,Wonderland Lotus Forest Red Ether Flower Along Wall,Wonderland Lotus Forest,
 2656700,Destiny Islands Seashore Capture Fish 1 (Day 2),Destiny Islands,
 2656701,Destiny Islands Seashore Capture Fish 2 (Day 2),Destiny Islands,
 2656702,Destiny Islands Seashore Capture Fish 3 (Day 2),Destiny Islands,
@@ -698,7 +698,7 @@ id,name,region,groups
 2659153,Accessory Prime Cap,Accessories,Augment
 2659154,Accessory Obsidian Ring,Accessories,Augment
 2659201,Traverse Town Red Room White Mushroom Fire x3 Reward,Traverse Town Red Room,Traverse Town;Rare Heartless;Boss
-2659202,Wonderland Lotus Forest White Mushroom Blizzard x3 Reward,Wonderland,Rare Heartless;Boss
+2659202,Wonderland Lotus Forest White Mushroom Blizzard x3 Reward,Wonderland Lotus Forest,Rare Heartless;Boss
 2659203,End of the World Linked Worlds White Mushroom Thunder x3 Reward,End of the World,Rare Heartless;Boss
 2659204,Deep Jungle Camp White Mushroom Cure x3 Reward,Deep Jungle,Rare Heartless;Boss
 2659205,Agrabah Cave of Wonders Treasure Room White Mushroom Gravity x3 Reward,Agrabah,Rare Heartless;Boss

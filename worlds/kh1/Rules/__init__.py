@@ -3,7 +3,8 @@ from rule_builder.rules import Has, HasAll, Rule
 
 from worlds.generic.Rules import add_item_rule
 from .. import Data
-from ..Locations import doorway_into_room_name, get_locations_by_group, world_of_region
+from ..Locations import doorway_into_room_name, get_event_locations_by_group, get_locations_by_group
+from ..Locations import world_of_region
 from ..Items import item_name_groups
 from ..Options import Day2Materials
 from . import agrabah, atlantica, deep_jungle, destiny_islands, end_of_the_world
@@ -61,8 +62,11 @@ def build_final_ansem_rule() -> Rule:
 
 
 def add_boss_rules(location_rules: dict[str, Rule]) -> None:
+    boss_rule = by_difficulty(beginner=BASIC_TOOLS, normal=True)
     for location_name in get_locations_by_group("Boss"):
-        add_location_rule(location_rules, location_name, by_difficulty(beginner=BASIC_TOOLS, normal=True))
+        add_location_rule(location_rules, location_name, boss_rule)
+    for location_name in get_event_locations_by_group("Boss"):
+        add_location_rule(location_rules, location_name, boss_rule)
 
 
 def add_chest_rules(location_rules: dict[str, Rule]) -> None:
@@ -112,9 +116,9 @@ def build_rule_dicts(kh1world) -> tuple[dict[str, Rule], dict[str, Rule]]:
     location_rules.update(build_level_rules(kh1world))
     location_rules.update(build_accessory_rules(kh1world))
     location_rules["Final Ansem"] = build_final_ansem_rule()
+    location_rules.update(traverse_town.build_event_rules())
     add_boss_rules(location_rules)
     add_chest_rules(location_rules)
-    location_rules.update(traverse_town.build_event_rules())
     entrance_rules = build_entrance_rules()
     entrance_rules.update(traverse_town.build_door_rules())
     entrance_rules.update(build_doorway_rules(traverse_town.build_room_rules()))

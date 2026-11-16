@@ -17,6 +17,10 @@ def get_locations_by_group(group: str) -> Dict[str, KH1LocationData]:
     return {name: data for name, data in location_table.items() if group in data.groups}
 
 
+def get_event_locations_by_group(group: str) -> Dict[str, KH1LocationData]:
+    return {name: data for name, data in event_location_table.items() if group in data.groups}
+
+
 def build_location_table(rows: List[Dict[str, str]]) -> Dict[str, KH1LocationData]:
     table: Dict[str, KH1LocationData] = {}
     for row in rows:
@@ -31,7 +35,10 @@ def build_location_table(rows: List[Dict[str, str]]) -> Dict[str, KH1LocationDat
 def build_event_location_table(rows: List[Dict[str, str]]) -> Dict[str, KH1LocationData]:
     table: Dict[str, KH1LocationData] = {}
     for row in rows:
-        table[row["location"]] = KH1LocationData(row["region"])
+        table[row["location"]] = KH1LocationData(
+            row["region"],
+            groups=tuple(row["groups"].split(";")) if row["groups"] else (),
+        )
     return table
 
 

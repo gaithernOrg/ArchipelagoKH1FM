@@ -1,23 +1,28 @@
 from math import ceil
 
-from rule_builder.rules import Has, HasAll, HasAllCounts, Or, Rule
+from rule_builder.rules import Has, HasAll, HasAllCounts, Or, Rule, True_
 
 from worlds.generic.Rules import add_item_rule
 from ..Items import item_name_groups
-from ._helpers import BASIC_TOOLS, COMBO_MASTER, DODGE_ROLL_AND_AIR_GUARD, DUMBO_SUMMON, GLIDE
+from ._helpers import COMBO_MASTER, DODGE_ROLL_AND_AIR_GUARD, DUMBO_SUMMON, GLIDE
 from ._helpers import HIGH_JUMP, HIGH_JUMP_2, HIGH_JUMP_3
 from ._helpers import PARASITE_CAGE, by_difficulty, has_all_magic_lvx_rule
-from ._helpers import has_x_worlds_rule_pinned_to_beginner
 
 
 def build_door_rules() -> dict[str, Rule]:
-    red_trinity_rule = HasAll("Red Trinity", "Traverse Town 3rd District Guard Armor Defeated")
-    over_the_crates_rule = Has("Traverse Town 1st District Red Trinity Done") & (GLIDE | HIGH_JUMP_2)
     leon_battled = Has("Traverse Town 1st District Leon Battled")
+    guard_armor_defeated = Has("Traverse Town 3rd District Guard Armor Defeated")
+    merlin_met = Has("Traverse Town Magician's Study Met Merlin")
+    red_trinity_rule = Has("Red Trinity") & guard_armor_defeated
+    over_the_crates_rule = Has("Traverse Town 1st District Red Trinity Done") & (GLIDE | HIGH_JUMP_2)
     blue_trinity_balcony_rule = by_difficulty(
         beginner=Has("Blue Trinity") & GLIDE,
         proud=GLIDE,
         minimal=DUMBO_SUMMON,
+    )
+    item_workshop_from_accessory_shop_rule = by_difficulty(
+        beginner=Has("Green Trinity"),
+        proud=HIGH_JUMP_2 | (DUMBO_SUMMON & Has("Summon Anywhere"))
     )
 
     return {
@@ -32,14 +37,23 @@ def build_door_rules() -> dict[str, Rule]:
         "Traverse Town Hallway Green Room Entrance": leon_battled,
         "Traverse Town Hallway Red Room Entrance": leon_battled,
         "Traverse Town 1st District Item Workshop Entrance": Has("Traverse Town Item Workshop Back Door Exited"),
-        "Traverse Town Secret Waterway Magician's Study Entrance": Has("Traverse Town Magician's Study Met Merlin"),
-        "Traverse Town 2nd District 2nd District Rooftop Entrance": Has("Traverse Town 3rd District Guard Armor Defeated") | HIGH_JUMP
+        "Traverse Town Secret Waterway Magician's Study Entrance": merlin_met,
+        "Traverse Town 2nd District 2nd District (Rooftops) Entrance": guard_armor_defeated | HIGH_JUMP,
+        "Traverse Town 1st District 3rd District Entrance": Has("Traverse Town 3rd District 1st District Door Unlocked"),
+        "Traverse Town 1st District World Exit": guard_armor_defeated,
+        "Traverse Town 2nd District Gizmo Shop By Ladder Entrance": HIGH_JUMP_2 | GLIDE,
+        "Traverse Town 3rd District 3rd District (Balcony) Entrance":HIGH_JUMP_3,
+        "Traverse Town Accessory Shop Item Workshop Entrance": item_workshop_from_accessory_shop_rule,
+        "Traverse Town Alleyway Secret Waterway Entrance": Has("Red Trinity"),
+        "Traverse Town Alleyway (Behind Crates) 1st District Entrance": Has("Traverse Town 1st District Red Trinity Done") & (HIGH_JUMP_2 | GLIDE),
+        "Traverse Town Alleyway (Behind Crates) Alleyway Entrance": Has("Traverse Town 1st District Red Trinity Done") & HIGH_JUMP_2,
+        "Traverse Town Magician's Lab Magician's Study Entrance": merlin_met,
+        "Traverse Town Magician's Study Secret Waterway Entrance": Has("Traverse Town Secret Waterway Leon Conversation"),
     }
 
 
 def build_room_rules() -> dict[str, Rule]:
     leon_battled = Has("Traverse Town 1st District Leon Battled")
-    guard_armor_defeated = Has("Traverse Town 3rd District Guard Armor Defeated")
     merlin_met = Has("Traverse Town Magician's Study Met Merlin")
 
     return {
@@ -50,24 +64,30 @@ def build_room_rules() -> dict[str, Rule]:
 
 
 def build_event_rules() -> dict[str, Rule]:
-    boss_rule = by_difficulty(beginner=BASIC_TOOLS, normal=True)
+    leon_battled = Has("Traverse Town 1st District Leon Battled")
     guard_armor_defeated = Has("Traverse Town 3rd District Guard Armor Defeated")
+    bell_rung_3x = Has("Traverse Town 2nd District (Rooftops) Bell Rung 3x")
 
     return {
-        "Traverse Town Accessory Shop Cid Meeting": Has("Traverse Town 2nd District Heartless Scene"),
-        "Traverse Town 1st District Leon Battle": Has("Traverse Town Accessory Shop Met Cid"),
-        "Traverse Town 3rd District Defeat Guard Armor": Has("Traverse Town 1st District Leon Battled") & boss_rule,
-        "Traverse Town 1st District Red Trinity": Has("Red Trinity") & guard_armor_defeated,
+        "Traverse Town Accessory Shop Met Cid": Has("Traverse Town 2nd District Heartless Scene"),
+        "Traverse Town 1st District Leon Battled": Has("Traverse Town Accessory Shop Met Cid"),
+        "Traverse Town 3rd District Guard Armor Defeated": leon_battled,
+        "Traverse Town 1st District Red Trinity Done": Has("Red Trinity") & guard_armor_defeated,
         "Traverse Town Secret Waterway Leon Conversation": guard_armor_defeated,
-        "Traverse Town 3rd District Exposed Wires": Has("Progressive Thunder"),
-        "Traverse Town 2nd District (Rooftops) Bell": guard_armor_defeated,
-        "Traverse Town 2nd District Defeat Opposite Armor": Has("Traverse Town 2nd District (Rooftops) Bell Rung 3x") & boss_rule,
+        "Traverse Town 3rd District Thunder on Exposed Wires": Has("Progressive Thunder"),
+        "Traverse Town 2nd District (Rooftops) Bell Rung 3x": guard_armor_defeated & Has("Red Trinity"),
+        "Traverse Town 2nd District Opposite Armor Defeated": bell_rung_3x,
     }
 
 
 def build_rules(kh1world) -> dict[str, Rule]:
     player = kh1world.player
     puppy_value = kh1world.options.puppy_value.value
+    leon_battled = Has("Traverse Town 1st District Leon Battled")
+    guard_armor_defeated = Has("Traverse Town 3rd District Guard Armor Defeated")
+    bell_rung_3x = Has("Traverse Town 2nd District (Rooftops) Bell Rung 3x")
+    opposite_armor_defeated = Has("Traverse Town 2nd District Opposite Armor Defeated")
+    exposed_wires_powered = Has("Traverse Town 3rd District Thunder on Exposed Wires")
     synth_items_rule = HasAllCounts({"Orichalcum": 17, "Mythril": 16})
 
     inner_normal = (
@@ -106,23 +126,21 @@ def build_rules(kh1world) -> dict[str, Rule]:
         )
 
     return {
-        "Traverse Town Leon Secret Waterway Earthshine Event": Has("Traverse Town 3rd District Guard Armor Defeated"),
-        "Traverse Town Kairi Secret Waterway Oathkeeper Event": Has("Traverse Town 3rd District Guard Armor Defeated"),
-        "Traverse Town 1st District Aerith Gift": Has("Traverse Town 1st District Leon Battled") | Has("Traverse Town 3rd District Guard Armor Defeated"),
-        "Traverse Town 1st District Speak with Cid Event": Has("Traverse Town 3rd District Guard Armor Defeated"),
-        "Traverse Town 1st District Safe Postcard": Has("Traverse Town 1st District Leon Battled"),
+        "Traverse Town 1st District Aerith Gift": leon_battled | guard_armor_defeated,
+        "Traverse Town 1st District Speak with Cid Event": guard_armor_defeated,
+        "Traverse Town 1st District Safe Postcard": leon_battled,
         "Traverse Town 1st District Candle Puzzle Chest": Has("Progressive Blizzard"),
         "Traverse Town 1st District Accessory Shop Roof Chest": HIGH_JUMP,
         "Traverse Town Secret Waterway White Trinity Chest": Has("White Trinity"),
-        "Traverse Town Secret Waterway Near Stairs Chest": Has("Traverse Town 3rd District Guard Armor Defeated"),
-        "Traverse Town Leon Secret Waterway Earthshine Event": Has("Traverse Town 3rd District Guard Armor Defeated"),
+        "Traverse Town Secret Waterway Near Stairs Chest": guard_armor_defeated,
+        "Traverse Town Leon Secret Waterway Earthshine Event": guard_armor_defeated,
         "Traverse Town Geppetto's House Chest": PARASITE_CAGE,
-        "Traverse Town Defeat Opposite Armor Aero Event": Has("Traverse Town 2nd District (Rooftops) Bell Rung 3x"),
-        "Traverse Town Defeat Opposite Armor Navi-G Piece Event": Has("Traverse Town 2nd District (Rooftops) Bell Rung 3x"),
+        "Traverse Town Defeat Opposite Armor Aero Event": bell_rung_3x,
+        "Traverse Town Defeat Opposite Armor Navi-G Piece Event": bell_rung_3x,
         "Traverse Town Magician's Study Obtained All LV1 Magic": has_all_magic_lvx_rule(1),
         "Traverse Town Magician's Study Obtained All LV3 Magic": has_all_magic_lvx_rule(3),
-        "Traverse Town Gizmo Shop Postcard 1": Has("Traverse Town 3rd District Thunder on Exposed Wires"),
-        "Traverse Town Gizmo Shop Postcard 2": Has("Traverse Town 3rd District Thunder on Exposed Wires"),
+        "Traverse Town Gizmo Shop Postcard 1": exposed_wires_powered,
+        "Traverse Town Gizmo Shop Postcard 2": exposed_wires_powered,
         "Traverse Town Geppetto's House Postcard": PARASITE_CAGE,
         "Traverse Town 1st District Blue Trinity by Exit Door": Has("Blue Trinity"),
         "Traverse Town 3rd District Blue Trinity": Has("Blue Trinity"),
@@ -134,8 +152,8 @@ def build_rules(kh1world) -> dict[str, Rule]:
         "Traverse Town Magician's Study Lord Fortune Event": summon_gems_rule,
         "Traverse Town Mystical House Yellow Trinity Chest": mystical_house_yellow_trinity_rule,
         "Traverse Town Mystical House Glide Chest": mystical_house_glide_rule,
-        "Traverse Town Kairi Secret Waterway Oathkeeper Event": Has("Traverse Town 3rd District Guard Armor Defeated"),
-        "Traverse Town Secret Waterway Navi Gummi Event": Has("Traverse Town 3rd District Guard Armor Defeated"),
+        "Traverse Town Kairi Secret Waterway Oathkeeper Event": guard_armor_defeated,
+        "Traverse Town Secret Waterway Navi Gummi Event": guard_armor_defeated,
         "Traverse Town Geppetto's House Geppetto Reward Hyperion Blueprint": summon_gems_rule,
         "Traverse Town Magician's Study Obtained All Arts Items": all_arts_rule,
         "Traverse Town Synth 15 Items": synth_15_items_rule,
@@ -194,7 +212,12 @@ def build_rules(kh1world) -> dict[str, Rule]:
         "Traverse Town Synth Item 31": synth_items_rule,
         "Traverse Town Synth Item 32": synth_items_rule,
         "Traverse Town Synth Item 33": synth_items_rule,
-        "Traverse Town Red Room White Mushroom Fire x3 Reward": HasAll("Traverse Town 2nd District Opposite Armor Defeated", "Progressive Fire"),
-        "Traverse Town 2nd District Sniperwild 30th Defeated Reward": Has("Traverse Town 2nd District Opposite Armor Defeated"),
-        "Traverse Town Guard Armor 500 Munny Reward": Has("Traverse Town 3rd District Guard Armor Defeated"),
+        "Traverse Town Red Room White Mushroom Fire x3 Reward": opposite_armor_defeated & Has("Progressive Fire"),
+        "Traverse Town 2nd District Sniperwild 30th Defeated Reward": opposite_armor_defeated,
+        "Traverse Town Defeat Guard Armor 500 Munny Reward": guard_armor_defeated,
+        "Traverse Town Defeat Guard Armor Dodge Roll Event": guard_armor_defeated,
+        "Traverse Town Defeat Guard Armor Fire Event": guard_armor_defeated,
+        "Traverse Town Defeat Guard Armor Blue Trinity Event": guard_armor_defeated,
+        "Traverse Town Defeat Guard Armor Brave Warrior Event": guard_armor_defeated,
+        "Traverse Town 1st District Leon Gift": guard_armor_defeated,
     }
