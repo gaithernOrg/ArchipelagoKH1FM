@@ -44,9 +44,8 @@ def build_rules(kh1world) -> dict[str, Rule]:
         minimal=inner_proud,
     )
     all_arts_rule = (
-        has_all_magic_lvx_rule(1)
+        Has("Progressive Fire")
         & HasAll(*sorted(item_name_groups["Arts"]))
-        & has_x_worlds_rule_pinned_to_beginner(8)
     )
     synth_15_items_rule = Or(
         HasAllCounts({"Orichalcum": 6, "Mythril": 9}),
