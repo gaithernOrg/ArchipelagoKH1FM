@@ -117,11 +117,14 @@ def build_rule_dicts(kh1world) -> tuple[dict[str, Rule], dict[str, Rule]]:
     location_rules.update(build_accessory_rules(kh1world))
     location_rules["Final Ansem"] = build_final_ansem_rule()
     location_rules.update(traverse_town.build_event_rules())
+    location_rules.update(wonderland.build_event_rules())
     add_boss_rules(location_rules)
     add_chest_rules(location_rules)
     entrance_rules = build_entrance_rules()
     entrance_rules.update(traverse_town.build_door_rules())
+    entrance_rules.update(wonderland.build_door_rules())
     entrance_rules.update(build_doorway_rules(traverse_town.build_room_rules()))
+    entrance_rules.update(build_doorway_rules(wonderland.build_room_rules()))
     return location_rules, entrance_rules
 
 

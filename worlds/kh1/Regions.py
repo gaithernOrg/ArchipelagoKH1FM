@@ -5,7 +5,7 @@ from entrance_rando import disconnect_entrance_for_randomization, randomize_entr
 from . import Data
 from .Locations import KH1Location, KH1LocationData, event_location_table, location_table
 from .Locations import doorway_into_room_name, doorway_out_of_room_name, doorway_region_name
-from .Rules.traverse_town import build_room_rules
+from .Rules import traverse_town, wonderland
 
 
 REGION_EXITS: Dict[str, List[str]] = {
@@ -33,10 +33,12 @@ REGION_EXITS: Dict[str, List[str]] = {
 
 EXIT_TARGETS: Dict[str, str] = {
     "Traverse Town": "Traverse Town 1st District",
+    "Wonderland": "Wonderland Rabbit Hole",
 }
 
 WORLD_NUMBERS: Dict[str, int] = {
     "Traverse Town": 3,
+    "Wonderland": 4,
 }
 
 OPTION_DRIVEN_LOCATION_GROUPS: Set[str] = {"Levels", "Accessory", "Augment"}
@@ -52,7 +54,9 @@ def get_active_locations(kh1world) -> Dict[str, KH1LocationData]:
 
 
 def get_locked_rooms() -> Set[str]:
-    return set(build_room_rules())
+    locked_rooms = set(traverse_town.build_room_rules())
+    locked_rooms.update(wonderland.build_room_rules())
+    return locked_rooms
 
 
 def get_region_names() -> List[str]:
@@ -107,21 +111,29 @@ def find_arrival_region_name(row: Dict[str, str], locked_rooms: Set[str]) -> str
     return doorway_region_name(first_door_of_target["Entrance Name"])
 
 
-def has_randomized_way_back(row: Dict[str, str]) -> bool:
+def is_door(row: Dict[str, str]) -> bool:
+    return bool(row["Area"] and row["Exit ID"])
+
+
+def has_door_back(row: Dict[str, str]) -> bool:
     for other_row in Data.entrances:
-        if other_row["Randomize"] != "1":
+        if not is_door(other_row):
             continue
         if other_row["From Region"] == row["To Region"] and other_row["To Region"] == row["From Region"]:
             return True
     return False
 
 
-def get_randomized_door_names() -> List[str]:
-    names = []
-    for row in Data.entrances:
-        if row["Randomize"] == "1" and has_randomized_way_back(row):
-            names.append(row["Entrance Name"])
-    return names
+def is_two_way_door(row: Dict[str, str]) -> bool:
+    return is_door(row) and has_door_back(row)
+
+
+def is_one_way_door(row: Dict[str, str]) -> bool:
+    return is_door(row) and not has_door_back(row)
+
+
+def one_way_arrival_name(entrance_name: str) -> str:
+    return f"{entrance_name} Arrival"
 
 
 def connect_vanilla_entrances(kh1world):
@@ -142,11 +154,25 @@ def connect_vanilla_entrances(kh1world):
         kh1world.get_entrance(entrance_name).connect(arrival)
 
 
+def disconnect_two_way_door(kh1world, entrance_name: str):
+    entrance = kh1world.get_entrance(entrance_name)
+    entrance.randomization_type = EntranceType.TWO_WAY
+    disconnect_entrance_for_randomization(entrance)
+
+
+def disconnect_one_way_door(kh1world, entrance_name: str):
+    entrance = kh1world.get_entrance(entrance_name)
+    entrance.randomization_type = EntranceType.ONE_WAY
+    arrival_name = one_way_arrival_name(entrance_name)
+    disconnect_entrance_for_randomization(entrance, one_way_target_name=arrival_name)
+
+
 def shuffle_doors(kh1world):
-    for name in get_randomized_door_names():
-        entrance = kh1world.get_entrance(name)
-        entrance.randomization_type = EntranceType.TWO_WAY
-        disconnect_entrance_for_randomization(entrance)
+    for row in Data.entrances:
+        if is_two_way_door(row):
+            disconnect_two_way_door(kh1world, row["Entrance Name"])
+        if is_one_way_door(row):
+            disconnect_one_way_door(kh1world, row["Entrance Name"])
     placement = randomize_entrances(kh1world, True, {0: [0]})
     kh1world.entrance_pairings = dict(placement.pairings)
     for exit_name, target_name in placement.pairings:
@@ -160,19 +186,49 @@ def connect_entrances(kh1world):
         shuffle_doors(kh1world)
 
 
+def get_areas_by_region() -> Dict[str, int]:
+    areas = {}
+    for row in Data.entrances:
+        if row["Area"]:
+            areas[row["From Region"]] = int(row["Area"], 16)
+    return areas
+
+
+def get_arrivals_by_target_name() -> Dict[str, Dict[str, int]]:
+    areas = get_areas_by_region()
+    arrivals = {}
+    for row in Data.entrances:
+        if is_two_way_door(row):
+            arrivals[row["Entrance Name"]] = {
+                "to_world": WORLD_NUMBERS[row["World"]],
+                "to_area": int(row["Area"], 16),
+                "to_entrance": int(row["Arrival ID"], 16),
+            }
+        if is_one_way_door(row):
+            arrivals[one_way_arrival_name(row["Entrance Name"])] = {
+                "to_world": WORLD_NUMBERS[row["World"]],
+                "to_area": areas[row["To Region"]],
+                "to_entrance": int(row["Exit ID"], 16),
+            }
+    return arrivals
+
+
 def get_door_destinations(kh1world) -> List[Dict[str, int]]:
     rows_by_name = {row["Entrance Name"]: row for row in Data.entrances}
+    arrivals = get_arrivals_by_target_name()
     destinations = []
     for exit_name, target_name in kh1world.entrance_pairings.items():
         exit_row = rows_by_name[exit_name]
-        target_row = rows_by_name[target_name]
-        destinations.append({
+        arrival = arrivals[target_name]
+        destination = {
             "world": WORLD_NUMBERS[exit_row["World"]],
             "area": int(exit_row["Area"], 16),
             "exit": int(exit_row["Exit ID"], 16),
-            "back": int(exit_row["Arrival ID"], 16),
-            "to_world": WORLD_NUMBERS[target_row["World"]],
-            "to_area": int(target_row["Area"], 16),
-            "to_entrance": int(target_row["Arrival ID"], 16),
-        })
+        }
+        if is_two_way_door(exit_row):
+            destination["back"] = int(exit_row["Arrival ID"], 16)
+        destination["to_world"] = arrival["to_world"]
+        destination["to_area"] = arrival["to_area"]
+        destination["to_entrance"] = arrival["to_entrance"]
+        destinations.append(destination)
     return destinations

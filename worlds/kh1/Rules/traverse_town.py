@@ -55,8 +55,11 @@ def build_door_rules() -> dict[str, Rule]:
 def build_room_rules() -> dict[str, Rule]:
     leon_battled = Has("Traverse Town 1st District Leon Battled")
     merlin_met = Has("Traverse Town Magician's Study Met Merlin")
+    first_district_opening_scene = Has("Traverse Town 1st District Opening Scene")
 
     return {
+        "Traverse Town 2nd District": first_district_opening_scene,
+        "Traverse Town 2nd District (Rooftops)": first_district_opening_scene,
         "Traverse Town Green Room": leon_battled,
         "Traverse Town Red Room": leon_battled,
         "Traverse Town Magician's Lab": merlin_met,

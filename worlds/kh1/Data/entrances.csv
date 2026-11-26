@@ -1,4 +1,5 @@
 World,Entrance Name,From Region,To Region,Area,Exit ID,Arrival ID
+Traverse Town,Traverse Town 1st District (Balcony) 1st District Entrance,Traverse Town 1st District (Balcony),Traverse Town 1st District,,,
 Traverse Town,Traverse Town 1st District 1st District (Balcony) Entrance,Traverse Town 1st District,Traverse Town 1st District (Balcony),,,
 Traverse Town,Traverse Town 1st District 2nd District Entrance,Traverse Town 1st District,Traverse Town 2nd District,0x0,0x8,0x1
 Traverse Town,Traverse Town 1st District 3rd District Entrance,Traverse Town 1st District,Traverse Town 3rd District,0x0,0x11,0x2
@@ -9,7 +10,8 @@ Traverse Town,Traverse Town 1st District Item Workshop Entrance,Traverse Town 1s
 Traverse Town,Traverse Town 1st District Lower Item Shop Entrance,Traverse Town 1st District,Traverse Town Item Shop,0x0,0x31,0x3
 Traverse Town,Traverse Town 1st District Upper Item Shop Entrance,Traverse Town 1st District,Traverse Town Item Shop,0x0,0x32,0x4
 Traverse Town,Traverse Town 1st District World Exit,Traverse Town 1st District,World Map,,,
-Traverse Town,Traverse Town 1st District (Balcony) 1st District Entrance,Traverse Town 1st District (Balcony),Traverse Town 1st District,,,
+Traverse Town,Traverse Town 2nd District (Rooftops) 2nd District Entrance,Traverse Town 2nd District (Rooftops),Traverse Town 2nd District,,,
+Traverse Town,Traverse Town 2nd District (Rooftops) 3rd District (Balcony) Entrance,Traverse Town 2nd District (Rooftops),Traverse Town 3rd District (Balcony),0x1,0x12,0x10
 Traverse Town,Traverse Town 2nd District 1st District Entrance,Traverse Town 2nd District,Traverse Town 1st District,0x1,0x1,0x8
 Traverse Town,Traverse Town 2nd District 2nd District (Rooftops) Entrance,Traverse Town 2nd District,Traverse Town 2nd District (Rooftops),,,
 Traverse Town,Traverse Town 2nd District 3rd District Ground Entrance,Traverse Town 2nd District,Traverse Town 3rd District,0x1,0x15,0x9
@@ -19,23 +21,24 @@ Traverse Town,Traverse Town 2nd District Gizmo Shop By Stairs Entrance,Traverse 
 Traverse Town,Traverse Town 2nd District Hallway Near Alleyway Entrance,Traverse Town 2nd District,Traverse Town Hallway,0x1,0x2F,0xB
 Traverse Town,Traverse Town 2nd District Hallway Near Gizmo Shop Entrance,Traverse Town 2nd District,Traverse Town Hallway,0x1,0x2E,0xC
 Traverse Town,Traverse Town 2nd District Piano Room Entrance,Traverse Town 2nd District,Traverse Town Piano Room,0x1,0x1E,0xF
-Traverse Town,Traverse Town 2nd District (Rooftops) 2nd District Entrance,Traverse Town 2nd District (Rooftops),Traverse Town 2nd District,,,
-Traverse Town,Traverse Town 2nd District (Rooftops) 3rd District (Balcony) Entrance,Traverse Town 2nd District (Rooftops),Traverse Town 3rd District (Balcony),0x1,0x12,0x10
+Traverse Town,Traverse Town 3rd District (Balcony) 2nd District (Rooftops) Entrance,Traverse Town 3rd District (Balcony),Traverse Town 2nd District (Rooftops),0x2,0x10,0x12
+Traverse Town,Traverse Town 3rd District (Balcony) 3rd District Entrance,Traverse Town 3rd District (Balcony),Traverse Town 3rd District,,,
 Traverse Town,Traverse Town 3rd District 1st District Entrance,Traverse Town 3rd District,Traverse Town 1st District,0x2,0x2,0x11
 Traverse Town,Traverse Town 3rd District 2nd District Entrance,Traverse Town 3rd District,Traverse Town 2nd District,0x2,0x9,0x15
+Traverse Town,Traverse Town 3rd District 3rd District (Balcony) Entrance,Traverse Town 3rd District,Traverse Town 3rd District (Balcony),,,
 Traverse Town,Traverse Town 3rd District Mystical House Entrance,Traverse Town 3rd District,Traverse Town Mystical House,0x2,0x37,0x13
 Traverse Town,Traverse Town 3rd District Vacant House Entrance,Traverse Town 3rd District,Traverse Town Vacant House,0x2,0x16,0x14
 Traverse Town,Traverse Town Accessory Shop 1st District Entrance,Traverse Town Accessory Shop,Traverse Town 1st District,0xA,0x5,0x33
 Traverse Town,Traverse Town Accessory Shop Item Workshop Entrance,Traverse Town Accessory Shop,Traverse Town Item Workshop,0xA,0x36,0x35
 Traverse Town,Traverse Town Accessory Shop Save Point,Traverse Town Accessory Shop,World Map,,,
+Traverse Town,Traverse Town Alleyway (Behind Crates) 1st District Entrance,Traverse Town Alleyway (Behind Crates),Traverse Town 1st District,0x4,0x7,0x21
+Traverse Town,Traverse Town Alleyway (Behind Crates) Alleyway Entrance,Traverse Town Alleyway (Behind Crates),Traverse Town Alleyway,,,
 Traverse Town,Traverse Town Alleyway 2nd District Entrance,Traverse Town Alleyway,Traverse Town 2nd District,0x4,0xA,0x22
 Traverse Town,Traverse Town Alleyway Alleyway (Behind Crates) Entrance,Traverse Town Alleyway,Traverse Town Alleyway (Behind Crates),,,
 Traverse Town,Traverse Town Alleyway Dalmatian's Den Entrance,Traverse Town Alleyway,Traverse Town Dalmatian's Den,0x4,0x17,0x23
 Traverse Town,Traverse Town Alleyway Green Room Entrance,Traverse Town Alleyway,Traverse Town Green Room,0x4,0x26,0x24
 Traverse Town,Traverse Town Alleyway Red Room Entrance,Traverse Town Alleyway,Traverse Town Red Room,0x4,0x29,0x25
 Traverse Town,Traverse Town Alleyway Secret Waterway Entrance,Traverse Town Alleyway,Traverse Town Secret Waterway,0x4,0x40,0x30
-Traverse Town,Traverse Town Alleyway (Behind Crates) 1st District Entrance,Traverse Town Alleyway (Behind Crates),Traverse Town 1st District,0x4,0x7,0x21
-Traverse Town,Traverse Town Alleyway (Behind Crates) Alleyway Entrance,Traverse Town Alleyway (Behind Crates),Traverse Town Alleyway,,,
 Traverse Town,Traverse Town Dalmatian's Den Alleyway Entrance,Traverse Town Dalmatian's Den,Traverse Town Alleyway,0xD,0x23,0x17
 Traverse Town,Traverse Town Dalmatian's Den Dining Room Entrance,Traverse Town Dalmatian's Den,Traverse Town Dining Room,0xD,0x19,0x18
 Traverse Town,Traverse Town Dining Room Dalmatian's Den Entrance,Traverse Town Dining Room,Traverse Town Dalmatian's Den,0xE,0x18,0x19
@@ -72,25 +75,65 @@ Traverse Town,Traverse Town Red Room Hallway Entrance,Traverse Town Red Room,Tra
 Traverse Town,Traverse Town Secret Waterway Alleyway Entrance,Traverse Town Secret Waterway,Traverse Town Alleyway,0x16,0x30,0x40
 Traverse Town,Traverse Town Secret Waterway Magician's Study Entrance,Traverse Town Secret Waterway,Traverse Town Magician's Study,0x16,0x3D,0x3F
 Traverse Town,Traverse Town Vacant House 3rd District Entrance,Traverse Town Vacant House,Traverse Town 3rd District,0x3,0x14,0x16
-Traverse Town,Traverse Town 3rd District (Balcony) 2nd District (Rooftops) Entrance,Traverse Town 3rd District (Balcony),Traverse Town 2nd District (Rooftops),0x2,0x10,0x12
-Traverse Town,Traverse Town 3rd District (Balcony) 3rd District Entrance,Traverse Town 3rd District (Balcony),Traverse Town 3rd District,,,
-Traverse Town,Traverse Town 3rd District 3rd District (Balcony) Entrance,Traverse Town 3rd District,Traverse Town 3rd District (Balcony),,,
+Wonderland,Wonderland Bizarre Room (Faucet) Bizarre Room (On Stove) Entrance,Wonderland Bizarre Room (Faucet),Wonderland Bizarre Room (On Stove),0x1,,
+Wonderland,Wonderland Bizarre Room (Faucet) Bizarre Room (Shelf) Entrance,Wonderland Bizarre Room (Faucet),Wonderland Bizarre Room (Shelf),0x1,,
+Wonderland,Wonderland Bizarre Room (Faucet) Bizarre Room (Small) Entrance,Wonderland Bizarre Room (Faucet),Wonderland Bizarre Room (Small),0x1,,
+Wonderland,Wonderland Bizarre Room (Large) Bizarre Room (Small) Entrance,Wonderland Bizarre Room (Large),Wonderland Bizarre Room (Small),0x2,,0x7
+Wonderland,Wonderland Bizarre Room (Large) Rabbit Hole Entrance,Wonderland Bizarre Room (Large),Wonderland Rabbit Hole,0x2,0x1,0x7
+Wonderland,Wonderland Bizarre Room (On Stove) Bizarre Room (Small) Entrance,Wonderland Bizarre Room (On Stove),Wonderland Bizarre Room (Small),,,
+Wonderland,Wonderland Bizarre Room (Shelf) Bizarre Room (Small) Entrance,Wonderland Bizarre Room (Shelf),Wonderland Bizarre Room (Small),,,
+Wonderland,Wonderland Bizarre Room (Shelf) Lotus Forest (Above Tea Party Garden Ground Entrance) Entrance,Wonderland Bizarre Room (Shelf),Wonderland Lotus Forest (Above Tea Party Garden Ground Entrance),0x1,0x10,0x4
+Wonderland,Wonderland Bizarre Room (Sideways Chimney) Bizarre Room (Sideways Painting) Entrance,Wonderland Bizarre Room (Sideways Chimney),Wonderland Bizarre Room (Sideways Painting),0x6,0x1B,0x17
+Wonderland,Wonderland Bizarre Room (Sideways Chimney) Lotus Forest (Faucet Corner) Entrance,Wonderland Bizarre Room (Sideways Chimney),Wonderland Lotus Forest (Faucet Corner),0x6,0x14,0x18
+Wonderland,Wonderland Bizarre Room (Sideways Chimney) Lotus Forest Entrance,Wonderland Bizarre Room (Sideways Chimney),Wonderland Lotus Forest,0x6,0x13,0x19
+Wonderland,Wonderland Bizarre Room (Sideways Chimney) Queen's Castle (Right Hedge) Entrance,Wonderland Bizarre Room (Sideways Chimney),Wonderland Queen's Castle (Right Hedge),0x6,0xC,0x16
+Wonderland,Wonderland Bizarre Room (Sideways Painting) Lotus Forest (Above Tea Party Garden Ground Entrance) Entrance,Wonderland Bizarre Room (Sideways Painting),Wonderland Lotus Forest (Above Tea Party Garden Ground Entrance),0x7,0x10,0x1C
+Wonderland,Wonderland Bizarre Room (Sideways Painting) Bizarre Room (Sideways Chimney) Entrance,Wonderland Bizarre Room (Sideways Painting),Wonderland Bizarre Room (Sideways Chimney),0x7,0x17,0x1B
+Wonderland,Wonderland Bizarre Room (Sideways Painting) Lotus Forest (Through Painting) Entrance,Wonderland Bizarre Room (Sideways Painting),Wonderland Lotus Forest (Through Painting),0x7,0x12,0x1A
+Wonderland,Wonderland Bizarre Room (Sideways Painting) Tea Party Garden (Awning) Entrance,Wonderland Bizarre Room (Sideways Painting),Wonderland Tea Party Garden (Awning),0x7,0x22,
+Wonderland,Wonderland Bizarre Room (Small) Bizarre Room (Large) Entrance,Wonderland Bizarre Room (Small),Wonderland Bizarre Room (Large),0x1,,0x3
+Wonderland,Wonderland Bizarre Room (Small) Bizarre Room (On Stove) Entrance,Wonderland Bizarre Room (Small),Wonderland Bizarre Room (On Stove),,,
+Wonderland,Wonderland Bizarre Room (Small) Queen's Castle (Right Hedge) Entrance,Wonderland Bizarre Room (Small),Wonderland Queen's Castle (Right Hedge),0x1,0xC,
+Wonderland,Wonderland Bizarre Room (Small) Queen's Castle Entrance,Wonderland Bizarre Room (Small),Wonderland Queen's Castle,0x1,0x8,0x2
+Wonderland,Wonderland Bizarre Room (Small) Tea Party Garden (Awning) Entrance,Wonderland Bizarre Room (Small),Wonderland Tea Party Garden (Awning),0x1,0x22,0x3
+Wonderland,Wonderland Bizarre Room (Upside Down) Queen's Castle (Left Hedge) Entrance,Wonderland Bizarre Room (Upside Down),Wonderland Queen's Castle (Left Hedge),0x8,0x9,0x1D
+Wonderland,Wonderland Bizarre Room (Upside Down) Tea Party Garden Entrance,Wonderland Bizarre Room (Upside Down),Wonderland Tea Party Garden,0x8,0x20,0x1E
+Wonderland,Wonderland Lotus Forest (Above Tea Party Garden Ground Entrance) Bizarre Room (Sideways Painting) Entrance,Wonderland Lotus Forest (Above Tea Party Garden Ground Entrance),Wonderland Bizarre Room (Sideways Painting),0x4,0x1C,0x10
+Wonderland,Wonderland Lotus Forest (Above Tea Party Garden Ground Entrance) Lotus Forest Entrance,Wonderland Lotus Forest (Above Tea Party Garden Ground Entrance),Wonderland Lotus Forest,,,
+Wonderland,Wonderland Lotus Forest (Alcove) Lotus Forest Entrance,Wonderland Lotus Forest (Alcove),Wonderland Lotus Forest,,,
+Wonderland,Wonderland Lotus Forest (Alcove) Queen's Castle (Right Hedge) Entrance,Wonderland Lotus Forest (Alcove),Wonderland Queen's Castle (Right Hedge),0x4,0xB,0xF
+Wonderland,Wonderland Lotus Forest (Large) Lotus Forest Entrance,Wonderland Lotus Forest (Large),Wonderland Lotus Forest,0x5,,0x15
+Wonderland,Wonderland Lotus Forest (By Upper Tea Party Garden Entrance) Lotus Forest Entrance,Wonderland Lotus Forest (By Upper Tea Party Garden Entrance),Wonderland Lotus Forest,,,
+Wonderland,Wonderland Lotus Forest (By Upper Tea Party Garden Entrance) Tea Party Garden (Above Lotus Forest) Entrance,Wonderland Lotus Forest (By Upper Tea Party Garden Entrance),Wonderland Tea Party Garden (Above Lotus Forest),0x4,0x21,0xE
+Wonderland,Wonderland Lotus Forest (Corner by Lower Tea Party Garden Entrance) Lotus Forest Entrance,Wonderland Lotus Forest (Corner by Lower Tea Party Garden Entrance),Wonderland Lotus Forest,,,
+Wonderland,Wonderland Lotus Forest (Faucet Corner) Bizarre Room (Faucet) Entrance,Wonderland Lotus Forest (Faucet Corner),Wonderland Bizarre Room (Faucet),0x4,0x5,0x14
+Wonderland,Wonderland Lotus Forest (Faucet Corner) Lotus Forest Entrance,Wonderland Lotus Forest (Faucet Corner),Wonderland Lotus Forest,,,
+Wonderland,Wonderland Lotus Forest (Through Painting) Bizarre Room (Sideways Painting) Entrance,Wonderland Lotus Forest (Through Painting),Wonderland Bizarre Room (Sideways Painting),0x4,0x1A,0x12
+Wonderland,Wonderland Lotus Forest Bizarre Room (Sideways Chimney) Entrance,Wonderland Lotus Forest,Wonderland Bizarre Room (Sideways Chimney),0x4,0x19,0x13
+Wonderland,Wonderland Lotus Forest Lotus Forest (Above Tea Party Garden Ground Entrance) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Above Tea Party Garden Ground Entrance),,,
+Wonderland,Wonderland Lotus Forest Lotus Forest (Alcove) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Alcove),,,
+Wonderland,Wonderland Lotus Forest Lotus Forest (Large) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Large),0x4,,0xD
+Wonderland,Wonderland Lotus Forest Lotus Forest (By Upper Tea Party Garden Entrance) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (By Upper Tea Party Garden Entrance),,,
+Wonderland,Wonderland Lotus Forest Lotus Forest (Faucet Corner) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Faucet Corner),,,
+Wonderland,Wonderland Lotus Forest Lotus Forest (Corner by Lower Tea Party Garden Entrance) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Corner by Lower Tea Party Garden Entrance),,,
+Wonderland,Wonderland Lotus Forest Tea Party Garden Entrance,Wonderland Lotus Forest,Wonderland Tea Party Garden,0x4,0x1F,0x11
+Wonderland,Wonderland Lotus Forest Queen's Castle Entrance,Wonderland Lotus Forest,Wonderland Queen's Castle,0x4,0xA,0xD
+Wonderland,Wonderland Queen's Castle (Left Hedge) Queen's Castle Entrance,Wonderland Queen's Castle (Left Hedge),Wonderland Queen's Castle,0x3,,
+Wonderland,Wonderland Queen's Castle (Right Hedge) Queen's Castle Entrance,Wonderland Queen's Castle (Right Hedge),Wonderland Queen's Castle,0x3,,
+Wonderland,Wonderland Queen's Castle Bizarre Room (Small) Entrance,Wonderland Queen's Castle,Wonderland Bizarre Room (Small),0x3,0x2,0x8
+Wonderland,Wonderland Queen's Castle Lotus Forest Entrance,Wonderland Queen's Castle,Wonderland Lotus Forest,0x3,0xD,0xA
+Wonderland,Wonderland Queen's Castle Queen's Castle (Left Hedge) Entrance,Wonderland Queen's Castle,Wonderland Queen's Castle (Left Hedge),,,
+Wonderland,Wonderland Queen's Castle Queen's Castle (Right Hedge) Entrance,Wonderland Queen's Castle,Wonderland Queen's Castle (Right Hedge),,,
+Wonderland,Wonderland Queen's Castle Save Point,Wonderland Queen's Castle,World Map,,,
+Wonderland,Wonderland Rabbit Hole Bizarre Room (Large) Entrance,Wonderland Rabbit Hole,Wonderland Bizarre Room (Large),0x0,0x7,0x1
 Wonderland,Wonderland Rabbit Hole Save Point,Wonderland Rabbit Hole,World Map,,,
-Wonderland,Wonderland Rabbit Hole Bizarre Room (Large) Entrance,Wonderland Rabbit Hole,Wonderland Bizarre Room (Large)
-Wonderland,Wonderland Bizarre Room (Large) Bizzare Room (Small) Entrance,Wonderland Bizzare Room (Large),Wonderland Bizarre Room (Small)
-Wonderland,Wonderland Bizarre Room (Small) Bizzare Room (Large) Entrance,Wonderland Bizzare Room (Small),Wonderland Bizzare Room (Large)
-Wonderland,Wonderland Bizarre Room (Small) Bizzare Room (On Stove) Entrance,Wonderland Bizzare Room (Small),Wonderland Bizarre Room (On Stove)
-Wonderland,Wonderland Bizarre Room (On Stove) Bizzare Room (Small) Entrance,Wonderland Bizarre Room (On Stove),Wonderland Bizzare Room (Small)
-Wonderland,Wonderland Bizarre Room (On Shelf) Bizzare Room (Small) Entrance,Wonderland Bizarre Room (On Shelf),Wonderland Bizzare Room (Small)
-Wonderland,Wonderland Bizarre Room (On Shelf) Bizzare Room (On Stove) Entrance,Wonderland Bizarre Room (On Shelf),Wonderland Bizarre Room (On Stove)
-Wonderland,Wonderland Bizarre Room (Small) Queen's Castle Entrance,Wonderland Bizzare Room (Small),Wonderland Queen's Castle
-Wonderland,Wonderland Queen's Castle Queen's Castle Right Hedge Entrance,Wonderland Queen's Castle,Wonderland Queen's Castle (Right Hedge)
-Wonderland,Wonderland Queen's Castle Queen's Castle Left Hedge Entrance,Wonderland Queen's Castle,Wonderland Queen's Castle (Left Hedge)
-Wonderland,Wonderland Queen's Castle Lotus Forest Entrance,Wonderland Queen's Castle,Wonderland Lotus Forest
-Wonderland,Wonderland Lotus Forest Lotus Forest (Big) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Big)
-Wonderland,Wonderland Lotus Forest Lotus Forest (Alcove) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Alcove)
-Wonderland,Wonderland Lotus Forest Lotus Forest (By Tea Party Garden Entrance) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (By Tea Party Garden Entrance)
-Wonderland,Wonderland Lotus Forest Lotus Forest Lotus Forest (Corner) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (Corner)
-Wonderland,Wonderland Lotus Forest Lotus Forest Tea Party Garden Entrance,Wonderland Lotus Forest,Wonderland Tea Party Garden
-Wonderland,Wonderland Lotus Forest Lotus Forest (By Mushrooms) Entrance,Wonderland Lotus Forest,Wonderland Lotus Forest (By Mushrooms),,,
-Wonderland,Wonderland Lotus Forest (By Tea Party Garden Entrance) Tea Party Garden (Above Lotus Forest) Entrance,Wonderland Lotus Forest (By Tea Party Garden Entrance),Wonderland Tea Party Garden (Above Lotus Forest)
+Wonderland,Wonderland Tea Party Garden (Above Lotus Forest) Tea Party Garden (Side Hedge) Entrance,Wonderland Tea Party Garden (Above Lotus Forest),Wonderland Tea Party Garden (Side Hedge),0x9,,
+Wonderland,Wonderland Tea Party Garden (Above Lotus Forest) Tea Party Garden Entrance,Wonderland Tea Party Garden (Above Lotus Forest),Wonderland Tea Party Garden,0x9,,
+Wonderland,Wonderland Tea Party Garden (Awning) Tea Party Garden Entrance,Wonderland Tea Party Garden (Awning),Wonderland Tea Party Garden,0x9,,
+Wonderland,Wonderland Tea Party Garden (Side Hedge) Tea Party Garden (Awning) Entrance,Wonderland Tea Party Garden (Side Hedge),Wonderland Tea Party Garden (Awning),,,
+Wonderland,Wonderland Tea Party Garden (Side Hedge) Tea Party Garden Entrance,Wonderland Tea Party Garden (Side Hedge),Wonderland Tea Party Garden,,,
+Wonderland,Wonderland Tea Party Garden Bizarre Room (Upside Down) Entrance,Wonderland Tea Party Garden,Wonderland Bizarre Room (Upside Down),0x9,0x1E,0x20
+Wonderland,Wonderland Tea Party Garden Lotus Forest Entrance,Wonderland Tea Party Garden,Wonderland Lotus Forest,0x9,0x11,0x1F
+Wonderland,Wonderland Tea Party Garden Tea Party Garden (Above Lotus Forest) Entrance,Wonderland Tea Party Garden,Wonderland Tea Party Garden (Above Lotus Forest),,,
+Wonderland,Wonderland Tea Party Garden Tea Party Garden (Side Hedge) Entrance,Wonderland Tea Party Garden,Wonderland Tea Party Garden (Side Hedge),,,
+Wonderland,Wonderland Tea Party Garden Tea Party Garden (Awning) Entrance,Wonderland Tea Party Garden,Wonderland Tea Party Garden (Awning)
