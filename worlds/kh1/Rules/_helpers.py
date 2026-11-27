@@ -152,7 +152,7 @@ def has_key_item_rule(key_item: str) -> Rule:
 def can_early_tea_rule() -> Rule:
     return by_difficulty(
         beginner=Has("Progressive Glide"),
-        proud=HasAll("Dodge Roll", "Air Guard/Dodge Roll") & Has("Progressive High Jump", count=3),
+        proud=HasAll("Dodge Roll", "Air Guard/Dodge Roll") & Has("High Jump", count=3),
         minimal=(
             HasAllCounts({"Combo Master": 1, "High Jump": 3, "Air Combo Plus": 2})
             | (

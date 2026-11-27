@@ -17,7 +17,7 @@ from .Data import VANILLA_SPELL_COSTS, VANILLA_SPELL_EFFECTIVENESS, VANILLA_SPEL
 from .Data import VANILLA_LEVEL_UP_STATS, WORLD_KEY_ITEMS
 from .Data import PARTY_LEVEL_UP_CODES, VANILLA_PARTY_LEVEL_UPS
 from .Data import VANILLA_WEAPON_STATS, WEAPON_STAT_NAMES
-from .Data import DOOR_KEY_LOCATIONS
+from .Data import DOOR_KEY_LOCATIONS, ITEMS_NOT_NEEDED_BY_LOGIC_DIFFICULTY
 
 
 class KH1Web(WebWorld):
@@ -137,7 +137,13 @@ class KH1World(World):
             return ItemClassification.useful
         if "Accessories" in item_table[name].groups and not self.options.accessory_augments:
             return ItemClassification.useful
+        if self.is_item_not_needed_by_logic_difficulty(name):
+            return ItemClassification.useful
         return item_table[name].classification
+
+    def is_item_not_needed_by_logic_difficulty(self, name: str) -> bool:
+        difficulty = self.options.logic_difficulty.current_key
+        return name in ITEMS_NOT_NEEDED_BY_LOGIC_DIFFICULTY[difficulty]
 
     def get_filler_item_name(self) -> str:
         weights = [data.weight for data in self.fillers.values()]

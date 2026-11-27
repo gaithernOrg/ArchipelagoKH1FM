@@ -104,6 +104,20 @@ CHEST_KEYBLADES = {
     "100 Acre Wood": "Spellbinder",
 }
 
+ITEMS_NOT_NEEDED_BY_LOGIC_DIFFICULTY = {
+    "beginner": ["Air Combo Plus", "Air Guard/Dodge Roll"],
+    "normal": [
+        "Sonic Blade",
+        "Strike Raid",
+        "Counterattack",
+        "Combo Master",
+        "Air Combo Plus",
+        "Air Guard/Dodge Roll",
+    ],
+    "proud": ["Sonic Blade", "Strike Raid", "Counterattack"],
+    "minimal": ["Sonic Blade", "Strike Raid", "Counterattack", "MP Rage", "Second Chance", "Leaf Bracer"],
+}
+
 WORLD_KEY_ITEMS = {
     "Footprints": "Wonderland",
     "Entry Pass": "Olympus Coliseum",
