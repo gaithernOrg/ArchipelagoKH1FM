@@ -74,6 +74,7 @@ class KH1World(World):
         self.sort_raft_material_counts()
         self.force_bundles_for_stacking_world_items()
         self.force_puppy_value_for_vanilla_puppies()
+        self.force_warp_anywhere_for_randomized_entrances()
         self.exclude_content()
 
     def create_regions(self):
@@ -187,6 +188,11 @@ class KH1World(World):
         if not self.options.randomize_puppies and self.options.puppy_value.value != 3:
             self.log_option_change("Puppy Value", self.options.puppy_value.value, 3)
             self.options.puppy_value.value = 3
+
+    def force_warp_anywhere_for_randomized_entrances(self) -> None:
+        if self.options.randomize_entrances and not self.options.warp_anywhere:
+            self.log_option_change("Warp Anywhere", "off", "on")
+            self.options.warp_anywhere.value = 1
 
 
     def exclude_content(self) -> None:
